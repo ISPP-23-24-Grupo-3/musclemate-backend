@@ -11,7 +11,7 @@ Entra en la carpeta musclemate-backend:
 
 Crea un entorno virtual (opcional):
 
-    python3 -m venv venv
+    python -m venv venv
 
 Activa el entorno virtual (opcional):
 
@@ -24,15 +24,15 @@ Instala las dependencias:
 
 Realiza las migraciones:
 
-    python3 manage.py migrate
+    python manage.py migrate
 
 Crea un usuario administrador (opcional, existe uno creado por defecto):
 
-    python3 manage.py createsuperuser
+    python manage.py createsuperuser
 
 Lanza el proyecto:
 
-    python3 manage.py runserver
+    python manage.py runserver
 
 El proyecto debería lanzarse correctamente. Por defecto, se lanza en la dirección "http://localhost:8000/".
 
