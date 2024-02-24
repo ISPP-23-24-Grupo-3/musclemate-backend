@@ -6,4 +6,4 @@ class RoutineSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Routine
-        fields = ['id', 'name', 'client_name']
+        fields = ['name', 'client_name']
