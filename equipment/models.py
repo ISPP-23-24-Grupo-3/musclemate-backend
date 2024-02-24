@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from gym.models import Gym
 
-class Equipment(AbstractUser):
+class Equipment(models.Model):
     MUSCULAR_GROUP_CHOICES = (
         ('arms', 'Arms'),
         ('legs', 'Legs'),
@@ -18,7 +18,7 @@ class Equipment(AbstractUser):
     description = models.TextField()
     muscular_group = models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES)
     assessment = models.FloatField()
-    gym = models.ForeignKey(gym, on_delete=models.Cascade)
+    gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('serial_number', 'gym')

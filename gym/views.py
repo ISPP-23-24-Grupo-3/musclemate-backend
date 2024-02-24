@@ -17,6 +17,19 @@ def gym_detail(request, id):
     data = {'gym': model_to_dict(gym)}
     return Response(data)
 
+@api_view(['POST'])
+def gym_create(request):
+    gym= Gym(**request.data)
+    gym.save()
+    return Response(gym.data)
+
+@api_view(['POST'])
+def gym_update(request,id):
+    gym = Gym.objects.get(pk=id)
+    gym=gym.__dict__.update(request.data)
+    gym.save()
+    return Response(gym.data)
+
 @api_view(['DELETE'])
 def gym_delete(request, id):
     gym = get_object_or_404(Gym, id=id)

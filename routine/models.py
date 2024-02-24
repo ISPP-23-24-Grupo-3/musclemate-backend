@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from client.models import Client
 
 
 # Create your models here.
 
-class Routine(AbstractUser):
+class Routine(models.Model):
     
     name = models.CharField(max_length=60)
 

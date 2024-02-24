@@ -11,7 +11,7 @@ class Owner(models.Model):
     name = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     email = models.EmailField()
-    phoneNumber=models.PositiveIntegerField()
+    phoneNumber=models.IntegerField()
     address=models.CharField(max_length=250)
 
     userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
