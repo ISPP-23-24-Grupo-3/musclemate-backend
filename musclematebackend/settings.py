@@ -39,8 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'ticket'
+    'equipment',
+    'routine',
+    'client',
+    'gym',
+    'owner',
+    'user',
     'workout',
 ]
+
+AUTH_USERR_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
