@@ -26,7 +26,7 @@ urlpatterns = [
     path('', include('client.urls')),
     path('', include('owner.urls')),
     path('', include('user.urls')),
-    path('', include('gym.urls.py')),
+    path('', include('gym.urls')),
     path('', include('routine.urls')),
     path('', include('workout.urls')),
     path('', include('reservation.urls')),

@@ -11,12 +11,12 @@ class Client (models.Model):
         ('O', 'Other'),
     ]
     name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    lastName = models.CharField(max_length=100)
     email = models.EmailField()
     birth = models.DateField(blank=True, null=True)
-    zip_code = models.PositiveIntegerField()
+    zipCode = models.PositiveIntegerField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
-    phone_number = models.PositiveIntegerField()
+    phoneNumber = models.PositiveIntegerField()
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     register = models.BooleanField()
@@ -30,5 +30,5 @@ class Client (models.Model):
             raise ValidationError('The phone number must be exactly 9 digits.')
 
     def __str__(self):
-        return f"{self.name} {self.last_name}"
+        return f"{self.name} {self.lastName}"
 
