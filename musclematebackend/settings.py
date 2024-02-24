@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'owner',
     'user',
     'workout',
+    'reservation',
 ]
 
 AUTH_USERR_MODEL = 'user.CustomUser'
