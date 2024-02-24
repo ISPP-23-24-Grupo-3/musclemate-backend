@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import Equipment
 
 class EquipmentSerializer(serializers.ModelSerializer):
+    gym_name = serializers.CharField(source='gym.username', read_only=True)
+
     class Meta:
         model = Equipment
-        fields = ['id', 'name', 'brand', 'serial_number', 'description', 'muscular_group', 'assessment']
+        fields = ['name', 'brand', 'serial_number', 'description', 'muscular_group', 'assessment', 'gym_name']
 
     def validate_assessment(self, value):
         
