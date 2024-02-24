@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'owner',
+    'user',
 ]
+
+AUTH_USERR_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
