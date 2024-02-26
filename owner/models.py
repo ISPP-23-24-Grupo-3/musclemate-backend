@@ -19,6 +19,3 @@ class Owner(models.Model):
     def validate_phone_number_length(value):
         if len(str(value)) != 9:
             raise ValidationError('The phone number must be exactly 9 digits.')
-
-    def __str__(self):
-        return f"{self.name} {self.lastName}"
