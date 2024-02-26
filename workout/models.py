@@ -7,6 +7,3 @@ class Workout(models.Model):
 
     routine = models.ManyToManyField(Routine)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name

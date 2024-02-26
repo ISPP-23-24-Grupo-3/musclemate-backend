@@ -3,35 +3,40 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Workout
+from .serializers import WorkoutSerializer
 
 
 
 class WorkoutListView(APIView):
     def get(self, request):
         workouts = Workout.objects.all()
-        return Response(workouts.data)
+        serializer=WorkoutSerializer(workouts,many=True)
+        return Response(serializer.data)
     
 class WorkoutDetailView(APIView):
     def get(self, request,pk):
         workout = Workout.objects.get(pk=pk)
-        if workout:
-            return Response({workout.data})
-        else:
-            return Response({"error": "Workout not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer=WorkoutSerializer(workout)
+        return Response(serializer.data)
 
 class WorkoutCreateView(APIView):
     def post(self, request):
-        workout= Workout(**request.data)
-        workout.save()
-        return Response(workout.data)
+        serializer = WorkoutSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class WorkoutUpdateView(APIView):
     def post(self, request, pk):
         workout = Workout.objects.get(pk=pk)
-        workout=workout.__dict__.update(request.data)
-        workout.save()
-        return Response(workout.data)
+        serializer = WorkoutSerializer(workout, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 class WorkoutDeleteView(APIView):
     def delete(self, request, pk):
