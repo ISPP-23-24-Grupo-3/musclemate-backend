@@ -2,34 +2,39 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Client
+from .serializers import ClientSerializer
 
 
 class ClientListView(APIView):
     def get(self, request):
         clients = Client.objects.all()
-        return Response(clients.data)
+        serializer=ClientSerializer(clients,many=True)
+        return Response(serializer.data)
     
 class ClientDetailView(APIView):
     def get(self, request,pk):
         client = Client.objects.get(pk=pk)
-        if client:
-            return Response({client.data})
-        else:
-            return Response({"error": "Client not found"}, status=status.HTTP_404_NOT_FOUND)
-
+        serializer=ClientSerializer(client)
+        return Response(serializer.data)
+        
 class ClientCreateView(APIView):
     def post(self, request):
-        client= Client(**request.data)
-        client.save()
-        return Response(client.data)
+        serializer = ClientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class ClientUpdateView(APIView):
     def post(self, request, pk):
         client = Client.objects.get(pk=pk)
-        client=client.__dict__.update(request.data)
-        client.save()
-        return Response(client.data)
+        serializer = ClientSerializer(client, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 class ClientDeleteView(APIView):
     def delete(self, request, pk):
