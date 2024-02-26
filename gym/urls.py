@@ -5,4 +5,6 @@ urlpatterns = [
     path('gyms/', views.gym_list),
     path('gyms/<int:id>/', views.gym_detail),
     path('gyms/delete/<int:id>/', views.gym_delete),
+    path('gyms/create/', views.gym_create),
+    path('gyms/update/<int:id>/', views.gym_update),
 ]

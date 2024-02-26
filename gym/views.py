@@ -1,34 +1,39 @@
-from django.shortcuts import render
-from .models import Gym
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-from django.forms.models import model_to_dict
+from .models import Gym
+from .serializers import GymSerializer
 
 @api_view(['GET'])
 def gym_list(request):
     gyms = Gym.objects.all()
-    data = {'gyms': list(gyms.values())}
-    return Response(data)
+    serializer = GymSerializer(gyms, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def gym_detail(request, id):
     gym = get_object_or_404(Gym, id=id)
-    data = {'gym': model_to_dict(gym)}
-    return Response(data)
+    serializer = GymSerializer(gym)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def gym_create(request):
-    gym= Gym(**request.data)
-    gym.save()
-    return Response(gym.data)
+    if request.method == 'POST':
+        serializer = GymSerializer(data=request.data)
+        if serializer.is_valid():
+            gym = serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
-@api_view(['POST'])
-def gym_update(request,id):
-    gym = Gym.objects.get(pk=id)
-    gym=gym.__dict__.update(request.data)
-    gym.save()
-    return Response(gym.data)
+@api_view(['PUT'])
+def gym_update(request, id):
+    gym = get_object_or_404(Gym, id=id)
+    if request.method == 'PUT':
+        serializer = GymSerializer(gym, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 @api_view(['DELETE'])
 def gym_delete(request, id):
