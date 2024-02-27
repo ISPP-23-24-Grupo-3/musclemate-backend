@@ -1,7 +1,13 @@
 from django.db import models
 from gym.models import Gym
-
+from random import randint
 class Equipment(models.Model):
+
+    def random_id():
+        return randint(100000, 999999)
+    
+    id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
+
     MUSCULAR_GROUP_CHOICES = (
         ('arms', 'Arms'),
         ('legs', 'Legs'),
