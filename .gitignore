@@ -1,6 +1,10 @@
 # Entorno virtual
-venv
+venv/
 .venv
 
 # Cache
-__pycache__
+__pycache__/
+
+# Database
+local_settings.py
+db.sqlite3

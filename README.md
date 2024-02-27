@@ -22,11 +22,19 @@ Instala las dependencias:
 
     pip install -r requirements.txt
 
+Realiza el setup de la base de datos (PostgresSQL):
+
+    sudo su - postgres
+    psql -c "create user muscleuser with password 'musclepass123'"
+    psql -c "create database muscledb owner muscleuser"
+
+Modifica el archivo local_settings.example.py para introducir la nueva base de datos y renómbralo como "local_settings.py".
+
 Realiza las migraciones:
 
     python manage.py migrate
 
-Crea un usuario administrador (opcional, existe uno creado por defecto):
+Crea un usuario administrador:
 
     python manage.py createsuperuser
 
@@ -35,7 +43,3 @@ Lanza el proyecto:
     python manage.py runserver
 
 El proyecto debería lanzarse correctamente. Por defecto, se lanza en la dirección "http://localhost:8000/".
-
-Por defecto, para iniciar sesión en "http://localhost:8000/admin", usar:
-- Username: admin
-- Password: gymadmin123
