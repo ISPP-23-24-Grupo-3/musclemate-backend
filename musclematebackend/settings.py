@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'reservation',
 ]
 
-AUTH_USERR_MODEL = 'user.CustomUser'
+AUTH_USER_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
