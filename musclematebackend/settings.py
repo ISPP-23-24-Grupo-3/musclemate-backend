@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'user',
     'workout',
     'reservation',
+    'assessment',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
