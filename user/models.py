@@ -7,13 +7,12 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     ROL_CHOICES = (
         ('admin', 'Admin'),
-        ('client', 'Client'),
+        ('user', 'User'),
         ('owner', 'Owner'),
-        ('gym', 'Gym')
     )
 
-    username = models.CharField(max_length=100, unique=True, primary_key=True)
-    rol = models.CharField(max_length=100, choices=ROL_CHOICES, default='client')
+    username = models.CharField(max_length=100, unique=True)
+    rol = models.CharField(max_length=100, choices=ROL_CHOICES, default='user')
 
     groups = models.ManyToManyField(
         'auth.Group',
