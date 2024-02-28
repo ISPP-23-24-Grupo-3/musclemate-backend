@@ -1,6 +1,7 @@
 from django.db import models
 from owner.models import Owner
 from random import randint
+from user.models import CustomUser
 class Gym(models.Model):
     def random_id():
         return randint(100000, 999999)
@@ -13,3 +14,4 @@ class Gym(models.Model):
     zip_code = models.IntegerField()
     email = models.EmailField()
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
