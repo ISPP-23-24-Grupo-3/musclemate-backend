@@ -23,7 +23,6 @@ class Equipment(models.Model):
     serial_number = models.CharField(max_length=100)
     description = models.TextField()
     muscular_group = models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES)
-    assessment = models.FloatField()
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
     class Meta:
