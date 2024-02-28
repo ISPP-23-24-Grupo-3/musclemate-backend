@@ -1,4 +1,16 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin  
+from django.contrib.auth.models import User 
 from .models import CustomUser
 
-admin.site.register(CustomUser)
+class CustomUserAdmin(UserAdmin):
+    model = CustomUser
+    list_display = ['username', 'rol', 'is_active', 'is_staff']
+    search_fields = ['username', 'rol']
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('rol',)}),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('rol',)}),
+    )
+admin.site.register(CustomUser, CustomUserAdmin)
