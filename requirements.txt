@@ -3,6 +3,5 @@ djangorestframework
 
 django-cors-headers
 djangorestframework-simplejwt
-rest_framework_simplejwt.token_blacklist
 psycopg2-binary
 
