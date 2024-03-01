@@ -1,0 +1,52 @@
+[
+    {
+        "model":"workout.workout",
+        "pk":123456,
+        "fields":{
+            "name":"Press Banca",
+            "routine":[866902],
+            "client": 856958,
+            "equipment": [890123]
+        }
+    },
+    {
+        "model":"workout.workout",
+        "pk":123457,
+        "fields":{
+            "name":"Press Militar",
+            "routine":[866902],
+            "client": 856958,
+            "equipment": [101234]
+        }
+    },
+    {
+        "model":"workout.workout",
+        "pk":123458,
+        "fields":{
+            "name":"Press Inclinado",
+            "routine":[866902],
+            "client": 856958,
+            "equipment": [890123]
+        }
+    },
+    {
+        "model":"workout.workout",
+        "pk":123459,
+        "fields":{
+            "name":"Press Declinado",
+            "routine":[866902],
+            "client": 856958,
+            "equipment": [890123]
+        }
+    },
+    {
+        "model":"workout.workout",
+        "pk":123460,
+        "fields":{
+        "name":"Cinta",
+            "routine":[866902],
+            "client": 856958,
+            "equipment": [567890]
+        }
+    }
+]

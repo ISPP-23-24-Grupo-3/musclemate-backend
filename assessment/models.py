@@ -2,6 +2,7 @@ from django.db import models
 from random import randint
 from django.core.validators import MinValueValidator, MaxValueValidator
 from equipment.models import Equipment
+from client.models import Client
 
 
 class Assessment(models.Model):
@@ -12,3 +13,4 @@ class Assessment(models.Model):
 
     stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)

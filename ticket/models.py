@@ -9,9 +9,12 @@ class Ticket(models.Model):
     def random_id():
         return randint(100000, 999999)
     
+    
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     label = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
+    status = models.CharField(max_length=50)
+
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)

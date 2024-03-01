@@ -1,0 +1,122 @@
+[
+        {
+            "model" : "equipment.equipment",
+            "pk": 123456,
+            "fields": {
+                "name": "Mancuernas",
+                "brand": "Marca A",
+                "serial_number": "MNCD001",
+                "description": "Un par de mancuernas de 5 kg cada una",
+                "muscular_group": "arms",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 234567,
+            "fields": {
+                "name": "Banda de resistencia",
+                "brand": "Marca B",
+                "serial_number": "BDR002",
+                "description": "Banda elástica de resistencia media",
+                "muscular_group": "legs",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 345678,
+            "fields": {
+                "name": "Barra de pesas",
+                "brand": "Marca C",
+                "serial_number": "BRPS003",
+                "description": "Barra de pesas olímpica de 20 kg",
+                "muscular_group": "back",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 456789,
+            "fields": {
+                "name": "Pelota de ejercicio",
+                "brand": "Marca D",
+                "serial_number": "PDE004",
+                "description": "Pelota de ejercicio de 65 cm de diámetro",
+                "muscular_group": "core",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 567890,
+            "fields": {
+                "name": "Cinta de correr",
+                "brand": "Marca E",
+                "serial_number": "CDCT005",
+                "description": "Cinta de correr plegable con motor de 2.5 HP",
+                "muscular_group": "other",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 678901,
+            "fields": {
+                "name": "Bicicleta estática",
+                "brand": "Marca F",
+                "serial_number": "BETS006",
+                "description": "Bicicleta estática con resistencia ajustable",
+                "muscular_group": "other",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 789012,
+            "fields": {
+                "name": "Colchoneta de yoga",
+                "brand": "Marca G",
+                "serial_number": "CDY007",
+                "description": "Colchoneta de yoga antpkeslizante de 6 mm de grosor",
+                "muscular_group": "other",
+                "gym": 221987
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 890123,
+            "fields": {
+                "name": "Press Banca",
+                "brand": "Marca H",
+                "serial_number": "BDPS008",
+                "description": "Banco de pesas ajustable con soporte para barras",
+                "muscular_group": "chest",
+                "gym": 216278
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 901234,
+            "fields": {
+                "name": "Cuerda de saltar",
+                "brand": "Marca I",
+                "serial_number": "CDS009",
+                "description": "Cuerda de saltar de alta velocpkad",
+                "muscular_group": "other",
+                "gym": 216278
+            }
+        },
+        {
+            "model" : "equipment.equipment",
+            "pk": 101234,
+            "fields": {
+                "name": "Press Militar",
+                "brand": "Marca J",
+                "serial_number": "STPA010",
+                "description": "Press militar con soporte para barras y discos",
+                "muscular_group": "arms",
+                "gym": 216278
+            }
+        }
+]

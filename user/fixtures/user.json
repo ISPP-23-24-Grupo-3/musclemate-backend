@@ -1,18 +1,15 @@
 [
     {
         "model": "user.customuser",
-        "pk": 2,
+        "pk": "raquitori",
         "fields": {
             "password": "pbkdf2_sha256$720000$3S0AAx16s7Ygp62q9hbnWN$dnefDzA6Rssob22wJJd5Ys8kZDXqL3a5OQqW2Qd1WIA=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+            "email": "raquitori@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:31:08.861Z",
-            "username": "raquitori",
             "rol": "owner",
             "groups": [],
             "user_permissions": []
@@ -20,18 +17,15 @@
     },
     {
         "model": "user.customuser",
-        "pk": 3,
+        "pk": "aaromo",
         "fields": {
             "password": "pbkdf2_sha256$720000$6fSmzExlscHbavTOIeTTg7$Y1IEXLs8VsOCKdJ/qCupMQ0GKnz+VCSktdMJVQqRj8Q=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+            "email": "aaromo@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:37:50.632Z",
-            "username": "aaromo",
             "rol": "owner",
             "groups": [],
             "user_permissions": []
@@ -39,18 +33,15 @@
     },
     {
         "model": "user.customuser",
-        "pk": 4,
+        "pk": "mohacas",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+            "email": "mohacas@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "mohacas",
             "rol": "owner",
             "groups": [],
             "user_permissions": []
@@ -58,18 +49,15 @@
     },
     {
         "model": "user.customuser",
-        "pk": 5,
+        "pk": "vicvazvaz",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+            "email": "vicvazvaz@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "vicvazvaz",
             "rol": "client",
             "groups": [],
             "user_permissions": []
@@ -77,18 +65,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 6,
+        "pk": "pabmoreno",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "pabmoreno@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "pabmoreno",
             "rol": "client",
             "groups": [],
             "user_permissions": []
@@ -96,18 +82,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 7,
+        "pk": "carliberal",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "carliberal@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "carliberal",
             "rol": "client",
             "groups": [],
             "user_permissions": []
@@ -115,18 +99,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 8,
+        "pk": "jestorres",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "jestorres@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "jestorres",
             "rol": "client",
             "groups": [],
             "user_permissions": []
@@ -134,18 +116,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 9,
+        "pk": "marromero",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "marromero@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "marromero",
             "rol": "client",
             "groups": [],
             "user_permissions": []
@@ -153,18 +133,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 10,
+        "pk": "manmorgollon",
         "fields": {
             "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "manmorgollon@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T08:41:30.679Z",
-            "username": "manmorgollon",
             "rol": "client",
             "groups": [],
             "user_permissions": []
@@ -172,18 +150,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 11,
+        "pk": "masmusculo",
         "fields": {
             "password": "pbkdf2_sha256$720000$wLHqeZHXNbZDbp683wLUNL$OtlHAaNVI3ev3G6Ibbs4lFT9svp+bUNnga0de0bBFns=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "masmusculo@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T19:38:23Z",
-            "username": "masmusculo",
             "rol": "gym",
             "groups": [],
             "user_permissions": []
@@ -191,18 +167,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 12,
+        "pk": "mcfit",
         "fields": {
             "password": "pbkdf2_sha256$720000$iFg3CJnafICSPndM2phhwr$sTMybffrwDWn+QdbO0Y4jI2AJQ1JUQ5jm9r9Ma7/pgg=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "mcfit@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T19:38:56Z",
-            "username": "mcfit",
             "rol": "gym",
             "groups": [],
             "user_permissions": []
@@ -210,18 +184,16 @@
     },
     {
         "model": "user.customuser",
-        "pk": 13,
+        "pk": "synergym",
         "fields": {
             "password": "pbkdf2_sha256$720000$79dx3KvNhkO4MDRop3s2sH$Hwr5pB6OksejZ0rj8B+qqt4+Ggwjuq9J0G5ttWXeuwY=",
             "last_login": null,
             "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "email": "",
+ 
+            "email": "synergym@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-03-01T19:39:19Z",
-            "username": "synergym",
             "rol": "gym",
             "groups": [],
             "user_permissions": []

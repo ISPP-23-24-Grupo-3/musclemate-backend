@@ -8,7 +8,7 @@
             "email": "aaromo@gmail.com",
             "phoneNumber": 987654321,
             "address": "Gta. Palacio de Congresos, s/n, 41020 Sevilla",
-            "userCustom": 3
+            "userCustom": "aaromo"
         }
     },
     {
@@ -20,7 +20,7 @@
             "email": "mohacas@gmail.com",
             "phoneNumber": 147258369,
             "address": "C. Virgen de Fátima, 12, Sevilla",
-            "userCustom": 4
+            "userCustom": "mohacas"
         }
     }, 
     {
@@ -32,7 +32,7 @@
             "email": "raquitori@gmail.com",
             "phoneNumber": 123456789,
             "address": "C. Benito Mas y Prat, 8, Sevilla",
-            "userCustom": 2
+            "userCustom": "raquitori"
         }
     }
 ]

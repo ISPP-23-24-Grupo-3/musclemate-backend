@@ -13,7 +13,7 @@
             "address": "Calle Menor",
             "city": "sevilla",
             "register": true,
-            "user": 6,
+            "user": "vicvazvaz",
             "gym": 540890
         }
     },
@@ -31,7 +31,7 @@
             "address": "Calle Gran Vía",
             "city": "Valencia",
             "register": true,
-            "user": 7,
+            "user": "pabmoreno",
             "gym": 216278
         }
     },
@@ -49,7 +49,7 @@
             "address": "Calle Mayor",
             "city": "Barcelona",
             "register": true,
-            "user": 8,
+            "user": "carliberal",
             "gym": 221987
         }
     },
@@ -67,7 +67,7 @@
             "address": "Calle Principal",
             "city": "Madrid",
             "register": true,
-            "user": 9,
+            "user": "jestorres",
             "gym": 540890
         }
     }
