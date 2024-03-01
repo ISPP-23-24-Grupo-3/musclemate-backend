@@ -60,7 +60,7 @@
         "model": "user.customuser",
         "pk": 5,
         "fields": {
-            "password": "vicvazvaz12345",
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Victor",
@@ -79,7 +79,7 @@
         "model": "user.customuser",
         "pk": 6,
         "fields": {
-            "password": "pabmoreno12345",
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Pablo",
@@ -98,7 +98,7 @@
         "model": "user.customuser",
         "pk": 7,
         "fields": {
-            "password": "carlosliberal12345",
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Carlos",
@@ -117,7 +117,7 @@
         "model": "user.customuser",
         "pk": 8,
         "fields": {
-            "password": "jestorres12345",
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Jesus",
@@ -136,7 +136,7 @@
         "model": "user.customuser",
         "pk": 9,
         "fields": {
-            "password": "marromero12345",
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Martin",
@@ -155,7 +155,7 @@
         "model": "user.customuser",
         "pk": 10,
         "fields": {
-            "password": "manmorgo12345",
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Manuel",
