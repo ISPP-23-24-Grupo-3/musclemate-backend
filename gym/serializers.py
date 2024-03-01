@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import Gym, Owner, CustomUser
-from owner.models import Owner, CustomUser
+from .models import Gym, Owner
+from owner.models import Owner
+from user.models import CustomUser
 
 
 class GymSerializer(serializers.ModelSerializer):
