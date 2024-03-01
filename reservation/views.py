@@ -14,8 +14,8 @@ class ReservationListView(APIView):
         return Response(serializer.data)
     
 class ReservationListByClientView(APIView):
-    def get(self, request):
-        client = Client.objects.get(user=request.user)
+    def get(self, request,clientId):
+        client = Client.objects.get(id=clientId)
         reservations = Reservation.objects.filter(client=client)
         serializer=ReservationSerializer(reservations,many=True)
         return Response(serializer.data)
