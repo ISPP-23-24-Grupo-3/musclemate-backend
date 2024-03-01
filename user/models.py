@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     )
 
     username = models.CharField(max_length=100, unique=True)
-    rol = models.CharField(max_length=100, choices=ROL_CHOICES, default='user')
+    rol = models.CharField(max_length=100, choices=ROL_CHOICES, default='client')
 
     groups = models.ManyToManyField(
         'auth.Group',

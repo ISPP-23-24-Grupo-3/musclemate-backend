@@ -3,6 +3,9 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
+import owner.models
+from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -17,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Owner',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.PositiveIntegerField(default=owner.models.Owner.random_id, editable=False, primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
                 ('lastName', models.CharField(max_length=100)),
                 ('email', models.EmailField(max_length=254)),

@@ -2,7 +2,11 @@
 
 from django.conf import settings
 from django.db import migrations, models
+
 import django.db.models.deletion
+import gym.models
+from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -18,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Gym',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.PositiveIntegerField(default=gym.models.Gym.random_id, editable=False, primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=50)),
                 ('address', models.CharField(max_length=200)),
                 ('phone_number', models.IntegerField()),

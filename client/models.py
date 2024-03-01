@@ -2,9 +2,14 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from user.models import CustomUser
 from gym.models import Gym
-
+from random import randint
 class Client (models.Model):
-
+    
+    def random_id():
+        return randint(100000, 999999)
+    
+    id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
+    
     GENDER_CHOICES = [
         ('M', 'Male'),
         ('F', 'Female'),
@@ -24,4 +29,7 @@ class Client (models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
+
+    def __str__(self):
+        return f"{self.name} {self.lastName} {self.id}"
 

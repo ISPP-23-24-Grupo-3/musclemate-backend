@@ -1,0 +1,78 @@
+[
+    {
+        "model": "user.customuser",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$3S0AAx16s7Ygp62q9hbnWN$dnefDzA6Rssob22wJJd5Ys8kZDXqL3a5OQqW2Qd1WIA=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:31:08.861Z",
+            "username": "raquitori",
+            "rol": "owner",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$6fSmzExlscHbavTOIeTTg7$Y1IEXLs8VsOCKdJ/qCupMQ0GKnz+VCSktdMJVQqRj8Q=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:37:50.632Z",
+            "username": "aaromo",
+            "rol": "owner",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$WSQKOFW6AKLFtPIMa6E3aU$QQt4xn2PQjMAW8X31Jf3UXhxp8IkYA82lTbcQaL/K58=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "mohacas",
+            "rol": "owner",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$EJpcncoDWMdmT6DhMhnJKE$k4HgisQpJbIMp4opMwwM6vF5oykmtM5niDO0yikIR6Q=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T15:56:58.885Z",
+            "username": "manolo",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]

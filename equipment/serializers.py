@@ -1,15 +1,17 @@
 from rest_framework import serializers
 from .models import Equipment
+from gym.models import Gym
 
 class EquipmentSerializer(serializers.ModelSerializer):
-    gym_name = serializers.CharField(source='gym.username', read_only=True)
 
     class Meta:
         model = Equipment
-        fields = ['name', 'brand', 'serial_number', 'description', 'muscular_group', 'assessment', 'gym_name']
+        fields = '__all__'
 
-    def validate_assessment(self, value):
-        
-        if value < 0 or value > 10:
-            raise serializers.ValidationError("Assessment must be between 0 and 10.")
+    def validate_gym(self, value):
+        """
+        Comprobar si existe el gimnasio proporcionado.
+        """
+        if not Gym.objects.filter(id=value.id).exists():
+            raise serializers.ValidationError("Gym does not exist.")
         return value

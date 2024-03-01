@@ -1,0 +1,34 @@
+[
+    {
+        "model": "routine.routine",
+        "pk": 866902,
+        "fields": {
+            "name": "rutina pecho",
+            "client": 856958
+        }
+    },
+    {
+        "model": "routine.routine",
+        "pk": 865232,
+        "fields": {
+            "name": "rutina espalda",
+            "client": 856958
+        }
+    },
+    {
+        "model": "routine.routine",
+        "pk": 865912,
+        "fields": {
+            "name": "rutina pierna 1",
+            "client": 856958
+        }
+    },
+    {
+        "model": "routine.routine",
+        "pk": 865902,
+        "fields": {
+            "name": "rutina pierna 2",
+            "client": 856958
+        }
+    }
+]

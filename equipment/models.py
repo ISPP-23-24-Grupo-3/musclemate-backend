@@ -1,7 +1,13 @@
 from django.db import models
 from gym.models import Gym
-
+from random import randint
 class Equipment(models.Model):
+
+    def random_id():
+        return randint(100000, 999999)
+    
+    id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
+
     MUSCULAR_GROUP_CHOICES = (
         ('arms', 'Arms'),
         ('legs', 'Legs'),
@@ -17,7 +23,6 @@ class Equipment(models.Model):
     serial_number = models.CharField(max_length=100)
     description = models.TextField()
     muscular_group = models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES)
-    assessment = models.FloatField()
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
     class Meta:
