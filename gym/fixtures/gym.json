@@ -9,7 +9,8 @@
             "descripcion": "...",
             "zip_code": 41007,
             "email": "masmusculo@gmail.com",
-            "owner": 428174
+            "owner": 428174,
+            "userCustom": 11
         }
     },
     {
@@ -22,7 +23,8 @@
             "descripcion": "Si buscas un gimnasio con horarios flexibles, las instalaciones modernas y bien equipadas del McFIT Sevilla son ideales para ti. Este gimnasio te brinda la oportunidad de entrenar desde la madrugada hasta la noche. Aquí encontrarás una amplia gama de equipos de alta calidad y podrás disfrutar de diversas actividades y clases grupales.",
             "zip_code": 41020,
             "email": "mcfit@gmail.com",
-            "owner": 428174
+            "owner": 428174,
+            "userCustom": 12
         }
     },
     {
@@ -36,7 +38,7 @@
             "zip_code": 41005,
             "email": "synervion@gmail.com",
             "owner": 943597,
-            "userCustom":4
+            "userCustom": 13
         }
     }
     
