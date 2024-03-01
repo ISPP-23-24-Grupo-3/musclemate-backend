@@ -55,5 +55,119 @@
             "groups": [],
             "user_permissions": []
         }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 5,
+        "fields": {
+            "password": "vicvazvaz12345",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Victor",
+            "last_name": "Vazquez",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "vicvazvaz",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 6,
+        "fields": {
+            "password": "pabmoreno12345",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Pablo",
+            "last_name": "Moreno",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "pabmoreno",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 7,
+        "fields": {
+            "password": "carlosliberal12345",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Carlos",
+            "last_name": "Liberal",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "carliberal",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 8,
+        "fields": {
+            "password": "jestorres12345",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Jesus",
+            "last_name": "Torres",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "jestorres",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 9,
+        "fields": {
+            "password": "marromero12345",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Martin",
+            "last_name": "Romero",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "marromero",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.customuser",
+        "pk": 10,
+        "fields": {
+            "password": "manmorgo12345",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Manuel",
+            "last_name": "Morgollon",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-01T08:41:30.679Z",
+            "username": "manmorgollon",
+            "rol": "client",
+            "groups": [],
+            "user_permissions": []
+        }
     }
 ]
