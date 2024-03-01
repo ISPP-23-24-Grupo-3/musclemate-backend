@@ -7,8 +7,9 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     ROL_CHOICES = (
         ('admin', 'Admin'),
-        ('user', 'User'),
+        ('client', 'Client'),
         ('owner', 'Owner'),
+        ('gym', 'Gym')
     )
 
     username = models.CharField(max_length=100, unique=True)
