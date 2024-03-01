@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Gym
+from .models import Gym, Owner, CustomUser
 from owner.models import Owner
 
 class GymSerializer(serializers.ModelSerializer):
@@ -29,4 +29,12 @@ class GymSerializer(serializers.ModelSerializer):
         """
         if not Owner.objects.filter(id=value.id).exists():
             raise serializers.ValidationError("Owner does not exist.")
+        return value
+    
+    def validate_userCustom(self, value):
+        """
+        Comprobar si existe el user proporcionado.
+        """
+        if not CustomUser.objects.filter(id=value.id).exists():
+            raise serializers.ValidationError("User does not exist.")
         return value
