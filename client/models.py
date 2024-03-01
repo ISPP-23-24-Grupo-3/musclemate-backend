@@ -30,3 +30,6 @@ class Client (models.Model):
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
 
+    def __str__(self):
+        return f"{self.name} {self.lastName} {self.id}"
+
