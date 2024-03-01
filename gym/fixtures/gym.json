@@ -6,10 +6,10 @@
             "name": "MasMusculoFit Sevilla MMFit Gym",
             "address": "C. Metalurgia, C. Bronce, 15 Esquina, Sevilla",
             "phone_number": 987654321,
-            "descripcion": "Si buscas un gimnasio con horarios flexibles, las instalaciones modernas y bien equipadas del McFIT Sevilla son ideales para ti. Este gimnasio te brinda la oportunidad de entrenar desde la madrugada hasta la noche. Aquí encontrarás una amplia gama de equipos de alta calidad y podrás disfrutar de diversas actividades y clases grupales.",
-            "zip_code": 41007, "email": "masmusculo@gmail.com",
-            "owner": 428174,
-            "userCustom": 3
+            "descripcion": "...",
+            "zip_code": 41007,
+            "email": "masmusculo@gmail.com",
+            "owner": 428174
         }
     },
     {
@@ -20,10 +20,9 @@
             "address": "Gta. Palacio de Congresos, s/n, Sevilla",
             "phone_number": 987654321,
             "descripcion": "Si buscas un gimnasio con horarios flexibles, las instalaciones modernas y bien equipadas del McFIT Sevilla son ideales para ti. Este gimnasio te brinda la oportunidad de entrenar desde la madrugada hasta la noche. Aquí encontrarás una amplia gama de equipos de alta calidad y podrás disfrutar de diversas actividades y clases grupales.",
-            "zip_code": 41020, "email": "mcfit@gmail.com",
-            "owner": 428174,
-            "userCustom": 4
-
+            "zip_code": 41020,
+            "email": "mcfit@gmail.com",
+            "owner": 428174
         }
     },
     {
@@ -37,8 +36,7 @@
             "zip_code": 41005,
             "email": "synervion@gmail.com",
             "owner": 943597,
-            "userCustom": 5
-
+            "userCustom":4
         }
     }
     
