@@ -10,6 +10,12 @@ class EquipmentListView(APIView):
         serializer = EquipmentSerializer(equipments, many=True)
         return Response(serializer.data)
 
+class EquipmentDetailView(APIView):
+    def get(self, request,pk):
+        reservation = Equipment.objects.get(pk=pk)
+        serializer=EquipmentSerializer(reservation)
+        return Response(serializer.data)
+
 class EquipmentCreateView(APIView):
     def post(self, request):
         serializer = EquipmentSerializer(data=request.data)

@@ -15,3 +15,7 @@ class Gym(models.Model):
     email = models.EmailField()
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return f"{self.name} {self.owner} {self.id}"
