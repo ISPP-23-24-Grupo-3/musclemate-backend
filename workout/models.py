@@ -8,4 +8,5 @@ class Workout(models.Model):
 
     routine = models.ManyToManyField(Routine)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    equipment = models.ManyToManyField(Equipment)
+    equipment = models.ManyToManyField(Equipment, blank=True)
+

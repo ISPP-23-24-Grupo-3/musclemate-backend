@@ -27,6 +27,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
         """
         Comprobar si existe el equipo proporcionado.
         """
-        if not Equipment.objects.filter(id=value.id).exists():
-            raise serializers.ValidationError("Equipment does not exist.")
+        for equipment in value:
+            if not Equipment.objects.filter(id=equipment.id).exists():
+                raise serializers.ValidationError("Equipment does not exist.")
         return value

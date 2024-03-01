@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import Gym
+from .models import Gym, Owner, CustomUser
 from owner.models import Owner, CustomUser
+
 
 class GymSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,7 +34,9 @@ class GymSerializer(serializers.ModelSerializer):
     
     def validate_userCustom(self, value):
         """
-        Comprobar si existe el usuario proporcionado.
+
+        Comprobar si existe el user proporcionado.
+
         """
         if not CustomUser.objects.filter(id=value.id).exists():
             raise serializers.ValidationError("User does not exist.")
