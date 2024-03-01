@@ -33,15 +33,19 @@ Modifica el archivo local_settings.example.py para introducir la nueva base de d
 
 Realiza las migraciones:
 
-    python manage.py migrate
+    python ./manage.py migrate
 
 Crea un usuario administrador:
 
-    python manage.py createsuperuser
+    python ./manage.py createsuperuser
+
+Puebla la base de datos:
+    
+    python ./manage.py loaddata user owner gym
 
 Lanza el proyecto:
 
-    python manage.py runserver
+    python ./manage.py runserver
 
 El proyecto debería lanzarse correctamente. Por defecto, se lanza en la dirección "http://localhost:8000/".
 
