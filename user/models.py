@@ -4,11 +4,14 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from .managermodel import CustomUserManager
+from random import randint
 
 from .validators import UnicodeUsernameValidator
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    def random_id():
+        return randint(100000, 999999)
     ROL_CHOICES = (
         ('admin', 'Admin'),
         ('client', 'Client'),
@@ -30,6 +33,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that username already exists."),
         },
     )
+    id = models.IntegerField(primary_key=False, unique=True, auto_created=True,default=random_id, editable=False)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(unique=True, blank=True, null=True)
