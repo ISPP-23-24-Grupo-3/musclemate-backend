@@ -1,0 +1,26 @@
+[
+    {
+        "model": "reservation.reservation",
+        "pk": 457182,
+        "fields": {
+            "client": 856958,
+            "event": 759846
+        }
+    },
+    {
+        "model": "reservation.reservation",
+        "pk": 457183,
+        "fields": {
+            "client": 856958,  
+            "event": 759847
+        }
+    },
+    {
+        "model": "reservation.reservation",
+        "pk": 457184,
+        "fields": {
+            "client": 156324, 
+            "event": 759848  
+        }
+    }
+]

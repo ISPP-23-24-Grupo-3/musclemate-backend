@@ -19,7 +19,7 @@ class Event(models.Model):
     instructor = models.CharField(max_length=100)
     date = models.DateField()
     isClickable = models.BooleanField()
-    duration = models.DateTimeField()
+    duration = models.DurationField()
     intensity = models.CharField(max_length=1, choices=INTENSITY_CHOICES, blank=True, null=True)
     isNotice = models.BooleanField()
 

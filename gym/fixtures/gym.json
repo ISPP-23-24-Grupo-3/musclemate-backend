@@ -7,7 +7,8 @@
             "address": "C. Metalurgia, C. Bronce, 15 Esquina, Sevilla",
             "phone_number": 987654321, "descripcion": "...",
             "zip_code": 41007, "email": "masmusculo@gmail.com",
-            "owner": 428174
+            "owner": 428174,
+            "userCustom":2
         }
     },
     {
@@ -19,7 +20,8 @@
             "phone_number": 987654321,
             "descripcion": "Si buscas un gimnasio con horarios flexibles, las instalaciones modernas y bien equipadas del McFIT Sevilla son ideales para ti. Este gimnasio te brinda la oportunidad de entrenar desde la madrugada hasta la noche. Aquí encontrarás una amplia gama de equipos de alta calidad y podrás disfrutar de diversas actividades y clases grupales.",
             "zip_code": 41020, "email": "mcfit@gmail.com",
-            "owner": 428174
+            "owner": 428174,
+            "userCustom":3
         }
     },
     {
@@ -32,33 +34,9 @@
             "descripcion": "Synergym es un gimnasio con una ubicación conveniente en el barrio de Nervión. Este gimnasio destaca por su ambiente moderno y motivador, que inspira a sus miembros a alcanzar sus objetivos de fitness. Sus instalaciones están equipadas con una amplia variedad de equipos de última generación y ofrecen una amplia gama de clases y actividades.",
             "zip_code": 41005,
             "email": "synervion@gmail.com",
-            "owner": 943597
-        }
-    },
-    {
-        "model": "gym.gym",
-        "pk": 542106,
-        "fields": {
-            "name": "Centro Deportivo Crossfight en Los Remedios",
-            "address": "C. Virgen de Fátima, 12, Sevilla",
-            "phone_number": 147258369,
-            "descripcion": "Si prefieres un enfoque más intensivo, el Centro Deportivo Crossfight en Los Remedios destaca por sus entrenamientos de alta intensidad y su enfoque en el CrossFit. Aquí tendrás la oportunidad de desafiarte y superarte a través de rutinas desafiantes y variadas. Los entrenadores altamente cualificados te guiarán en cada sesión para que obtengas los mejores resultados posibles.",
-            "zip_code": 41010,
-            "email": "crossfight@gmail.com",
-            "owner": 550863
-        }
-    },
-    {
-        "model": "gym.gym",
-        "pk": 807939,
-        "fields": {
-            "name": "Gimnasio Century Fitness Experience",
-            "address": "Av. del Alcalde Manuel del Valle, 50, Norte, Sevilla",
-            "phone_number": 123456789,
-            "descripcion": "El Gimnasio Century Fitness Experience es una excelente opción para ponerte en forma. Con horarios flexibles y amplias opciones de entrenamiento, este gimnasio se enfoca en la personalización y el trabajo en grupos reducidos.",
-            "zip_code": 41015,
-            "email": "centuryexp@gmail.com",
-            "owner": 943597
+            "owner": 943597,
+            "userCustom":4
         }
     }
+    
 ]
