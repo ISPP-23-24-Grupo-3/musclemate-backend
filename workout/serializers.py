@@ -5,7 +5,16 @@ from .models import Routine,Workout,Client,Equipment
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
-        fields = '__all__'
+        gym_name = serializers.CharField(source='gym.name', read_only=True)
+        client_name = serializers.CharField(source='client.username', read_only=True)
+        routine_name = serializers.CharField(source='routine.name', read_only=True)
+        equipment_name = serializers.CharField(source='equipment.name', read_only=True)
+        equipment_brand = serializers.CharField(source='equipment.brand', read_only=True)
+        equipment_serial_number = serializers.CharField(source='equipment.serial_number', read_only=True)
+        equipment_muscular_group = serializers.CharField(source='equipment.muscular_group', read_only=True)
+        equipment_description = serializers.CharField(source='equipment.description', read_only=True)
+        equipment_id = serializers.IntegerField(source='equipment.id', read_only=True)
+        fields = ['id','name', 'gym_name', 'client_name', 'routine_name', 'equipment_name', 'equipment_brand', 'equipment_serial_number', 'equipment_muscular_group', 'equipment_description', 'equipment_id']
 
     def validate_client(self, value):
         """
