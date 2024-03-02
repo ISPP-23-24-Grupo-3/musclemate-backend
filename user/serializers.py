@@ -4,7 +4,7 @@ from .models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'rol']
+        fields = '__all__'
 
     def crate(self, validated_data):
         password = validated_data.pop('password', None)

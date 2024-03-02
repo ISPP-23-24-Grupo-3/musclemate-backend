@@ -6,14 +6,20 @@ from .models import CustomUser
 from .serializers import CustomUserSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 class UserListView(APIView):
+    permission_classes = [IsAuthenticated]  # Add this line
+
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
 
 class UserCreateView(APIView):
+
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
@@ -48,6 +54,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
     @api_view(['GET'])
+    @permission_classes([IsAuthenticated]) 
+
     def get_routes(request):
         routes = [
             'api/token/',
