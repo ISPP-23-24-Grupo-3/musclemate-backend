@@ -1,5 +1,7 @@
 # MuscleMate-Backend
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a73f85f8fc504c888bef694a4ac6c69f)](https://app.codacy.com/gh/ISPP-23-24-Grupo-3/musclemate-backend?utm_source=github.com&utm_medium=referral&utm_content=ISPP-23-24-Grupo-3/musclemate-backend&utm_campaign=Badge_Grade)
+
 ## Como lanzar el proyecto (local):
 
 Clona el repositorio en la carpeta que desees:
