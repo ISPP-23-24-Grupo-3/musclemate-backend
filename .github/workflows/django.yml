@@ -52,12 +52,10 @@ jobs:
           pip install codacy-coverage
           cp local_settings.gactions.py local_settings.py
       - name: Run migrations (unnecessary)
-        run: |
-          cd musclemate-backend
-          python manage.py migrate
+        run: python manage.py migrate
       - name: Run tests
         run: |
-          cd musclemate-backend
+          
           coverage run --branch --source=. ./manage.py test --keepdb
           coverage xml
       - name: Codacy Coverage Reporter
