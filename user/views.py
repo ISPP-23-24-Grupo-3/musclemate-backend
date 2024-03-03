@@ -11,7 +11,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 class UserListView(APIView):
-    permission_classes = [IsAuthenticated]  # Add this line
 
     def get(self, request):
         users = CustomUser.objects.all()
