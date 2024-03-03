@@ -50,7 +50,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install codacy-coverage
-          cp musclemate-backend/local_settings.gactions.py musclemate-backend/local_settings.py
+          cp local_settings.gactions.py local_settings.py
       - name: Run migrations (unnecessary)
         run: |
           cd musclemate-backend
