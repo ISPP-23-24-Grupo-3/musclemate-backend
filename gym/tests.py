@@ -1,14 +1,14 @@
 from django.test import TestCase
 from django.db.utils import IntegrityError
-from .models import Gym, Owner
+from .models import Gym, Owner, CustomUser
 from random import randint
 
 class GymModelTest(TestCase):
     fixtures = ['owner/fixtures/owner.json', 'user/fixtures/user.json']
+    
 
     @classmethod
     def setUpTestData(cls):
-        owner = Owner.objects.get(name='Mohammed')
         Gym.objects.create(
             name='Test Gym',
             address='123 Test St',
@@ -16,7 +16,8 @@ class GymModelTest(TestCase):
             descripcion='Test Description',
             zip_code=12345,
             email='test@example.com',
-            owner=owner
+            owner=Owner.objects.get(name='Mohammed'),
+            userCustom=CustomUser.objects.get(pk='masmusculo')
         )
 
     def test_gym_id_is_random(self):
@@ -28,7 +29,8 @@ class GymModelTest(TestCase):
             descripcion='Another Description',
             zip_code=54321,
             email='another@example.com',
-            owner=Owner.objects.get(name='Mohammed')
+            owner=Owner.objects.get(name='Mohammed'),
+            userCustom=CustomUser.objects.get(pk='mcfit')
         )
         self.assertNotEqual(gym.id, another_gym.id)
 
@@ -54,7 +56,8 @@ class GymModelTest(TestCase):
                 phone_number=123456789,
                 descripcion='Test Description',
                 zip_code=12345,
-                email='test@example.com'
+                email='test@example.com',
+                userCustom=CustomUser.objects.get(pk='masmusculo')
             )
     
     def test_invalid_phone_number(self):
@@ -65,7 +68,9 @@ class GymModelTest(TestCase):
                 phone_number='invalid_phone_number',  # Número de teléfono inválido
                 descripcion='Test Description',
                 zip_code=12345,
-                email='test@example.com'
+                email='test@example.com',
+                owner=Owner.objects.get(name='Mohammed'),
+                userCustom=CustomUser.objects.get(pk='masmusculo')
             )
 
     def test_invalid_zip_code(self):
@@ -76,5 +81,7 @@ class GymModelTest(TestCase):
                 phone_number=1234567890,
                 descripcion='Test Description',
                 zip_code='invalid_zip_code',  # Zip code inválido
-                email='test@example.com'
+                email='test@example.com',
+                owner=Owner.objects.get(name='Mohammed'),
+                userCustom=CustomUser.objects.get(pk='masmusculo')
             )
