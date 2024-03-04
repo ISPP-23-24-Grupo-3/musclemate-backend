@@ -41,7 +41,7 @@ Crea un usuario administrador:
 
 Puebla la base de datos:
     
-    python ./manage.py loaddata user owner gym
+    python ./manage.py loaddata user owner gym client routine equipment event assessment reservation ticket workout serie
 
 Lanza el proyecto:
 
