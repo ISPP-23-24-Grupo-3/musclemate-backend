@@ -13,7 +13,7 @@ project:
     member2:
       name: 'David'
       surname: 'Del Hoyo Carcaboso' 
-      githubUsername: 'davildelcar'
+      githubUsername: 'davdelcar'
     member3:
       name: 'Agustín'
       surname: 'Devós Bono' 
@@ -61,7 +61,7 @@ project:
     member14:
       name: 'Luis'
       surname: 'García Parras' 
-      githubUsername: 'lusgp9'
+      githubUsername: 'luisgp9'
     member15:
       name: 'Alejandro'
       surname: 'Mateo Capilla' 
