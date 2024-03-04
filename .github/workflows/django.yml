@@ -52,7 +52,9 @@ jobs:
           pip install codacy-coverage
           cp local_settings.gactions.py local_settings.py
       - name: Run migrations (unnecessary)
-        run: python manage.py migrate
+        run: |
+          python manage.py migrate
+          python manage.py loaddata user owner gym client equipment ticket workout routine serie assessment event reservation
       - name: Run tests
         run: |
           coverage run --branch --source=. ./manage.py test --keepdb
