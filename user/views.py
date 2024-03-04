@@ -27,13 +27,14 @@ class UserCreateView(APIView):
         return Response(serializer.errors)
 
 class UserUpdateView(APIView):
-    def post(self, request, pk):
-        user = CustomUser.objects.get(pk=pk)
+    def put(self, request, username):
+        user = CustomUser.objects.get(username=username)
         serializer = CustomUserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+       
 
 class UserDeleteView(APIView):
     def delete(self, request, pk):
