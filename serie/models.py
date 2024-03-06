@@ -10,6 +10,7 @@ class Serie(models.Model):
     reps = models.PositiveIntegerField()
     weight = models.PositiveIntegerField()
     date = models.DateField()
+    duration = models.FloatField()
 
 
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
