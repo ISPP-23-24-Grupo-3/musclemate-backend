@@ -52,7 +52,7 @@ class EquipmentDeleteView(APIView):
         equipment = self.get_object(pk)
         equipment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
 class EquipmentObtainTime(APIView):
     def get(self, request, pk):
         equipment = Equipment.objects.get(pk=pk)
