@@ -16,6 +16,12 @@ class UserListView(APIView):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
+    
+class UserDetailView(APIView):
+    def get(self, request, username):
+        user = CustomUser.objects.get(username=username)
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data)
 
 class UserCreateView(APIView):
 
