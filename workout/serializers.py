@@ -15,7 +15,9 @@ class WorkoutSerializer(serializers.ModelSerializer):
     equipment_id = serializers.IntegerField(source='equipment.id', read_only=True)
     class Meta:
         model = Workout
-        fields = ['id','name','client','client_id', 'client_name', 'routine_name', 'equipment_name', 'equipment_brand', 'equipment_serial_number', 'equipment_muscular_group', 'equipment_description', 'equipment_id']
+        fields = ['id','name','client','client_id', 'client_name', 'routine_name', 'equipment_name',
+                   'equipment_brand', 'equipment_serial_number', 'equipment_muscular_group',
+                     'equipment_description', 'equipment_id']
 
     def validate_client(self, value):
         """
