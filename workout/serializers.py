@@ -4,6 +4,7 @@ from .models import Routine,Workout,Client,Equipment
 
 class WorkoutSerializer(serializers.ModelSerializer):
     
+    client_id = serializers.IntegerField(source='client.id', read_only=True)
     client_name = serializers.CharField(source='client.name', read_only=True)
     routine_name = serializers.CharField(source='routine.name', read_only=True)
     equipment_name = serializers.CharField(source='equipment.name', read_only=True)
@@ -14,7 +15,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
     equipment_id = serializers.IntegerField(source='equipment.id', read_only=True)
     class Meta:
         model = Workout
-        fields = ['id','name', 'client_name', 'routine_name', 'equipment_name', 'equipment_brand', 'equipment_serial_number', 'equipment_muscular_group', 'equipment_description', 'equipment_id']
+        fields = ['id','name','client','client_id', 'client_name', 'routine_name', 'equipment_name', 'equipment_brand', 'equipment_serial_number', 'equipment_muscular_group', 'equipment_description', 'equipment_id']
 
     def validate_client(self, value):
         """
@@ -28,8 +29,9 @@ class WorkoutSerializer(serializers.ModelSerializer):
         """
         Comprobar si existe la rutina proporcionada.
         """
-        if not Routine.objects.filter(id=value.id).exists():
-            raise serializers.ValidationError("Routine does not exist.")
+        for routine in value:
+            if not Routine.objects.filter(id=routine.id).exists():
+                raise serializers.ValidationError("Routine does not exist.")
         return value
     
     def validate_equipment(self, value):
