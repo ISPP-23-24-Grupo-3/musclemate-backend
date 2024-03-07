@@ -1,0 +1,32 @@
+[
+    {
+        "model": "serie.serie",
+        "pk": 123456,
+        "fields": {
+            "reps": 10,
+            "weight": 100,
+            "date": "2020-01-05",
+            "workout": 123456
+        }
+    },
+    {
+        "model": "serie.serie",
+        "pk": 123457,
+        "fields": {
+            "reps": 4,
+            "weight": 180,
+            "date": "2020-01-03",
+            "workout": 123456
+        }
+    },
+    {
+        "model": "serie.serie",
+        "pk": 123458,
+        "fields": {
+            "reps": 20,
+            "weight": 120,
+            "date": "2020-01-02",
+            "workout": 123456
+        }
+    }
+]

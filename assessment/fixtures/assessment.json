@@ -1,0 +1,66 @@
+[
+    {
+        "model": "assessment.assessment",
+        "pk": 123456,
+        "fields": {
+            "stars": 5,
+            "equipment": 123456,
+            "client": 856958
+        }
+    },
+    {
+        "model": "assessment.assessment",
+        "pk": 123457,
+        "fields": {
+            "stars": 4,
+            "equipment": 234567,
+            "client": 856958
+        }
+    },
+    {
+        "model": "assessment.assessment",
+        "pk": 123458,
+        "fields": {
+            "stars": 3,
+            "equipment": 234567,
+            "client": 156324
+        }
+    },
+    {
+        "model": "assessment.assessment",
+        "pk": 123459,
+        "fields": {
+            "stars": 2,
+            "equipment": 345678,
+            "client": 856958
+        }
+    },
+    {
+        "model": "assessment.assessment",
+        "pk": 123460,
+        "fields": {
+            "stars": 1,
+            "equipment": 345678,
+            "client": 156324
+        }
+    },
+    {
+        "model": "assessment.assessment",
+        "pk": 123461,
+        "fields": {
+            "stars": 5,
+            "equipment": 345678,
+            "client": 157856
+        }
+    },
+    {
+        "model": "assessment.assessment",
+        "pk": 123462,
+        "fields": {
+            "stars": 4,
+            "equipment": 345678,
+            "client": 473388
+        }
+    }
+
+]

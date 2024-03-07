@@ -1,0 +1,50 @@
+[
+    {
+        "model": "event.event",
+        "pk": 759846,
+        "fields": {
+            "name": "Yoga Class",
+            "description": "Relaxing yoga session for beginners",
+            "capacity": 20,
+            "instructor": "John Doe",
+            "date": "2024-03-15",
+            "isClickable": true,
+            "duration": "01:30:00",
+            "intensity": "L",
+            "isNotice": false,
+            "gym": 216278
+        }
+    },
+    {
+        "model": "event.event",
+        "pk": 759847,
+        "fields": {
+            "name": "Crossfit Training",
+            "description": "High-intensity crossfit workout",
+            "capacity": 15,
+            "instructor": "Jane Smith",
+            "date": "2024-03-16",
+            "isClickable": true,
+            "duration": "01:30:00",
+            "intensity": "H",
+            "isNotice": true,
+            "gym": 216278
+        }
+    },
+    {
+        "model": "event.event",
+        "pk": 759848,
+        "fields": {
+            "name": "Pilates Class",
+            "description": "Pilates session focusing on core strength",
+            "capacity": 25,
+            "instructor": "Alice Johnson",
+            "date": "2024-03-17",
+            "isClickable": true,
+            "duration": "01:15:00",
+            "intensity": "M",
+            "isNotice": false,
+            "gym": 540890
+        }
+    }
+  ]

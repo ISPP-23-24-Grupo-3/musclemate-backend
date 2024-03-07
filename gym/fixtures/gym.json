@@ -1,0 +1,45 @@
+[
+    {
+        "model": "gym.gym",
+        "pk": 216278,
+        "fields": {
+            "name": "MasMusculoFit Sevilla MMFit Gym",
+            "address": "C. Metalurgia, C. Bronce, 15 Esquina, Sevilla",
+            "phone_number": 987654321,
+            "descripcion": "...",
+            "zip_code": 41007,
+            "email": "masmusculo@gmail.com",
+            "owner": 428174,
+            "userCustom": "masmusculo"
+        }
+    },
+    {
+        "model": "gym.gym",
+        "pk": 221987, 
+        "fields": {
+            "name": "McFIT Sevilla Palacio de Congresos",
+            "address": "Gta. Palacio de Congresos, s/n, Sevilla",
+            "phone_number": 987654321,
+            "descripcion": "Si buscas un gimnasio con horarios flexibles, las instalaciones modernas y bien equipadas del McFIT Sevilla son ideales para ti. Este gimnasio te brinda la oportunidad de entrenar desde la madrugada hasta la noche. Aquí encontrarás una amplia gama de equipos de alta calidad y podrás disfrutar de diversas actividades y clases grupales.",
+            "zip_code": 41020,
+            "email": "mcfit@gmail.com",
+            "owner": 428174,
+            "userCustom": "mcfit"
+        }
+    },
+    {
+        "model": "gym.gym",
+        "pk": 540890,
+        "fields": {
+            "name": "Synergym Sevilla Nervión",
+            "address": "C. Benito Mas y Prat, 8, Sevilla",
+            "phone_number": 123456789,
+            "descripcion": "Synergym es un gimnasio con una ubicación conveniente en el barrio de Nervión. Este gimnasio destaca por su ambiente moderno y motivador, que inspira a sus miembros a alcanzar sus objetivos de fitness. Sus instalaciones están equipadas con una amplia variedad de equipos de última generación y ofrecen una amplia gama de clases y actividades.",
+            "zip_code": 41005,
+            "email": "synervion@gmail.com",
+            "owner": 943597,
+            "userCustom": "synergym"
+        }
+    }
+    
+]

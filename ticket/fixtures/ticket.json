@@ -1,0 +1,38 @@
+[
+    {
+        "model": "ticket.ticket",
+        "pk": 123456,
+        "fields": {
+            "label": "Ticket 1",
+            "description": "Description of ticket 1",
+            "status": "open",
+            "gym": 221987,
+            "client": 157856,
+            "equipment": 567890
+        }
+    },
+    {
+        "model": "ticket.ticket",
+        "pk": 123457,
+        "fields": {
+            "label": "Ticket 2",
+            "description": "Description of ticket 2",
+            "status": "open",
+            "gym": 221987,
+            "client": 157856,
+            "equipment": 678901
+        }
+    },
+    {
+        "model": "ticket.ticket",
+        "pk": 123458,
+        "fields": {
+            "label": "Ticket 3",
+            "description": "Description of ticket 3",
+            "status": "open",
+            "gym": 221987,
+            "client": 157856,
+            "equipment": 789012
+        }
+    }
+]

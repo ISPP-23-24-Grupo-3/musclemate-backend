@@ -1,0 +1,74 @@
+[
+    {
+        "model": "client.client",
+        "pk": 856958,
+        "fields": {
+            "name": "Manolo",
+            "lastName": "Ortega",
+            "email": "a@a.com",
+            "birth": "1999-03-01",
+            "zipCode": 12312,
+            "gender": "M",
+            "phoneNumber": 125412541,
+            "address": "Calle Menor",
+            "city": "sevilla",
+            "register": true,
+            "user": "vicvazvaz",
+            "gym": 540890
+        }
+    },
+    {
+        "model": "client.client",
+        "pk": 156324,
+        "fields": {
+            "name": "Juan",
+            "lastName": "Martínez",
+            "email": "juan@example.com",
+            "birth": "1988-12-10",
+            "zipCode": 98765,
+            "gender": "M",
+            "phoneNumber": 987654321,
+            "address": "Calle Gran Vía",
+            "city": "Valencia",
+            "register": true,
+            "user": "pabmoreno",
+            "gym": 216278
+        }
+    },
+    {
+        "model": "client.client",
+        "pk": 157856,
+        "fields": {
+            "name": "Ana",
+            "lastName": "García",
+            "email": "ana@example.com",
+            "birth": "1990-05-20",
+            "zipCode": 12345,
+            "gender": "F",
+            "phoneNumber": 123456789,
+            "address": "Calle Mayor",
+            "city": "Barcelona",
+            "register": true,
+            "user": "carliberal",
+            "gym": 221987
+        }
+    },
+    {
+        "model": "client.client",
+        "pk": 473388,
+        "fields": {
+            "name": "Eduardo",
+            "lastName": "Pérez",
+            "email": "eduardo@example.com",
+            "birth": "1985-07-15",
+            "zipCode": 54321,
+            "gender": "M",
+            "phoneNumber": 987654321,
+            "address": "Calle Principal",
+            "city": "Madrid",
+            "register": true,
+            "user": "jestorres",
+            "gym": 540890
+        }
+    }
+]
