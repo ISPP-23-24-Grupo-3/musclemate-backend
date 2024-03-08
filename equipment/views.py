@@ -2,6 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Equipment
+from workout.models import Workout
+from serie.models import Serie
 from .serializers import EquipmentSerializer
 
 class EquipmentListView(APIView):
@@ -50,3 +52,16 @@ class EquipmentDeleteView(APIView):
         equipment = self.get_object(pk)
         equipment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class EquipmentObtainTime(APIView):
+    def get(self, request, pk):
+        equipment = Equipment.objects.get(pk=pk)
+        workouts = []
+        timer = 0
+        for workout in Workout.objects.all():
+            if equipment in workout.equipment.all():
+                workouts.append(workout)
+        for serie in Serie.objects.all():
+            if serie.workout in workouts:
+                timer += serie.duration
+        return Response({"time": timer}, status=status.HTTP_200_OK)
