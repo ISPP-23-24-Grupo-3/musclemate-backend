@@ -2,12 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Ticket
-from .serializers import TicketSerializer
+from .serializers import TicketSerializer, TicketViewSerializer
 
 class TicketListView(APIView):
     def get(self, request):
         tickets = Ticket.objects.all()
-        serializer = TicketSerializer(tickets, many=True)
+        serializer = TicketViewSerializer(tickets, many=True)
         return Response(serializer.data)
 
 class TicketCreateView(APIView):
@@ -17,6 +17,12 @@ class TicketCreateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class TicketDetailView(APIView):
+    def get(self, request,pk):
+        serie = Ticket.objects.get(pk=pk)
+        serializer=TicketViewSerializer(serie)
+        return Response(serializer.data)
 
 class TicketUpdateView(APIView):
     def get_object(self, pk):

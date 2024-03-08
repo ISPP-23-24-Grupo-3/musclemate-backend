@@ -13,7 +13,8 @@ class Ticket(models.Model):
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     label = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
-    status = models.CharField(max_length=50)
+    status = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add=True )
 
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
