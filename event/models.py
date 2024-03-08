@@ -16,6 +16,7 @@ class Event(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     capacity = models.PositiveIntegerField()
+    attendees = models.PositiveIntegerField()
     instructor = models.CharField(max_length=100)
     date = models.DateField()
     isClickable = models.BooleanField()
