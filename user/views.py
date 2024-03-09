@@ -11,20 +11,23 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 class UserListView(APIView):
-
     def get(self, request):
+        if request.user.rol != 'admin':
+            return Response('You are not authorized to view this users')
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
     
 class UserDetailView(APIView):
     def get(self, request, username):
-        user = CustomUser.objects.get(username=username)
-        serializer = CustomUserSerializer(user)
-        return Response(serializer.data)
+        if (request.user.username == username) or (request.user.rol == 'admin'):
+            user = CustomUser.objects.get(username=username)
+            serializer = CustomUserSerializer(user)
+            return Response(serializer.data)
+        else:
+            return Response('You are not authorized to view this user')
 
 class UserCreateView(APIView):
-
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
@@ -34,6 +37,8 @@ class UserCreateView(APIView):
 
 class UserUpdateView(APIView):
     def put(self, request, username):
+        if request.user.rol != 'admin':
+            return Response('You are not authorized to view this user')
         user = CustomUser.objects.get(username=username)
         serializer = CustomUserSerializer(user, data=request.data)
         if serializer.is_valid():
@@ -44,6 +49,8 @@ class UserUpdateView(APIView):
 
 class UserDeleteView(APIView):
     def delete(self, request, pk):
+        if request.user.rol != 'admin':
+            return Response('You are not authorized to view this user')
         user = CustomUser.objects.get(pk=pk)
         user.delete()
         return Response('User deleted')
