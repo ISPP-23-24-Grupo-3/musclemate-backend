@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import Client
 from .serializers import ClientSerializer
+from user.serializers import CustomUserSerializer
 
 
 class ClientListView(APIView):
@@ -19,12 +20,17 @@ class ClientDetailView(APIView):
         
 class ClientCreateView(APIView):
     def post(self, request):
-        serializer = ClientSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
+        user_serializer = CustomUserSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user = user_serializer.save(role='client')
+            client_serializer = ClientSerializer(data=request.data)
+            if client_serializer.is_valid():
+                client_serializer.save(user=user)
+                return Response(client_serializer.data, status=201)
+            else:
+                return Response(client_serializer.errors, status=400)
         else:
-            return Response(serializer.errors, status=400)
+            return Response(user_serializer.errors, status=400)
 
 
 class ClientUpdateView(APIView):
