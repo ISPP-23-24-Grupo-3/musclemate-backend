@@ -26,7 +26,7 @@ class ClientListByGymView(APIView):
     def get(self, request,gymId):
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
-                    Gym.objects.get(pk=gymId).owner.id):
+                Gym.objects.get(pk=gymId).owner.id):
             clients = Client.objects.filter(gym=gymId)
             serializer=ClientSerializer(clients,many=True)
             return Response(serializer.data)
