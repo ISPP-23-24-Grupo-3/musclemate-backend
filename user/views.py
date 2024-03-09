@@ -29,6 +29,8 @@ class UserDetailView(APIView):
 
 class UserCreateView(APIView):
     def post(self, request):
+        if request.user.rol != 'admin':
+            return Response('You are not authorized to create a user')
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
