@@ -30,7 +30,7 @@ class ReservationListByClientView(APIView):
         gymId=Client.objects.get(pk=clientId).gym.id
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
-                Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client' and 
+                Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client' and
                 clientId == Client.objects.get(user=request.user).id):
             client = Client.objects.get(id=clientId)
             reservations = Reservation.objects.filter(client=client)
