@@ -2,7 +2,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Client
 from .serializers import ClientSerializer
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import BasePermission
 from gym.models import Gym
 from owner.models import Owner
@@ -28,7 +27,6 @@ class ClientListByGymView(APIView):
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
                     Gym.objects.get(pk=gymId).owner.id):
-        
             clients = Client.objects.filter(gym=gymId)
             serializer=ClientSerializer(clients,many=True)
             return Response(serializer.data)
