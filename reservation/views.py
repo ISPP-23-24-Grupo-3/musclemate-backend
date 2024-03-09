@@ -15,7 +15,7 @@ class IsGymOrOwnerOrClient(BasePermission):
         gymId=Client.objects.get(pk=clientId).gym.id
         return (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
-                Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client' and 
+                Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client' and
                 clientId == Client.objects.get(user=request.user).id)
 
 
@@ -69,7 +69,7 @@ class ReservationCreateView(APIView):
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
                 Gym.objects.get(pk=gymId).owner.id) or request.user.rol=='client':
             event=Event.objects.get(pk=request.data.get('event'))
-            if(event.capacity>event.attendees and not Reservation.objects.filter(
+            if (event.capacity>event.attendees and not Reservation.objects.filter(
                     client=clientId, event=event.id).exists()):
                 serializer = ReservationSerializer(data=request.data)
                 if serializer.is_valid():
