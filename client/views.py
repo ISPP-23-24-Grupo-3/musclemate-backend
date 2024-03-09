@@ -1,10 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Client
+from .models import Client, Gym
 from .serializers import ClientSerializer
 from user.serializers import CustomUserSerializer
-from .models import Gym 
 
 class ClientListView(APIView):
     def get(self, request):
