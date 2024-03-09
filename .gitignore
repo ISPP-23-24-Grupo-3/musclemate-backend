@@ -8,3 +8,5 @@ __pycache__/
 # Database
 local_settings.py
 db.sqlite3
+local_settings.docker.py
+.local_settings
