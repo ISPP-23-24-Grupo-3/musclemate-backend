@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import BasePermission
 from gym.models import Gym
 from owner.models import Owner
+from user.serializers import CustomUserSerializer
 
 class IsGymOrOwner(BasePermission):
     def has_permission(self,request):
@@ -47,14 +48,20 @@ class ClientDetailView(APIView):
 class ClientCreateView(APIView):
     def post(self, request):
         if IsGymOrOwner().has_permission(request):
-            serializer = ClientSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=201)
+            user_serializer = CustomUserSerializer(data=request.data)
+            if user_serializer.is_valid():
+                user = user_serializer.save(role='client')
+                client_serializer = ClientSerializer(data=request.data)
+                if client_serializer.is_valid():
+                    client_serializer.save(user=user)
+                    return Response(client_serializer.data, status=201)
+                else:
+                    return Response(client_serializer.errors, status=400)
             else:
-                return Response(serializer.errors, status=400)
+                return Response(user_serializer.errors, status=400)
         else:
             return Response(status=403)
+
 
 class ClientUpdateView(APIView):
     def post(self, request, pk):

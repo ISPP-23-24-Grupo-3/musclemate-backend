@@ -37,7 +37,7 @@ class GymModelTest(TestCase):
     def test_gym_name_max_length(self):
         gym = Gym.objects.get(name='Test Gym')
         max_length = gym._meta.get_field('name').max_length
-        self.assertEquals(max_length, 50)
+        self.assertEqual(max_length, 50)
 
     def test_gym_email(self):
         gym = Gym.objects.get(name='Test Gym')
