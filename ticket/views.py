@@ -39,7 +39,7 @@ class TicketUpdateView(APIView):
 
     def put(self, request, pk):
         ticket = self.get_object(pk)
-        serializer = TicketSerializer(ticket, data=request.data)
+        serializer = TicketUpdateSerializer(ticket, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

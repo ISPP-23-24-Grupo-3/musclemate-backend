@@ -17,5 +17,8 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = ['label', 'description', 'equipment']
 
-
+class TicketUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = ['label', 'description', 'equipment', 'status']
 
