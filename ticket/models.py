@@ -23,4 +23,4 @@ class Ticket(models.Model):
 
 
     def __str__(self):
-        return self.label
+        return f"Ticket - {self.equipment.name}, {self.client.name} {self.client.lastName}, {self.date} ({self.id})"

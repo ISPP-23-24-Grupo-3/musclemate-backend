@@ -9,3 +9,6 @@ class Reservation (models.Model):
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Reservation - {self.client.name} {self.client.lastName}, {self.event.name} ({self.id})"
