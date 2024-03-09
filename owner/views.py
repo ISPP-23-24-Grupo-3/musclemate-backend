@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import Owner
 from .serializers import OwnerSerializer
-from .serializers import UserSerializer
+from user.serializers import CustomUserSerializer
 
 
 
@@ -22,12 +22,15 @@ class OwnerDetailView(APIView):
 
 class OwnerCreateView(APIView):
     def post(self, request):
-        user_serializer = UserSerializer(data=request.data)
+        user_data = request.data.get('userCustom')
+        user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
-            user = user_serializer.save(role='owner')
-            owner_serializer = OwnerSerializer(data=request.data)
+            user = user_serializer.save(rol='owner')
+            owner_data = request.data
+            owner_data['userCustom'] = user.username
+            owner_serializer = OwnerSerializer(data=owner_data)
             if owner_serializer.is_valid():
-                owner_serializer.save(user=user)
+                owner_serializer.save()
                 return Response(owner_serializer.data, status=201)
             else:
                 return Response(owner_serializer.errors, status=400)

@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from .models import Gym
 from .serializers import GymSerializer
-from .serializers import UserSerializer
+from user.serializers import CustomUserSerializer
 
 @api_view(['GET'])
 def gym_list(request):
@@ -20,7 +20,7 @@ def gym_detail(request, id):
 @api_view(['POST'])
 def gym_create(request):
     if request.method == 'POST':
-        user_serializer = UserSerializer(data=request.data)
+        user_serializer = CustomUserSerializer(data=request.data)
         if user_serializer.is_valid():
               user = user_serializer.save(role='gym')
               gym_serializer = GymSerializer(data=request.data)
