@@ -33,7 +33,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that username already exists."),
         },
     )
-    id = models.IntegerField(primary_key=False, unique=True, auto_created=True,default=random_id, editable=False)
+    id = models.IntegerField(primary_key=False, auto_created=True,default=random_id, editable=False)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(unique=True, blank=True, null=True)

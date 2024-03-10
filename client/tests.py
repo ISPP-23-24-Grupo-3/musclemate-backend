@@ -41,11 +41,13 @@ class SerieTestCase(TestCase):
 
         self.routine = Routine.objects.create(name="rutina pecho", client=self.client1)
 
-        self.workout = Workout.objects.create(name='Press Banca', client=self.client1)
-        self.workout.equipment.set([self.equipment])
-        self.workout.routine.set([self.routine])
 
-        self.serie = Serie.objects.create(reps= 10, weight= 100, date= '2024-03-02',workout=self.workout)
+    def test_client_detail_view(self):
+        request = self.factory.get('/clients/detail/')
+        view = ClientDetailView.as_view()
+        response = view(request, pk=self.client1.pk)
+        self.assertEqual(response.status_code, 200)
+
 
 
     def test_serie_list_view(self):

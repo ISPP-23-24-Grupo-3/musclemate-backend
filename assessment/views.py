@@ -10,6 +10,12 @@ class AssessmentListView(APIView):
         assessments = Assessment.objects.all()
         serializer=AssessmentSerializer(assessments,many=True)
         return Response(serializer.data)
+    
+class AssessmentDetailView(APIView):
+    def get(self, request,pk):
+        reservation = Assessment.objects.get(pk=pk)
+        serializer=AssessmentSerializer(reservation)
+        return Response(serializer.data)
 
 class AssessmentCreateView(APIView):
     def post(self, request):

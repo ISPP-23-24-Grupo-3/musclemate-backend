@@ -9,7 +9,7 @@ class Routine(models.Model):
     def random_id():
         return randint(100000, 999999)
     
-    id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
+    id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False, unique=True)
     
     name = models.CharField(max_length=60)
 
@@ -19,4 +19,4 @@ class Routine(models.Model):
         unique_together = ('name', 'client')
 
     def __str__(self):
-        return self.name
+        return f"Routine - {self.name}, {self.client.name} {self.client.lastName} ({self.id})"
