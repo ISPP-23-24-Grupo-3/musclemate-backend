@@ -7,5 +7,4 @@ urlpatterns = [
     path('series/create/', views.SerieCreateView.as_view(), name='serie_create'),
     path('series/update/<int:pk>/', views.SerieUpdateView.as_view(), name='serie_update'),
     path('series/delete/<int:pk>/', views.SerieDeleteView.as_view(), name='serie_delete'),
-    path('series/workout/<int:pk>', views.SerieListByWorkoutView.as_view(), name='serie_list_workout'),
 ]
