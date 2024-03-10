@@ -1,19 +1,24 @@
 from django.test import TestCase
-from rest_framework.test import APIRequestFactory
+from client.models import Client
+from serie.models import Serie
+from workout.models import Workout
+from equipment.models import Equipment
 from gym.models import Gym
 from owner.models import Owner
+from routine.models import Routine
 
 from user.models import CustomUser
-from .models import Client
-from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView
 
-class ClientTests(TestCase):
+from serie.views import SerieListView ,SerieDetailView,SerieCreateView,SerieDeleteView,SerieUpdateView
+from rest_framework.test import APIRequestFactory
+
+class SerieTestCase(TestCase):
+   
     def setUp(self):
         self.factory = APIRequestFactory()
         self.user = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
         self.user2 = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.user3 = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
-        self.user4 = CustomUser.objects.create(username='test_user_4', email='test4@example.com', rol='client')
 
 
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
@@ -25,41 +30,54 @@ class ClientTests(TestCase):
                                               birth='2000-01-01', zipCode=12345, gender='M', phoneNumber=123456789,
                                               address='123 Test St', city='Test City', register=True, user=self.user,
                                               gym=self.gym)
+        self.equipment = Equipment.objects.create(
+            name="Mancuernas",
+            brand="Marca A",
+            serial_number="MNCD001",
+            description="Un par de mancuernas de 5 kg cada una",
+            muscular_group="arms",
+            gym=self.gym
+        )
 
-    def test_client_list_view(self):
-        request = self.factory.get('/clients/')
-        view = ClientListView.as_view()
-        response = view(request)
-        self.assertEqual(response.status_code, 200)
+        self.routine = Routine.objects.create(name="rutina pecho", client=self.client1)
 
-    def test_client_detail_view(self):
-        request = self.factory.get('/clients/')
-        view = ClientDetailView.as_view()
-        response = view(request, pk=self.client1.pk)
-        self.assertEqual(response.status_code, 200)
+        self.workout = Workout.objects.create(name='Press Banca', client=self.client1)
+        self.workout.equipment.set([self.equipment])
+        self.workout.routine.set([self.routine])
 
-    def test_client_create_view(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 123456789,
-                'address': '789 Test St', 'city': 'New City', 'register': True, 'user': self.user4.pk,
-                'gym': self.gym.pk}
-        request = self.factory.post('/clients/create/',data)
-        view = ClientCreateView.as_view()
+        self.serie = Serie.objects.create(reps= 10, weight= 100, date= '2024-03-02',workout=self.workout)
+
+
+    def test_serie_list_view(self):
+            request = self.factory.get('/series/')
+            view = SerieListView.as_view()
+            response = view(request)
+            self.assertEqual(response.status_code, 200)
+
+    def test_serie_detail_view(self):
+            request = self.factory.get('/series/detail/')
+            view = SerieDetailView.as_view()
+            response = view(request,pk=self.serie.pk)
+            self.assertEqual(response.status_code, 200)
+
+    def test_serie_create_view(self):
+        data = {'reps': 12, 'weight': 90, 'date': '2024-03-01','workout':self.workout.pk}
+        request = self.factory.post('/series/create/',data)
+        view = SerieCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 201)
 
-    def test_client_update_view(self):
-        data = {'name': 'Updated Client', 'lastName': 'Updated Lastname', 'email': 'updatedclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phoneNumber': 987654321,
-                'address': '987 Test St', 'city': 'Updated City', 'register': False, 'user': self.user.pk,
-                'gym': self.gym.pk}
-        request = self.factory.post('/clients/update/',data)
-        view = ClientUpdateView.as_view()
-        response = view(request, pk=self.client1.pk)
+
+    def test_serie_update_view(self):
+        data = {'reps': 8, 'weight': 100, 'date': '2024-03-02','workout':self.workout.pk}
+        request = self.factory.post('/series/update/',data)
+        view = SerieUpdateView.as_view()
+        response = view(request,pk=self.serie.pk)
         self.assertEqual(response.status_code, 200)
 
-    def test_client_delete_view(self):
-        request = self.factory.delete('/clients/')
-        view = ClientDeleteView.as_view()
-        response = view(request, pk=self.client1.pk)
-        self.assertEqual(response.status_code, 200)
+
+    def test_serie_delete_view(self):
+            request = self.factory.delete('/series/delete/')
+            view = SerieDeleteView.as_view()
+            response = view(request,pk=self.serie.pk)
+            self.assertEqual(response.status_code, 200)
