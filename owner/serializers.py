@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from .models import Owner
 from .models import CustomUser
+from user.serializers import CustomUserSerializer
 
 class OwnerSerializer(serializers.ModelSerializer):
+    userCustom = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     class Meta:
         model = Owner
-        fields = '__all__'
+        fields = ['name', 'lastName', 'email', 'phoneNumber', 'address', 'userCustom']
 
     def validate_userCustom(self, value):
         """
