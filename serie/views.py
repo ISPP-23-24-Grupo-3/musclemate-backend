@@ -97,7 +97,7 @@ class SerieDeleteView(APIView):
         if request.user.rol == 'client':
             clientIdByUser=Client.objects.get(user=request.user).id
             serie = Serie.objects.get(pk=pk)
-            clientIdBySerie=serie.workout.client.id    
+            clientIdBySerie=serie.workout.client.id
             if clientIdByUser==clientIdBySerie:
                 serie.delete()
                 return Response('Serie deleted')
