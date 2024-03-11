@@ -31,5 +31,5 @@ class Client (models.Model):
 
 
     def __str__(self):
-        return f"{self.name} {self.lastName} {self.id}"
+        return f"Client - {self.name} {self.lastName} ({self.id})"
 

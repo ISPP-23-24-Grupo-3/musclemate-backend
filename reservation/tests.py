@@ -16,7 +16,7 @@ class ReservationTests(TestCase):
         self.factory = APIRequestFactory()
         self.user = CustomUser.objects.create(username='test_user', email='test@example.com', rol='owner')
         self.user2 = CustomUser.objects.create(username='test_user2', email='test2@example.com', rol='client')
-        self.user3 = CustomUser.objects.create(username='test_user3', email='test@example.com', rol='gym')
+        self.user3 = CustomUser.objects.create(username='test_user3', email='test3@example.com', rol='gym')
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
                                            phoneNumber=123456789, address='123 Owner St', userCustom=self.user)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
