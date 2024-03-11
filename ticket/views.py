@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Ticket
-from .serializers import TicketSerializer, TicketViewSerializer
+from .serializers import TicketSerializer, TicketViewSerializer, TicketUpdateSerializer
 from rest_framework.permissions import IsAuthenticated
 from client.models import Client
 from user.models import CustomUser
