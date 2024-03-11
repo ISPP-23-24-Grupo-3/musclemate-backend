@@ -24,7 +24,7 @@ def isAllowed(equipment, user):
         return True
 
 @permission_classes([IsAuthenticated])
-class EquipmentListView(APIView):
+class EquipmentListGymView(APIView):
     def get(self, request):
         equipments = Equipment.objects.all()
         equipRet = []
@@ -32,6 +32,12 @@ class EquipmentListView(APIView):
             if isAllowed(equipment, request.user):
                 equipRet.append(equipment)
         serializer = EquipmentSerializer(equipRet, many=True)
+        return Response(serializer.data)
+
+class EquipmentListView(APIView):
+    def get(self, request):
+        equipments = Equipment.objects.all()
+        serializer = EquipmentSerializer(equipments, many=True)
         return Response(serializer.data)
 
 @permission_classes([IsAuthenticated])
