@@ -18,7 +18,7 @@ class EventAPITestCase(TestCase):
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
                                        descripcion='Test Gym Description', zip_code=54321, email='gym@example.com',
                                        owner=self.owner, userCustom=self.user2)
-        self.event1 = Event.objects.create(name='Event 1',description='This is event 1',capacity=50,instructor='John Doe',
+        self.event1 = Event.objects.create(name='Event 1',description='This is event 1',capacity=50, attendees=25, instructor='John Doe',
                                            date='2024-03-01',isClickable=True,duration=timedelta(hours=1),intensity='M',
                                            isNotice=False,gym=self.gym)
 
@@ -35,7 +35,7 @@ class EventAPITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_event_create_view(self):
-        data = {'name':'Event 3','description':'This is event 3','capacity':30,'instructor':'Jane Smith',
+        data = {'name':'Event 3','description':'This is event 3','capacity':30, 'attendees':15 , 'instructor':'Jane Smith',
                 'date':'2024-03-02','isClickable':True,'duration':timedelta(hours=1),'intensity':'H',
                 'isNotice':True,'gym':self.gym.pk}
         request = self.factory.post('/events/create/', data)
@@ -44,7 +44,7 @@ class EventAPITestCase(TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_event_update_view(self):
-        data = {'name':'Event 4','description':'This is event 4','capacity':30,'instructor':'Jane Smith',
+        data = {'name':'Event 4','description':'This is event 4','capacity':30, 'attendees':15, 'instructor':'Jane Smith',
                 'date':'2024-03-02','isClickable':True,'duration':timedelta(hours=1.5),'intensity':'H',
                 'isNotice':True,'gym':self.gym.pk}
         request = self.factory.post('/events/update/', data)
