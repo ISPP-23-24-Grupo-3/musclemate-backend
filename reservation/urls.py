@@ -19,8 +19,8 @@ from django.urls import path
 
 urlpatterns = [
     path('reservations/all/', views.ReservationListView.as_view(), name='reservation_list'),
-    path('reservations/client/<int:clientId>', views.ReservationListByClientView.as_view(), name='reservationClient_list'),
-    path('reservations/event/<int:eventId>', views.ReservationListByEventView.as_view(), name='reservationEvent_list'),
+    path('reservations/client/<int:clientId>/', views.ReservationListByClientView.as_view(), name='reservationClient_list'),
+    path('reservations/event/<int:eventId>/', views.ReservationListByEventView.as_view(), name='reservationEvent_list'),
     path('reservations/detail/<int:pk>/', views.ReservationDetailView.as_view(), name='reservation_detail'),
     path('reservations/create/', views.ReservationCreateView.as_view(), name='reservation_create'),
     path('reservations/update/<int:pk>/', views.ReservationUpdateView.as_view(), name='reservation_update'),
