@@ -12,7 +12,7 @@ class RoutineListView(APIView):
             return Response(serializer.data)
         else:
             return Response(status=403)
-    
+
 class RoutineListByClientView(APIView):
     def get(self, request,clientId):
         clientIdByUser=Client.objects.get(user=request.user).id
@@ -22,7 +22,7 @@ class RoutineListByClientView(APIView):
             return Response(serializer.data)
         else:
             return Response(status=403)
-    
+
 class RoutineDetailView(APIView):
     def get(self, request,pk):
         clientIdByUser=Client.objects.get(user=request.user).id
@@ -82,6 +82,3 @@ class RoutineDeleteView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=403)
-
-
-
