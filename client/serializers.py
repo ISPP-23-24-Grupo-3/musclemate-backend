@@ -8,7 +8,7 @@ class ClientSerializer(serializers.ModelSerializer):
     gym = serializers.PrimaryKeyRelatedField(queryset=Gym.objects.all())
     class Meta:
         model = Client
-        fields = ['name', 'lastName', 'birth', 'zipCode','gender', 'phoneNumber', 'email','address','city','register', 'user', 'gym']
+        fields = ['id','name', 'lastName', 'birth', 'zipCode','gender', 'phoneNumber', 'email','address','city','register', 'user', 'gym']
 
     def validate_phoneNumber(self, value):
         """

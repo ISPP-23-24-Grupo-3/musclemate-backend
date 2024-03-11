@@ -35,8 +35,15 @@ class ClientListByGymView(APIView):
     
 class ClientDetailView(APIView):
     def get(self, request,pk):
-        clientId=Client.objects.get(user=request.user).id
-        if IsGymOrOwner().has_permission(request) or clientId==pk:
+        if request.user.rol=='client':
+            clientId=Client.objects.get(user=request.user).id
+            if clientId==pk:
+                client = Client.objects.get(pk=pk)
+                serializer=ClientSerializer(client)
+                return Response(serializer.data,status=200)
+            else:
+                return Response(status=403)
+        elif IsGymOrOwner().has_permission(request):
             client = Client.objects.get(pk=pk)
             serializer=ClientSerializer(client)
             return Response(serializer.data,status=200)
