@@ -60,7 +60,6 @@ class ClientCreateView(APIView):
         else:
             return Response(status=403)
 
-
 class ClientUpdateView(APIView):
     def post(self, request, pk):
         clientId=Client.objects.get(user=request.user).id
@@ -74,7 +73,6 @@ class ClientUpdateView(APIView):
                 return Response(serializer.errors, status=400)
         else:
             return Response(status=403)
-        
 
 class ClientDeleteView(APIView):
     def delete(self, request, pk):

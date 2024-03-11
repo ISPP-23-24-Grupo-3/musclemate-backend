@@ -42,14 +42,14 @@ class ReservationTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_reservation_list_by_client_view(self):
-        request = self.factory.get('/reservations/')
+        request = self.factory.get('/reservations/client/')
         request.user = self.user2
         view = ReservationListByClientView.as_view()
         response = view(request,clientId=self.client1.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_reservation_detail_view(self):
-        request = self.factory.get('/reservations/')
+        request = self.factory.get('/reservations/detail/')
         view = ReservationDetailView.as_view()
         response = view(request, pk=self.reservation.pk)
         self.assertEqual(response.status_code, 200)
