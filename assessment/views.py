@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 class AssessmentListView(APIView):
     def get(self, request):
-        if(request.user.rol=='gym' or request.user.rol=='owner'):
+        if request.user.rol=='gym' or request.user.rol=='owner':
             assessments = Assessment.objects.all()
             serializer=AssessmentSerializer(assessments,many=True)
             return Response(serializer.data)
