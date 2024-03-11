@@ -5,8 +5,6 @@ from rest_framework import status
 from .models import Workout
 from .serializers import WorkoutSerializer
 
-
-
 class WorkoutListView(APIView):
     def get(self, request):
         workouts = Workout.objects.all()
