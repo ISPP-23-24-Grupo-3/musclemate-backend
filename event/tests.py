@@ -75,7 +75,7 @@ class EventAPITestCase(TestCase):
         view = EventDetailView.as_view()
         response = view(request, pk=self.event1.pk)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_event_detail_view_how_owner(self):
         request = self.factory.get('/events/')
         force_authenticate(request, user=self.userOwner)
@@ -146,7 +146,7 @@ class EventAPITestCase(TestCase):
         view = EventDeleteView.as_view()
         response = view(request, pk=self.event1.pk)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_event_delete_view_how_owner(self):
         request = self.factory.delete('/events/')
         force_authenticate(request, user=self.userOwner)
