@@ -12,7 +12,6 @@ class IsGymOrOwner(BasePermission):
         return request.user.is_authenticated and (request.user.rol == 'gym' or request.user.rol == 'owner')
 
 class ClientListView(APIView):
-    
     def get(self, request):
         if IsGymOrOwner().has_permission(request):
             clients = Client.objects.all()
@@ -22,7 +21,6 @@ class ClientListView(APIView):
             return Response(status=403)
         
 class ClientListByGymView(APIView):
-    
     def get(self, request,gymId):
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
@@ -55,7 +53,7 @@ class ClientCreateView(APIView):
         if IsGymOrOwner().has_permission(request):
             user_serializer = CustomUserSerializer(data=request.data)
             if user_serializer.is_valid():
-                user = user_serializer.save(role='client')
+                user = user_serializer.save(rol='client')
                 client_serializer = ClientSerializer(data=request.data)
                 if client_serializer.is_valid():
                     client_serializer.save(user=user)
@@ -68,9 +66,9 @@ class ClientCreateView(APIView):
             return Response(status=403)
 
 class ClientUpdateView(APIView):
-    def post(self, request, pk):
-        clientId=Client.objects.get(user=request.user).id
-        if IsGymOrOwner().has_permission(request) or clientId==pk:
+    def put(self, request, pk):
+        client = Client.objects.get(pk=pk)
+        if IsGymOrOwner().has_permission(request) or client.user==request.user:
             client = Client.objects.get(pk=pk)
             serializer = ClientSerializer(client, data=request.data)
             if serializer.is_valid():
