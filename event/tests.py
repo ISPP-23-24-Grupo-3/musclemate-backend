@@ -15,7 +15,7 @@ class EventAPITestCase(TestCase):
         self.userOwner = CustomUser.objects.create(username='test_user', email='test@example.com', rol='owner')
         self.userGym = CustomUser.objects.create(username='test_user2', email='test2@example.com', rol='gym')
         self.userClient = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='client')
-        
+
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
                                            phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
@@ -25,7 +25,7 @@ class EventAPITestCase(TestCase):
                                               birth='2000-01-01', zipCode=12345, gender='M', phoneNumber=123456789,
                                               address='123 Test St', city='Test City', register=True, user=self.userClient,
                                               gym=self.gym)
-        self.event1 = Event.objects.create(name='Event 1',description='This is event 1',capacity=50, 
+        self.event1 = Event.objects.create(name='Event 1',description='This is event 1',capacity=50,
                                            attendees=25, instructor='John Doe',
                                            date='2024-03-01',isClickable=True,duration=timedelta(hours=1),intensity='M',
                                            isNotice=False,gym=self.gym)
