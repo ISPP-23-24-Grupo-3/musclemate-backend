@@ -28,33 +28,40 @@ def getGymFromUser(username):
     print(gym)
     return gym
 
+def clientAuthority(user, client):
+    has_authority = False
+    if user.rol == "client":
+            if getClientFromUser(user).id == client.id:
+                has_authority=True
+    elif user.rol == "owner":
+            if getOwnerFromUser(user).id == client.gym.owner.id:
+                has_authority=True
+    elif user.rol == "gym":
+            if getGymFromUser(user).id == client.gym.id:
+                has_authority=True
+    return has_authority
+
 @permission_classes([IsAuthenticated])
 class TicketListView(APIView):
     def get(self, request):
-        tickets = Ticket.objects.all()
-        serializer = TicketViewSerializer(tickets, many=True)
-        return Response(serializer.data)
+        if request.user.rol!="client":
+            if request.user.rol=="owner":
+                gym = Gym.objects.filter(owner=getOwnerFromUser(request.user))
+            else:
+                gym = getGymFromUser(request.user)
+            tickets = Ticket.objects.filter(gym__in=gym)
+            serializer = TicketViewSerializer(tickets, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
 
 @permission_classes([IsAuthenticated])
 class TicketListByClientView(APIView):
-
-    def clientAuthority(self, user, client):
-        has_authority = False
-        if user.rol == "client":
-                if getClientFromUser(user).id == client.id:
-                    has_authority=True
-        elif user.rol == "owner":
-                if getOwnerFromUser(user).id == client.gym.owner.id:
-                    has_authority=True
-        elif user.rol == "gym":
-                if getGymFromUser(user).id == client.gym.id:
-                    has_authority=True
-        return has_authority
     
     def get(self, request, clientId):
         client = Client.objects.get(id=clientId)
         user = request.user
-        if self.clientAuthority(user, client):
+        if clientAuthority(user, client):
             tickets = Ticket.objects.filter(client=client)
             serializer = TicketViewSerializer(tickets, many=True)
             return Response(serializer.data)
@@ -99,9 +106,12 @@ class TicketCreateView(APIView):
 @permission_classes([IsAuthenticated])    
 class TicketDetailView(APIView):
     def get(self, request,pk):
-        serie = Ticket.objects.get(pk=pk)
-        serializer=TicketViewSerializer(serie)
-        return Response(serializer.data)
+        ticket = Ticket.objects.get(pk=pk)
+        if clientAuthority(request.user, ticket.client):
+            serializer=TicketViewSerializer(ticket)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
 
 @permission_classes([IsAuthenticated])
 class TicketUpdateView(APIView):
@@ -113,11 +123,14 @@ class TicketUpdateView(APIView):
 
     def put(self, request, pk):
         ticket = self.get_object(pk)
-        serializer = TicketUpdateSerializer(ticket, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if clientAuthority(request.user, ticket.client):
+            serializer = TicketUpdateSerializer(ticket, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=403)
 
 class TicketDeleteView(APIView):
     def get_object(self, pk):
@@ -128,7 +141,10 @@ class TicketDeleteView(APIView):
 
     def delete(self, request, pk):
         ticket = self.get_object(pk)
-        ticket.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if clientAuthority(request.user, ticket.client):
+            ticket.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=403)
 
 
