@@ -69,7 +69,7 @@ class EquipmentUpdateView(APIView):
     def put(self, request, pk):
         equipment = self.get_object(pk)
         owner = get_object_or_404(Owner, userCustom=request.user)
-        gym = get_object_or_404(Gym, id=equipment.gym)
+        gym = get_object_or_404(Gym, id=equipment.gym.id)
         if gym.owner == owner:
             serializer = EquipmentSerializer(equipment, data=request.data)
             if serializer.is_valid():
