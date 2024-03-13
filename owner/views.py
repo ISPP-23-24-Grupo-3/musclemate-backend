@@ -2,9 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Owner
-from .serializers import OwnerSerializer
-from user.serializers import CustomUserSerializer
+from .models import Owner, CustomUser
+from .serializers import OwnerSerializer, CustomUserSerializer
 
 
 
@@ -22,13 +21,12 @@ class OwnerDetailView(APIView):
 
 class OwnerCreateView(APIView):
     def post(self, request):
-        user_data = request.data.get('userCustom')
-        user_serializer = CustomUserSerializer(data=user_data)
+        user_serializer = CustomUserSerializer(data=request.data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='owner')
-            owner_data = request.data
-            owner_data['userCustom'] = user.username
-            owner_serializer = OwnerSerializer(data=owner_data)
+            ownerData = request.data.dict()
+            ownerData["userCustom"] = user.username
+            owner_serializer = OwnerSerializer(data=ownerData)
             if owner_serializer.is_valid():
                 owner_serializer.save()
                 return Response(owner_serializer.data, status=201)
@@ -39,7 +37,7 @@ class OwnerCreateView(APIView):
 
 
 class OwnerUpdateView(APIView):
-    def post(self, request, pk):
+    def put(self, request, pk):
         owner = Owner.objects.get(pk=pk)
         serializer = OwnerSerializer(owner, data=request.data)
         if serializer.is_valid():
@@ -50,5 +48,7 @@ class OwnerUpdateView(APIView):
 class OwnerDeleteView(APIView):
     def delete(self, request, pk):
         owner = Owner.objects.get(pk=pk)
+        user = CustomUser.objects.get(username=owner.userCustom)
         owner.delete()
+        user.delete()
         return Response('Owner deleted')

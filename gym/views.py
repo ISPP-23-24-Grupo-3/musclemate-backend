@@ -23,16 +23,13 @@ def gym_detail(request, id):
 @api_view(['POST'])
 def gym_create(request):
     if request.method == 'POST':
-        if request.user.rol != 'admin' and request.user.rol != 'owner':
+        if not request.user.is_staff and request.user.rol != 'owner':
             return Response('You are not authorized to create a gym')
-        user_data = request.data.get('userCustom')
-        user_serializer = CustomUserSerializer(data=user_data)
+        user_serializer = CustomUserSerializer(data=request.data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='gym')
-            gym_data = request.data
+            gym_data = request.data.dict()
             gym_data['userCustom'] = user.username
-            owner = Owner.objects.get(userCustom=request.user.username)
-            gym_data['owner'] = owner.id
             gym_serializer = GymSerializer(data=gym_data)
             if gym_serializer.is_valid():
                 gym_serializer.save()
@@ -55,8 +52,10 @@ def gym_update(request, id):
 @api_view(['DELETE'])
 def gym_delete(request, id):
     gym = get_object_or_404(Gym, id=id)
+    user = get_object_or_404(CustomUser, username=gym.userCustom)
     if request.method == 'DELETE':
         gym.delete()
+        user.delete()
         return Response({'message': 'Gym deleted successfully'})
     else:
         return Response({'error': 'DELETE method required'}, status=400)
