@@ -11,7 +11,6 @@ class Workout(models.Model):
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     name = models.CharField(max_length=100,unique=True)
 
-    routine = models.ManyToManyField(Routine)
+    routine = models.ManyToManyField(Routine, blank=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     equipment = models.ManyToManyField(Equipment, blank=True)
-

@@ -6,19 +6,28 @@ class WorkoutSerializer(serializers.ModelSerializer):
     
     client_id = serializers.IntegerField(source='client.id', read_only=True)
     client_name = serializers.CharField(source='client.name', read_only=True)
-    routine_name = serializers.CharField(source='routine.name', read_only=True)
+    routine = serializers.PrimaryKeyRelatedField(many=True, queryset=Routine.objects.all(), required=False)
+    equipment = serializers.PrimaryKeyRelatedField(many=True, queryset=Equipment.objects.all(), required=False)
     equipment_name = serializers.CharField(source='equipment.name', read_only=True)
     equipment_brand = serializers.CharField(source='equipment.brand', read_only=True)
     equipment_serial_number = serializers.CharField(source='equipment.serial_number', read_only=True)
     equipment_muscular_group = serializers.CharField(source='equipment.muscular_group', read_only=True)
     equipment_description = serializers.CharField(source='equipment.description', read_only=True)
     equipment_id = serializers.IntegerField(source='equipment.id', read_only=True)
+    routine_name = serializers.CharField(source='routine.name', read_only=True)
+
     class Meta:
         model = Workout
         fields = ['id','name','client','client_id', 'client_name', 'routine_name', 'equipment_name',
                    'equipment_brand', 'equipment_serial_number', 'equipment_muscular_group',
-                     'equipment_description', 'equipment_id']
+                     'equipment_description', 'equipment_id', 'routine', 'equipment']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['routine'] = [routine.id for routine in instance.routine.all()] if instance.routine else None
+        ret['equipment'] = [equipment.id for equipment in instance.equipment.all()] if instance.equipment else None
+        return ret
+    
     def validate_client(self, value):
         """
         Comprobar si existe el cliente proporcionado.
