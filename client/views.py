@@ -1,10 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Client
+from .models import Client, Gym, CustomUser
+from owner.models import Owner
 from .serializers import ClientSerializer
 from rest_framework.permissions import BasePermission
-from gym.models import Gym
-from owner.models import Owner
 from user.serializers import CustomUserSerializer
 
 class IsGymOrOwner(BasePermission):
@@ -54,11 +53,14 @@ class ClientCreateView(APIView):
             user_serializer = CustomUserSerializer(data=request.data)
             if user_serializer.is_valid():
                 user = user_serializer.save(rol='client')
-                client_serializer = ClientSerializer(data=request.data)
+                clientData = request.data.dict()
+                clientData["user"] = user.username
+                client_serializer = ClientSerializer(data=clientData)
                 if client_serializer.is_valid():
-                    client_serializer.save(user=user)
+                    client_serializer.save()
                     return Response(client_serializer.data, status=201)
                 else:
+                    CustomUser.objects.get(username = user.username).delete()
                     return Response(client_serializer.errors, status=400)
             else:
                 return Response(user_serializer.errors, status=400)
@@ -83,7 +85,9 @@ class ClientDeleteView(APIView):
     def delete(self, request, pk):
         if IsGymOrOwner().has_permission(request):
             client = Client.objects.get(pk=pk)
+            user = CustomUser.objects.get(username=client.user)
             client.delete()
+            user.delete()
             return Response('Client deleted')
         else:
             return Response(status=403)
