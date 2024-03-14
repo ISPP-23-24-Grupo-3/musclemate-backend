@@ -7,7 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 from owner.models import Owner
 from .models import Ticket
 from .serializers import TicketSerializer, TicketViewSerializer, TicketUpdateSerializer
-from rest_framework.permissions import IsAuthenticated
 from client.models import Client
 from user.models import CustomUser
 from equipment.models import Equipment
@@ -31,14 +30,14 @@ def getGymFromUser(username):
 def clientAuthority(user, client):
     has_authority = False
     if user.rol == "client":
-            if getClientFromUser(user).id == client.id:
-                has_authority=True
+        if getClientFromUser(user).id == client.id:
+            has_authority=True
     elif user.rol == "owner":
-            if getOwnerFromUser(user).id == client.gym.owner.id:
-                has_authority=True
+        if getOwnerFromUser(user).id == client.gym.owner.id:
+            has_authority=True
     elif user.rol == "gym":
-            if getGymFromUser(user).id == client.gym.id:
-                has_authority=True
+        if getGymFromUser(user).id == client.gym.id:
+            has_authority=True
     return has_authority
 
 @permission_classes([IsAuthenticated])
@@ -68,17 +67,17 @@ class TicketListByClientView(APIView):
         else:
             return Response(status=403)
 
-@permission_classes([IsAuthenticated])        
+@permission_classes([IsAuthenticated])
 class TicketListByEquipmentView(APIView):
 
     def equipmentAuthority(self, user, equipment):
         has_authority = False
         if user.rol == "owner":
-                if getOwnerFromUser(user).id == equipment.gym.owner.id:
-                    has_authority=True
+            if getOwnerFromUser(user).id == equipment.gym.owner.id:
+                has_authority=True
         elif user.rol == "gym":
-                if getGymFromUser(user).id == equipment.gym.id:
-                    has_authority=True
+            if getGymFromUser(user).id == equipment.gym.id:
+                has_authority=True
         return has_authority
     
     def get(self, request, equipmentId):
