@@ -12,6 +12,12 @@ class WorkoutSerializer(serializers.ModelSerializer):
         model = Workout
         fields = ['id','name','client_id', 'client_name', 'routine', 'equipment']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['routine'] = [routine.id for routine in instance.routine.all()] if instance.routine else None
+        ret['equipment'] = [equipment.id for equipment in instance.equipment.all()] if instance.equipment else None
+        return ret
+    
     def validate_client(self, value):
         """
         Comprobar si existe el cliente proporcionado.
