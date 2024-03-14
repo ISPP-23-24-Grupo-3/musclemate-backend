@@ -102,7 +102,7 @@ class TicketCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@permission_classes([IsAuthenticated])    
+@permission_classes([IsAuthenticated])
 class TicketDetailView(APIView):
     def get(self, request,pk):
         ticket = Ticket.objects.get(pk=pk)
@@ -131,6 +131,7 @@ class TicketUpdateView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class TicketDeleteView(APIView):
     def get_object(self, pk):
         try:
