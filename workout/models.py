@@ -14,3 +14,6 @@ class Workout(models.Model):
     routine = models.ManyToManyField(Routine, blank=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     equipment = models.ManyToManyField(Equipment, blank=True)
+
+    def __str__(self):
+        return f"Workout - {self.name}, {self.client.name} {self.client.lastName} ({self.id})"

@@ -29,4 +29,4 @@ class Equipment(models.Model):
         unique_together = ('serial_number', 'gym')
 
     def __str__(self):
-        return self.name
+        return f"Equipment - {self.name}, {self.brand} ({self.id})"

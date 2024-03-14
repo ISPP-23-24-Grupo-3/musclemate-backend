@@ -2,7 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Ticket
-from .serializers import TicketSerializer, TicketViewSerializer
+from .serializers import TicketSerializer, TicketViewSerializer, TicketUpdateSerializer
+from rest_framework.permissions import IsAuthenticated
+from client.models import Client
+from user.models import CustomUser
 
 class TicketListView(APIView):
     def get(self, request):
@@ -11,10 +14,13 @@ class TicketListView(APIView):
         return Response(serializer.data)
 
 class TicketCreateView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
+        request_user = CustomUser.objects.get(username=request.user)
+        client = Client.objects.get(user=request_user)
         serializer = TicketSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(client=client, gym=client.gym)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -33,7 +39,7 @@ class TicketUpdateView(APIView):
 
     def put(self, request, pk):
         ticket = self.get_object(pk)
-        serializer = TicketSerializer(ticket, data=request.data)
+        serializer = TicketUpdateSerializer(ticket, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -5,8 +5,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .models import Workout, Client, Equipment, Routine
 from .serializers import WorkoutSerializer
-from rest_framework.permissions import IsAuthenticated
-
 
 class WorkoutListView(APIView):
     def get(self, request):
