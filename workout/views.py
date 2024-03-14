@@ -1,16 +1,15 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .models import Workout, Client, Equipment, Routine
 from .serializers import WorkoutSerializer
 
 class WorkoutListView(APIView):
     def get(self, request):
-        if(request.user.is_authenticated):
+        if request.user.is_authenticated:
             workouts = Workout.objects.filter(client__user=request.user)
-        if(request.user.is_superuser):
+        if request.user.is_superuser:
             workouts = Workout.objects.all()
         serializer=WorkoutSerializer(workouts,many=True)
         return Response(serializer.data)
