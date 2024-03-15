@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Workout
-from .serializers import WorkoutSerializer
+from .serializers import WorkoutSerializer, WorkoutCreateSerializer
 
 class WorkoutListView(APIView):
     def get(self, request):
@@ -19,7 +19,7 @@ class WorkoutDetailView(APIView):
 
 class WorkoutCreateView(APIView):
     def post(self, request):
-        serializer = WorkoutSerializer(data=request.data)
+        serializer = WorkoutCreateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -28,9 +28,9 @@ class WorkoutCreateView(APIView):
 
 
 class WorkoutUpdateView(APIView):
-    def post(self, request, pk):
+    def put(self, request, pk):
         workout = Workout.objects.get(pk=pk)
-        serializer = WorkoutSerializer(workout, data=request.data)
+        serializer = WorkoutCreateSerializer(workout, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

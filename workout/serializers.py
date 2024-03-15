@@ -12,6 +12,11 @@ class WorkoutSerializer(serializers.ModelSerializer):
         model = Workout
         fields = ['id','name','client_id', 'client_name', 'routine', 'equipment']
 
+class WorkoutCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Workout
+        fields = ['id', 'name', 'routine', 'equipment', 'client']
+
     def validate_client(self, value):
         """
         Comprobar si existe el cliente proporcionado.
