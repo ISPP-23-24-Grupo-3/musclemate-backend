@@ -45,7 +45,6 @@ class WorkoutCreateView(APIView):
                         if equipment_exists:
                             equipment = Equipment.objects.get(id=equipment_id)
                             if client.gym != equipment.gym:
-                                print("Equipment check failed")
                                 return Response({'message': 'You are not allowed to create a workout with this equipment or routine'}, status=401)
 
                     for routine_id in routine_ids:
@@ -54,21 +53,17 @@ class WorkoutCreateView(APIView):
                         if routine_exists:
                             routine = Routine.objects.get(id=routine_id)
                             if client != routine.client:
-                                print("Routine check failed")
                                 return Response({'message': 'You are not allowed to create a workout with this equipment or routine'}, status=401)
 
                     serializer.save()
-                    print("Workout created successfully")
                     return Response(serializer.data, status=201)
 
                 else:
                     # Handle case when both equipment and routine are empty
                     serializer.save()
-                    print("Workout created successfully with no equipment or routine")
                     return Response(serializer.data, status=201)
 
             else:
-                print("Validation failed")
                 return Response(serializer.errors, status=400)
         
         else:
