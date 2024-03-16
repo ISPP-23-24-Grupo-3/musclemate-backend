@@ -114,7 +114,7 @@ class WorkoutTests(TestCase):
         self.assertTrue(Workout.objects.filter(name='test4').exists())
         self.assertFalse(Workout.objects.filter(name='test3').exists())
         self.assertEqual(response.status_code, 200)
-    
+
     def test_workout_delete_view(self):
         request = self.factory.delete('/workouts/delete/{self.workout.id}/')
         force_authenticate(request, user=self.user)
@@ -128,7 +128,7 @@ class WorkoutTests(TestCase):
         response = WorkoutDetailView.as_view()(request, pk=self.workout.pk)
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data['message'], 'You are not allowed to see this workout')
-    
+
     def test_negative_workout_create_view_invalid_equipment(self):
         client = Client.objects.get(user=self.user)
         request = self.factory.post('/workouts/create/', data={'name': 'test3', 'client': client.id, 'equipment': [self.equipment.id]})
@@ -136,7 +136,7 @@ class WorkoutTests(TestCase):
         response = WorkoutCreateView.as_view()(request)
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data['message'], 'You are not allowed to create a workout with this equipment or routine')
-    
+
     def test_negative_workout_create_view_invalid_routine(self):
         client = Client.objects.get(user=self.user)
         request = self.factory.post('/workouts/', data={'name': 'test3', 'client': client.id, 'routine': [self.routine.id]})
@@ -144,7 +144,7 @@ class WorkoutTests(TestCase):
         response = WorkoutCreateView.as_view()(request)
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data['message'], 'You are not allowed to create a workout with this equipment or routine')
-    
+
     def test_negative_workout_update_view_unauthorized(self):
         client = Client.objects.get(user=self.user)
         request = self.factory.put('/workouts/update/{self.workout.id}/', data={'name': 'test4', 'client': client.id})
