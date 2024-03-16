@@ -7,11 +7,13 @@ from .serializers import WorkoutSerializer
 
 class WorkoutListView(APIView):
     def get(self, request):
-        if request.user.is_authenticated:
-            workouts = Workout.objects.filter(client__user=request.user)
+        workouts = Workout.objects.none()
         if request.user.is_superuser:
-            workouts = Workout.objects.all()
-        serializer=WorkoutSerializer(workouts,many=True)
+            workouts = Workout.objects.all()  # Establece un queryset vacío como valor inicial
+        elif request.user.is_authenticated:
+            workouts = Workout.objects.filter(client__user=request.user)
+        
+        serializer = WorkoutSerializer(workouts, many=True)
         return Response(serializer.data)
     
 class WorkoutDetailView(APIView):
