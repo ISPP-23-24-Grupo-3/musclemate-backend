@@ -8,23 +8,27 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
+@permission_classes([IsAuthenticated, IsAdminUser])
 class UserListView(APIView):
-
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
-    
+
+@permission_classes([IsAuthenticated])    
 class UserDetailView(APIView):
     def get(self, request, username):
-        user = CustomUser.objects.get(username=username)
-        serializer = CustomUserSerializer(user)
-        return Response(serializer.data)
+        if (request.user.username == username) or request.user.is_staff:
+            user = CustomUser.objects.get(username=username)
+            serializer = CustomUserSerializer(user)
+            return Response(serializer.data)
+        else:
+            return Response('You are not authorized to view this user')
 
+@permission_classes([IsAuthenticated, IsAdminUser])
 class UserCreateView(APIView):
-
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
@@ -32,6 +36,7 @@ class UserCreateView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
 
+@permission_classes([IsAuthenticated, IsAdminUser])
 class UserUpdateView(APIView):
     def put(self, request, username):
         user = CustomUser.objects.get(username=username)
@@ -39,16 +44,15 @@ class UserUpdateView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors,status=400)
        
-
+@permission_classes([IsAuthenticated, IsAdminUser])
 class UserDeleteView(APIView):
     def delete(self, request, pk):
         user = CustomUser.objects.get(pk=pk)
         user.delete()
         return Response('User deleted')
     
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
