@@ -6,6 +6,8 @@ from .models import Workout
 from client.models import Client
 from .serializers import SerieSerializer
 from rest_framework.permissions import BasePermission
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 
 class IsGymOrOwner(BasePermission):
@@ -21,6 +23,7 @@ class SerieListView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class SerieListByWorkoutView(APIView):
     def get(self, request,pk):
         if request.user.rol == 'client':
@@ -36,6 +39,7 @@ class SerieListByWorkoutView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class SerieDetailView(APIView):
     def get(self, request,pk):
         if request.user.rol == 'client':
@@ -50,31 +54,27 @@ class SerieDetailView(APIView):
         else:
             return Response(status=403)
 
-
-
-
-
+@permission_classes([IsAuthenticated])
 class SerieCreateView(APIView):
     def post(self, request):
-        serializer = SerieSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        clientIdByWorkout=Workout.objects.get(pk=request.data.get('workout')).client.id
-        clientIdByUser=Client.objects.get(user=request.user).id
-        if clientIdByUser == clientIdByWorkout:
-            serializer = SerieSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=201)
+        if request.user.rol == "client":
+            clientIdByWorkout=Workout.objects.get(pk=request.data.get('workout')).client.id
+            clientIdByUser=Client.objects.get(user=request.user).id
+            if clientIdByUser == clientIdByWorkout:
+                serializer = SerieSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=201)
+                else:
+                    return Response(serializer.errors, status=400)
             else:
-                return Response(serializer.errors, status=400)
+                return Response(status=403)
         else:
             return Response(status=403)
 
-
+@permission_classes([IsAuthenticated])
 class SerieUpdateView(APIView):
-    def post(self, request, pk):
+    def put(self, request, pk):
         if request.user.rol == 'client':
             clientIdByUser=Client.objects.get(user=request.user).id
             serie = Serie.objects.get(pk=pk)
@@ -90,8 +90,7 @@ class SerieUpdateView(APIView):
         else:
             return Response('rol is not Client',status=403)
 
-
-
+@permission_classes([IsAuthenticated])
 class SerieDeleteView(APIView):
     def delete(self, request, pk):
         if request.user.rol == 'client':
