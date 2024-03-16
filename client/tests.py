@@ -33,7 +33,7 @@ class ClientTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_client_detail_view(self):
-        request = self.factory.get('/clients/')
+        request = self.factory.get('/clients/detail/')
         view = ClientDetailView.as_view()
         response = view(request, pk=self.client1.pk)
         self.assertEqual(response.status_code, 200)

@@ -25,3 +25,6 @@ class Event(models.Model):
     isNotice = models.BooleanField()
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Event - {self.name}, {self.gym.name} ({self.id})"

@@ -14,3 +14,6 @@ class Serie(models.Model):
 
 
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Serie - {self.workout.name}, {self.date} ({self.id})"

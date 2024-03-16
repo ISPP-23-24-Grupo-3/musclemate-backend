@@ -19,4 +19,4 @@ class Routine(models.Model):
         unique_together = ('name', 'client')
 
     def __str__(self):
-        return self.name
+        return f"Routine - {self.name}, {self.client.name} {self.client.lastName} ({self.id})"
