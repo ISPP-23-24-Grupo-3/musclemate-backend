@@ -89,7 +89,7 @@ class WorkoutTests(TestCase):
         response = WorkoutListView.as_view()(request)
         self.assertEqual(len(response.data), 2)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_workout_detail_view(self):
         request = self.factory.get('/workouts/detail/{self.workout.id}')
         client = Client.objects.get(user=self.user)
