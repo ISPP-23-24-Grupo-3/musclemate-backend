@@ -57,11 +57,10 @@ jobs:
           python manage.py loaddata user owner gym client equipment ticket workout routine serie assessment event reservation
       - name: Run tests
         run: |
-          pwd
           coverage run --branch --source=. ./manage.py test --keepdb
           coverage xml
       - name: Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: musclemate-backend/coverage.xml
+          coverage-reports: coverage.xml
