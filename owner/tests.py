@@ -7,7 +7,7 @@ from .views import OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateV
 class OwnerAPITestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.user = CustomUser.objects.create(username='testuser', email='test@example.com', 
+        self.user = CustomUser.objects.create(username='testuser', email='test@example.com',
             rol='owner', password='testpassword')
         self.user1 = CustomUser.objects.create(username='test_user_1', email='test1@example.com',
             rol='owner',password='testpassword')

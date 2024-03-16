@@ -54,7 +54,7 @@ class ClientTests(TestCase):
         view = ClientDetailView.as_view()
         response = view(request, pk=self.client1.pk)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_client_detail_view_how_owner(self):
         request = self.factory.get('/clients/detail/')
         force_authenticate(request, user=self.userOwner)
