@@ -18,8 +18,8 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
-     path('owners/', views.OwnerListView.as_view(), name='owner_list'),
-    path('owners/detail/<int:pk>', views.OwnerDetailView.as_view(), name='owner_detail'),
+    path('owners/', views.OwnerListView.as_view(), name='owner_list'),
+    path('owners/detail/<int:pk>/', views.OwnerDetailView.as_view(), name='owner_detail'),
     path('owners/create/', views.OwnerCreateView.as_view(), name='owner_create'),
     path('owners/update/<int:pk>/', views.OwnerUpdateView.as_view(), name='owner_update'),
     path('owners/delete/<int:pk>/', views.OwnerDeleteView.as_view(), name='owner_delete'),
