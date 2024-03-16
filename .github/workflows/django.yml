@@ -57,6 +57,7 @@ jobs:
           python manage.py loaddata user owner gym client equipment ticket workout routine serie assessment event reservation
       - name: Run tests
         run: |
+          pwd
           coverage run --branch --source=. ./manage.py test --keepdb
           coverage xml
       - name: Codacy Coverage Reporter
