@@ -1,13 +1,11 @@
 from django.test import TestCase
 from rest_framework.test import force_authenticate
-from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from .views import WorkoutListView, WorkoutDetailView, WorkoutCreateView, WorkoutUpdateView, WorkoutDeleteView
 from .models import Workout, Client, Equipment, Routine
 from gym.models import Gym
 from user.models import CustomUser
 from owner.models import Owner
-from .serializers import WorkoutSerializer
 
 class WorkoutTests(TestCase):
 
@@ -47,16 +45,38 @@ class WorkoutTests(TestCase):
             owner=Owner.objects.get(name=cls.owner.name),
             userCustom=CustomUser.objects.get(pk=cls.user3.pk)
         )
-        cls.client = Client.objects.create(user=cls.user, gym=cls.gym, name='test', lastName='user', email='test@gmail.com', zipCode=12345, phoneNumber=1234567890, address='1234 Test St', city='Test City', register=True)
-        cls.client2 = Client.objects.create(user=cls.user1, gym=cls.gym, name='test2', lastName='user2', email='test3@gmail.com0', zipCode=12345, phoneNumber=1234567890, address='1234 Test St', city='Test City', register=True)
+        cls.client = Client.objects.create(
+            user=cls.user,
+            gym=cls.gym,
+            name='test',
+            lastName='user',
+            email='test@gmail.com',
+            zipCode=12345,
+            phoneNumber=1234567890,
+            address='1234 Test St',
+            city='Test City',
+            register=True
+        )
+        cls.client2 = Client.objects.create(
+            user=cls.user1,
+            gym=cls.gym,
+            name='test2',
+            lastName='user2',
+            email='test3@gmail.com0',
+            zipCode=12345,
+            phoneNumber=1234567890,
+            address='1234 Test St',
+            city='Test City',
+            register=True
+        )
         cls.workout = Workout.objects.create(name='test',client=cls.client)
         cls.workout2 = Workout.objects.create(name='test2',client=cls.client2)
         cls.equipment = Equipment.objects.create(name='test', gym=cls.gym2 )
         cls.routine = Routine.objects.create(name='test', client=cls.client2)
-    
+
     def test_workout_list_view_authenticated_user(self):
-        request = self.factory.get('/workouts/') 
-        force_authenticate(request, user=self.user) 
+        request = self.factory.get('/workouts/')
+        force_authenticate(request, user=self.user)
         view = WorkoutListView.as_view()
         response = view(request)
         self.assertEqual(len(response.data), 1)
