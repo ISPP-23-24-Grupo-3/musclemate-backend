@@ -38,7 +38,7 @@ class ClientTests(TestCase):
         view = ClientListView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 200)
-    
+
     #test del list by gym id view
     def test_client_list__by_gymId_view_how_gym(self):
         request = self.factory.get('/clients/')
