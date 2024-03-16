@@ -5,7 +5,7 @@ on:
     branches:
       - develop
       - main
-      - CI/38-github-actions
+      - BugFix/152-migrations-actions
   pull_request:
     branches:
       - develop
