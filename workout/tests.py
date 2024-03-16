@@ -81,7 +81,7 @@ class WorkoutTests(TestCase):
         response = view(request)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_workout_list_view_superuser(self):
         request = self.factory.get('/workouts/')
         self.user.is_superuser = True
@@ -93,7 +93,7 @@ class WorkoutTests(TestCase):
     def test_workout_detail_view(self):
         request = self.factory.get('/workouts/detail/{self.workout.id}')
         client = Client.objects.get(user=self.user)
-        force_authenticate(request, user=self.user) 
+        force_authenticate(request, user=self.user)
         response = WorkoutDetailView.as_view()(request, pk=self.workout.pk)
         self.assertEqual(response.data.get('client_id'), client.id)
         self.assertEqual(response.status_code, 200)
