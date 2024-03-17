@@ -76,6 +76,7 @@ class ClientTests(TestCase):
         response = view(request, pk=self.client1.pk)
         self.assertEqual(response.status_code, 200)
 
+    #test del detail view by username
     def test_client_detail_username_view_how_client(self):
         request = self.factory.get('/clients/detail/')
         force_authenticate(request, user=self.userClient)
