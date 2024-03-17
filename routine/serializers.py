@@ -7,3 +7,9 @@ class RoutineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Routine
         fields = '__all__'
+
+class RoutineCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Routine
+        fields = ['name']
