@@ -61,7 +61,7 @@ class ClientUsernameDetailView(APIView):
             serializer=ClientSerializer(client)
             return Response(serializer.data,status=200)
         else:
-            return Response(status=403)        
+            return Response(status=403)
     
 class ClientCreateView(APIView):
     def post(self, request):
