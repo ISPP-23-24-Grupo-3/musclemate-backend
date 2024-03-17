@@ -50,7 +50,7 @@ class ClientTests(TestCase):
         response = view(request)
         self.assertEqual(response.status_code, 201)
 
-    
+
     #test update view
     def test_routine_update_view_how_client(self):
         data = {'name': 'Updated Routine', 'client':self.client.pk}
