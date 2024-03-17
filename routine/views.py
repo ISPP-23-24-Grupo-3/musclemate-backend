@@ -1,20 +1,27 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
-from user.models import CustomUser
 from .models import Routine,Client
-from .serializers import RoutineSerializer
+from .serializers import RoutineSerializer, RoutineCreateSerializer
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 @permission_classes([IsAuthenticated])
 class RoutineListView(APIView):
     def get(self, request):
-        if request.user.rol=='client':
-            user = CustomUser.objects.get(username=request.user)
-            client = Client.objects.get(user=user)
-            routines = Routine.objects.filter(client=client)
+        if request.user.rol=='gym' or request.user.rol=='owner':
+            routines = Routine.objects.all()
+            serializer = RoutineSerializer(routines, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
+@permission_classes([IsAuthenticated])
+class RoutineListByClientView(APIView):
+    def get(self, request,clientId):
+        clientIdByUser = Client.objects.get(user=request.user).id if request.user.rol == 'client' else ""
+        if request.user.rol=='gym' or request.user.rol=='owner' or clientId==clientIdByUser:
+            routines = Routine.objects.filter(client=clientId)
             serializer = RoutineSerializer(routines, many=True)
             return Response(serializer.data)
         else:
@@ -39,15 +46,12 @@ class RoutineDetailView(APIView):
 class RoutineCreateView(APIView):
     def post(self, request):
         if request.user.rol=='client':
-            clientIdByUser=f"{Client.objects.get(user=request.user).id}"
-            if request.user.rol=='client' and request.data.get('client')==clientIdByUser:
-                serializer = RoutineSerializer(data=request.data)
-                if serializer.is_valid():
-                    serializer.save()
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response(status=403)
+            clientIdByUser = Client.objects.get(user=request.user)
+            serializer = RoutineCreateSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(client=clientIdByUser)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=403)
 
