@@ -4,7 +4,7 @@ from gym.models import Gym
 from owner.models import Owner
 from user.models import CustomUser
 from .models import Client
-from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView
+from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
 
 class ClientTests(TestCase):
     def setUp(self):
@@ -74,6 +74,13 @@ class ClientTests(TestCase):
         force_authenticate(request, user=self.userOwner)
         view = ClientDetailView.as_view()
         response = view(request, pk=self.client1.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_client_detail_username_view_how_client(self):
+        request = self.factory.get('/clients/detail/')
+        force_authenticate(request, user=self.userClient)
+        view = ClientUsernameDetailView.as_view()
+        response = view(request, username=self.userClient.username)
         self.assertEqual(response.status_code, 200)
 
     #test create view

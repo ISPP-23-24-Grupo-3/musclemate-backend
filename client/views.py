@@ -46,6 +46,22 @@ class ClientDetailView(APIView):
             return Response(serializer.data,status=200)
         else:
             return Response(status=403)
+
+class ClientUsernameDetailView(APIView):
+    def get(self, request,username):
+        if request.user.rol=='client':
+            client=Client.objects.get(user=request.user.username)
+            if client.user.username==username:
+                serializer=ClientSerializer(client)
+                return Response(serializer.data,status=200)
+            else:
+                return Response(status=403)
+        elif IsGymOrOwner().has_permission(request):
+            client = Client.objects.get(user=request.user.username)
+            serializer=ClientSerializer(client)
+            return Response(serializer.data,status=200)
+        else:
+            return Response(status=403)
     
 class ClientCreateView(APIView):
     def post(self, request):
