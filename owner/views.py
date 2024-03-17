@@ -21,12 +21,13 @@ class OwnerDetailView(APIView):
 
 class OwnerCreateView(APIView):
     def post(self, request):
-        user_serializer = CustomUserSerializer(data=request.data)
+        user_data = request.data.get('userCustom')
+        user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='owner')
-            ownerData = request.data.dict()
-            ownerData["userCustom"] = user.username
-            owner_serializer = OwnerSerializer(data=ownerData)
+            owner_data = request.data
+            owner_data['userCustom'] = user.username
+            owner_serializer = OwnerSerializer(data=owner_data)
             if owner_serializer.is_valid():
                 owner_serializer.save()
                 return Response(owner_serializer.data, status=201)
@@ -34,7 +35,6 @@ class OwnerCreateView(APIView):
                 return Response(owner_serializer.errors, status=400)
         else:
             return Response(user_serializer.errors, status=400)
-
 
 class OwnerUpdateView(APIView):
     def put(self, request, pk):
