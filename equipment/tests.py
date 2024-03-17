@@ -38,8 +38,8 @@ class ClientTests(TestCase):
         view = EquipmentListView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 200)
-    
-    def test_equipment_list_view_how_owner(self):
+
+    def test_equipment_list_view_how_client(self):
         request = self.factory.get('/equipments/')
         force_authenticate(request, user=self.userClient)
         view = EquipmentListView.as_view()
