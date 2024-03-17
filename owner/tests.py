@@ -32,9 +32,9 @@ class OwnerAPITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_owner_create_view(self):
-        data = {'name':'John','lastName':'Doe','email':'john.doe1@example.com','phoneNumber':123456789,
-                'address':'123 Owner St','username': 'jaime99','password': 'yourpassword'}
-        request = self.factory.post('/owners/create/', data)
+        data = {"name": "John","lastName": "Doe","email": "foo@bar.com","phoneNumber": 614869725,
+            "address": "Fake st","userCustom": {"username": "testOwner","password": "musclemate123"}}
+        request = self.factory.post('/owners/create/', data, format='json')
         response = OwnerCreateView.as_view()(request)
         self.assertEqual(response.status_code, 201)
 

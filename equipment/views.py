@@ -90,7 +90,7 @@ class EquipmentDeleteView(APIView):
     def delete(self, request, pk):
         equipment = self.get_object(pk)
         owner = get_object_or_404(Owner, userCustom=request.user)
-        gym = get_object_or_404(Gym, id=equipment.gym)
+        gym = get_object_or_404(Gym, id=equipment.gym.id)
         if gym.owner == owner:
             equipment.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -98,14 +98,26 @@ class EquipmentDeleteView(APIView):
             return Response({'message': "Please authenticate as the provided gym's owner"}, status=401)
 
 class EquipmentObtainTime(APIView):
+    def get_object(self, pk):
+        try:
+            return Equipment.objects.get(pk=pk)
+        except Equipment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
     def get(self, request, pk):
-        equipment = Equipment.objects.get(pk=pk)
-        workouts = []
-        timer = 0
-        for workout in Workout.objects.all():
-            if equipment in workout.equipment.all():
-                workouts.append(workout)
-        for serie in Serie.objects.all():
-            if serie.workout in workouts:
-                timer += serie.duration
-        return Response({"time": timer}, status=status.HTTP_200_OK)
+        equipment = self.get_object(pk)
+        owner = get_object_or_404(Owner, userCustom=request.user)
+        gym = get_object_or_404(Gym, id=equipment.gym.id)
+        if gym.owner == owner:
+            equipment = Equipment.objects.get(pk=pk)
+            workouts = []
+            timer = 0
+            for workout in Workout.objects.all():
+                if equipment in workout.equipment.all():
+                    workouts.append(workout)
+            for serie in Serie.objects.all():
+                if serie.workout in workouts:
+                    timer += serie.duration
+            return Response({"time": timer}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': "Please authenticate as the provided gym's owner"}, status=401)

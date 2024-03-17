@@ -75,7 +75,11 @@ class ClientCreateView(APIView):
             client_data = request.data
             client_data['user'] = user.username  # Pass the primary key of the user
             client_serializer = ClientSerializer(data=client_data)
-            gym = Gym.objects.get(userCustom=request.user.username)
+            if request.user.rol == 'gym':
+                gym = Gym.objects.get(userCustom=request.user.username)
+            elif request.user.rol == 'owner':
+                owner=Owner.objects.get(userCustom=request.user.username)
+                gym = Gym.objects.get(owner=owner)
             client_data['gym'] = gym.id
             client_data['register'] = True
             client_serializer = ClientSerializer(data=client_data)
