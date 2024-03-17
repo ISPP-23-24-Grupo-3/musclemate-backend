@@ -65,23 +65,27 @@ class ClientUsernameDetailView(APIView):
     
 class ClientCreateView(APIView):
     def post(self, request):
-        if IsGymOrOwner().has_permission(request):
-            user_serializer = CustomUserSerializer(data=request.data)
-            if user_serializer.is_valid():
-                user = user_serializer.save(rol='client')
-                clientData = request.data.dict()
-                clientData["user"] = user.username
-                client_serializer = ClientSerializer(data=clientData)
-                if client_serializer.is_valid():
-                    client_serializer.save()
-                    return Response(client_serializer.data, status=201)
-                else:
-                    CustomUser.objects.get(username = user.username).delete()
-                    return Response(client_serializer.errors, status=400)
+        if request.user.rol == 'client':
+            return Response('You are not authorized to create a client')
+    
+        user_data = request.data.get('userCustom')
+        user_serializer = CustomUserSerializer(data=user_data)
+        if user_serializer.is_valid():
+            user = user_serializer.save(rol='client')
+            client_data = request.data
+            client_data['user'] = user.username  # Pass the primary key of the user
+            client_serializer = ClientSerializer(data=client_data)
+            gym = Gym.objects.get(userCustom=request.user.username)
+            client_data['gym'] = gym.id
+            client_data['register'] = True
+            client_serializer = ClientSerializer(data=client_data)
+            if client_serializer.is_valid():
+                client_serializer.save(user=user)
+                return Response(client_serializer.data, status=201)
             else:
-                return Response(user_serializer.errors, status=400)
+                return Response(client_serializer.errors, status=400)
         else:
-            return Response(status=403)
+            return Response(user_serializer.errors, status=400)
 
 class ClientUpdateView(APIView):
     def put(self, request, pk):

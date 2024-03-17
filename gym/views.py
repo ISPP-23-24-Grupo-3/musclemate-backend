@@ -34,14 +34,18 @@ def gym_detail(request, id):
         return Response({'message': "Please authenticate as this gym's owner"}, status=401)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated, IsGymOwner])
 def gym_create(request):
     if request.method == 'POST':
-        user_serializer = CustomUserSerializer(data=request.data)
+        if request.user.rol != 'admin' and request.user.rol != 'owner':
+            return Response('You are not authorized to create a gym')
+        user_data = request.data.get('userCustom')
+        user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='gym')
-            gym_data = request.data.dict()
+            gym_data = request.data
             gym_data['userCustom'] = user.username
+            owner = Owner.objects.get(userCustom=request.user.username)
+            gym_data['owner'] = owner.id
             gym_serializer = GymSerializer(data=gym_data)
             if gym_serializer.is_valid():
                 gym_serializer.save()
