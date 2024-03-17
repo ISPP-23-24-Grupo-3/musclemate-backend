@@ -88,7 +88,7 @@ class ReservationCreateView(APIView):
             return Response(status=403)
 
 class ReservationUpdateView(APIView):
-    def post(self, request, pk):
+    def put(self, request, pk):
         if IsGymOrOwnerOrClient().has_permission(request,pk):
             reservation = Reservation.objects.get(pk=pk)
             serializer = ReservationSerializer(reservation, data=request.data)
