@@ -4,7 +4,7 @@ from gym.models import Gym
 from owner.models import Owner
 from user.models import CustomUser
 from .models import Routine,Client
-from .views import RoutineCreateView,RoutineDeleteView,RoutineDetailView,RoutineListByClientView,RoutineListView,RoutineUpdateView
+from .views import RoutineCreateView,RoutineDeleteView,RoutineDetailView,RoutineListView,RoutineUpdateView
 
 class ClientTests(TestCase):
     def setUp(self):
@@ -24,41 +24,11 @@ class ClientTests(TestCase):
         self.routine=Routine.objects.create(name= 'rutina pecho',client= self.client)
 
     #test del list view
-    def test_routine_list_view_how_gym(self):
+    def test_routine_list_view_how_client(self):
         request = self.factory.get('/routines/')
-        force_authenticate(request, user=self.userGym)
-        view = RoutineListView.as_view()
-        response = view(request)
-        self.assertEqual(response.status_code, 200)
-    
-    def test_routine_list_view_how_owner(self):
-        request = self.factory.get('/routines/')
-        force_authenticate(request, user=self.userOwner)
-        view = RoutineListView.as_view()
-        response = view(request)
-        self.assertEqual(response.status_code, 200)
-
-
-    #test del list by gym id view
-    def test_routine_list_by_clientId_view_how_gym(self):
-        request = self.factory.get('/routines/client/')
-        force_authenticate(request, user=self.userGym)
-        view = RoutineListByClientView.as_view()
-        response = view(request,clientId=self.client.id)
-        self.assertEqual(response.status_code, 200)
-
-    def test_routine_list_by_clientId_view_how_owner(self):
-        request = self.factory.get('/routines/client/')
-        force_authenticate(request, user=self.userOwner)
-        view = RoutineListByClientView.as_view()
-        response = view(request,clientId=self.client.id)
-        self.assertEqual(response.status_code, 200)
-
-    def test_routine_list_by_clientId_view_how_client(self):
-        request = self.factory.get('/routines/client/')
         force_authenticate(request, user=self.userClient)
-        view = RoutineListByClientView.as_view()
-        response = view(request,clientId=self.client.id)
+        view = RoutineListView.as_view()
+        response = view(request)
         self.assertEqual(response.status_code, 200)
 
 
