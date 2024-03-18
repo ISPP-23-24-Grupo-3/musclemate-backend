@@ -8,6 +8,7 @@ from .serializers import AssessmentSerializer
 from rest_framework import status
 from rest_framework.views import APIView
 
+@permission_classes([IsAuthenticated])
 class AssessmentListView(APIView):
     def get(self, request):
         if request.user.rol=='gym' or request.user.rol=='owner':
@@ -17,6 +18,7 @@ class AssessmentListView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class AssessmentListByClientView(APIView):
     def get(self, request,clientId):
         assessments = Assessment.objects.filter(client=clientId)
@@ -42,6 +44,7 @@ class AssessmentListByEquipmentView(APIView):
                 return Response(status=403)
         return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
 class AssessmentDetailView(APIView):
     def get(self, request,pk):
         assesment = Assessment.objects.get(pk=pk)
