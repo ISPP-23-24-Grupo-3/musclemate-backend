@@ -51,8 +51,7 @@ class SerieDetailView(APIView):
             else:
                 return Response(status=403)
         else:
-            return Response(status=403)  
-             
+            return Response(status=403)         
 @permission_classes([IsAuthenticated])
 class SerieCreateView(APIView):
     def post(self, request):
@@ -87,7 +86,7 @@ class SerieUpdateView(APIView):
             else:
                 return Response('clientId diferent of workoutClientId',status=403)
         else:
-            return Response('rol is not Client',status=403)       
+            return Response('rol is not Client',status=403)
 @permission_classes([IsAuthenticated])
 class SerieDeleteView(APIView):
     def delete(self, request, pk):
