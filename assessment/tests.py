@@ -4,7 +4,15 @@ from gym.models import Gym
 from owner.models import Owner
 from user.models import CustomUser
 from .models import Client,Assessment,Equipment
-from .views import AssessmentListView,AssessmentCreateView,AssessmentDeleteView,AssessmentDetailView,AssessmentUpdateView,AssessmentListByClientView,AssessmentListByEquipmentView
+from .views import (
+    AssessmentListView,
+    AssessmentCreateView,
+    AssessmentDeleteView,
+    AssessmentDetailView,
+    AssessmentUpdateView,
+    AssessmentListByClientView,
+    AssessmentListByEquipmentView
+)
 
 class AssessmentTestCase(TestCase):
     def setUp(self):

@@ -21,9 +21,9 @@ class AssessmentListView(APIView):
 @permission_classes([IsAuthenticated])
 class AssessmentListByClientView(APIView):
     def get(self, request,clientId):
-            assessments = Assessment.objects.filter(client=clientId)
-            serializer=AssessmentSerializer(assessments,many=True)
-            return Response(serializer.data)
+        assessments = Assessment.objects.filter(client=clientId)
+        serializer=AssessmentSerializer(assessments,many=True)
+        return Response(serializer.data)
 
 @permission_classes([IsAuthenticated])
 class AssessmentListByEquipmentView(APIView):
