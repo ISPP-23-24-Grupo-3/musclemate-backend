@@ -6,15 +6,13 @@ from user.models import CustomUser
 from .models import Client
 from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
 
-class ClientTests(TestCase):
+class SerieTestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
         self.userClient2 = CustomUser.objects.create(username='test_user_4', email='test4@example.com', rol='client')
-
-
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
             phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
