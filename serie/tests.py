@@ -4,9 +4,9 @@ from equipment.models import Equipment
 from gym.models import Gym
 from owner.models import Owner
 from routine.models import Routine
-from user.models import CustomUser
-from .models import Serie,Workout
 from.views import SerieListView, SerieDetailView, SerieCreateView, SerieDeleteView, SerieUpdateView
+from user.models import CustomUser
+from .models import Serie, Workout
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 class SerieTestCase(TestCase):
