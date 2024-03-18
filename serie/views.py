@@ -68,7 +68,7 @@ class SerieCreateView(APIView):
             else:
                 return Response(status=403)
         else:
-            return Response(status=403)      
+            return Response(status=403)
 @permission_classes([IsAuthenticated])
 class SerieUpdateView(APIView):
     def put(self, request, pk):
