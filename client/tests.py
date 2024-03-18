@@ -38,14 +38,14 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     #test del list by gym id view
-    def test_client_list__by_gymId_view_how_gym(self):
+    def test_client_list_by_gymId_view_how_gym(self):
         request = self.factory.get('/clients/')
         force_authenticate(request, user=self.userGym)
         view = ClientListByGymView.as_view()
         response = view(request,gymId=self.gym.id)
         self.assertEqual(response.status_code, 200)
 
-    def test_client_list__by_gymId_view_how_owner(self):
+    def test_client_list_by_gymId_view_how_owner(self):
         request = self.factory.get('/clients/')
         force_authenticate(request, user=self.userOwner)
         view = ClientListByGymView.as_view()
