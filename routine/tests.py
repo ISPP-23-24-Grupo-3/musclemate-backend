@@ -6,7 +6,7 @@ from user.models import CustomUser
 from .models import Routine,Client
 from .views import RoutineCreateView,RoutineDeleteView,RoutineDetailView,RoutineListView,RoutineUpdateView
 
-class ClientTests(TestCase):
+class RoutineTests(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
