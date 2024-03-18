@@ -1,4 +1,5 @@
 from equipment.models import Equipment
+from user.models import CustomUser
 from .models import Assessment,Client
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
@@ -7,6 +8,7 @@ from .serializers import AssessmentSerializer
 from rest_framework import status
 from rest_framework.views import APIView
 
+@permission_classes([IsAuthenticated])
 class AssessmentListView(APIView):
     def get(self, request):
         if request.user.rol=='gym' or request.user.rol=='owner':
@@ -16,12 +18,34 @@ class AssessmentListView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class AssessmentListByClientView(APIView):
     def get(self, request,clientId):
         assessments = Assessment.objects.filter(client=clientId)
         serializer=AssessmentSerializer(assessments,many=True)
         return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
+class AssessmentListByEquipmentView(APIView):
+    def get(self, request,equipmentId):
+        if request.user.rol=='client':
+            user = CustomUser.objects.get(username=request.user)
+            client = Client.objects.get(user=user)
+            if client.gym.id == Equipment.objects.get(pk=equipmentId).gym.id:
+                assessments = Assessment.objects.filter(client=client.id, equipment=equipmentId)
+                serializer=AssessmentSerializer(assessments,many=True)
+            else:
+                return Response(status=403)
+        elif request.user.rol=='owner' or request.user.rol=='gym':
+            if (Equipment.objects.get(pk=equipmentId).gym.userCustom == request.user
+            or Equipment.objects.get(pk=equipmentId).gym.owner.userCustom == request.user):
+                assessments = Assessment.objects.filter(equipment=equipmentId)
+                serializer=AssessmentSerializer(assessments,many=True)
+            else:
+                return Response(status=403)
+        return Response(serializer.data)
+
+@permission_classes([IsAuthenticated])
 class AssessmentDetailView(APIView):
     def get(self, request,pk):
         assesment = Assessment.objects.get(pk=pk)
