@@ -6,7 +6,7 @@ from owner.models import Owner
 from routine.models import Routine
 from user.models import CustomUser
 from .models import Serie,Workout
-from.views import SerieListView , SerieDetailView, SerieCreateView, SerieDeleteView, SerieUpdateView
+from.views import SerieListView , SerieDetailView , SerieCreateView , SerieDeleteView , SerieUpdateView
 from rest_framework.test import APIRequestFactory,force_authenticate
 
 class SerieTestCase(TestCase):
