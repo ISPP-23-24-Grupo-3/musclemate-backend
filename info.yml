@@ -1,5 +1,5 @@
 project:
-  name: 'ISPP-2024-L1-03'
+  name: 'ISPP-2024-L1-03-muscle-backend'
   owner: 'L1'
   teamId: '03'
   identities: {}
@@ -66,3 +66,4 @@ project:
       name: 'Alejandro'
       surname: 'Mateo Capilla' 
       githubUsername: 'AMC112002'
+
