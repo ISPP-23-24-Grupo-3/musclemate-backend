@@ -37,7 +37,8 @@ class AssessmentListByEquipmentView(APIView):
             else:
                 return Response(status=403)
         elif request.user.rol=='owner' or request.user.rol=='gym':
-            if Equipment.objects.get(pk=equipmentId).gym.userCustom == request.user or Equipment.objects.get(pk=equipmentId).gym.owner.userCustom == request.user:
+            if (Equipment.objects.get(pk=equipmentId).gym.userCustom == request.user
+            or Equipment.objects.get(pk=equipmentId).gym.owner.userCustom == request.user):
                 assessments = Assessment.objects.filter(equipment=equipmentId)
                 serializer=AssessmentSerializer(assessments,many=True)
             else:
