@@ -6,7 +6,7 @@ from user.models import CustomUser
 from .models import Client,Ticket,Equipment
 from .views import TicketCreateView,TicketListView,TicketDeleteView,TicketDetailView,TicketUpdateView,TicketListByClientView,TicketListByEquipmentView
 
-class ClientTests(TestCase):
+class TicketTests(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
