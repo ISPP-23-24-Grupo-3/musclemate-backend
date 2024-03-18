@@ -6,11 +6,10 @@ from owner.models import Owner
 from routine.models import Routine
 from user.models import CustomUser
 from .models import Serie,Workout
-from.views import SerieListView ,SerieDetailView,SerieCreateView,SerieDeleteView,SerieUpdateView
+from.views import SerieListView, SerieDetailView, SerieCreateView, SerieDeleteView, SerieUpdateView
 from rest_framework.test import APIRequestFactory,force_authenticate
 
 class SerieTestCase(TestCase):
-   
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
@@ -40,18 +39,18 @@ class SerieTestCase(TestCase):
         self.serie = Serie.objects.create(reps= 10, weight= 100, date= '2024-03-02',duration=10.3,workout=self.workout)
 
     def test_serie_list_view(self):
-            request = self.factory.get('/series/')
-            force_authenticate(request, user=self.userClient)
-            view = SerieListView.as_view()
-            response = view(request)
-            self.assertEqual(response.status_code, 200)
+        request = self.factory.get('/series/')
+        force_authenticate(request, user=self.userClient)
+        view = SerieListView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 200)
 
     def test_serie_detail_view(self):
-            request = self.factory.get('/series/detail/')
-            force_authenticate(request, user=self.userClient)
-            view = SerieDetailView.as_view()
-            response = view(request,pk=self.serie.pk)
-            self.assertEqual(response.status_code, 200)
+        request = self.factory.get('/series/detail/')
+        force_authenticate(request, user=self.userClient)
+        view = SerieDetailView.as_view()
+        response = view(request,pk=self.serie.pk)
+        self.assertEqual(response.status_code, 200)
 
     def test_serie_create_view(self):
         data = {'reps': 12, 'weight': 90, 'date': '2024-03-01','duration':12.8, 'workout':self.workout.pk}
@@ -70,8 +69,8 @@ class SerieTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_serie_delete_view(self):
-            request = self.factory.delete('/series/delete/')
-            force_authenticate(request, user=self.userClient)
-            view = SerieDeleteView.as_view()
-            response = view(request,pk=self.serie.pk)
-            self.assertEqual(response.status_code, 200)
+        request = self.factory.delete('/series/delete/')
+        force_authenticate(request, user=self.userClient)
+        view = SerieDeleteView.as_view()
+        response = view(request,pk=self.serie.pk)
+        self.assertEqual(response.status_code, 200)

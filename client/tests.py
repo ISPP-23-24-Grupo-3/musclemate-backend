@@ -6,9 +6,6 @@ from user.models import CustomUser
 from .models import Client
 from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
 
-from serie.views import SerieListView ,SerieDetailView,SerieCreateView,SerieDeleteView,SerieUpdateView
-from rest_framework.test import APIRequestFactory
-
 class SerieTestCase(TestCase):
    
     def setUp(self):
@@ -17,8 +14,6 @@ class SerieTestCase(TestCase):
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
         self.userClient2 = CustomUser.objects.create(username='test_user_4', email='test4@example.com', rol='client')
-
-
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
             phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
