@@ -24,7 +24,6 @@ def getOwnerFromUser(username):
 def getGymFromUser(username):
     user = CustomUser.objects.get(username=username)
     gym = Gym.objects.get(userCustom=user)
-    print(gym)
     return gym
 
 def clientAuthority(user, client):
@@ -45,12 +44,17 @@ class TicketListView(APIView):
     def get(self, request):
         if request.user.rol!="client":
             if request.user.rol=="owner":
-                gym = Gym.objects.filter(owner=getOwnerFromUser(request.user))
+                tickets=[]
+                gyms = Gym.objects.filter(owner=getOwnerFromUser(request.user)) #puede devolver varios gimnasios
+                for gym in gyms:
+                    tickets.extend(Ticket.objects.filter(gym=gym))
+                serializer = TicketViewSerializer(tickets, many=True)
+                return Response(serializer.data)
             else:
                 gym = getGymFromUser(request.user)
-            tickets = Ticket.objects.filter(gym__in=gym)
-            serializer = TicketViewSerializer(tickets, many=True)
-            return Response(serializer.data)
+                tickets = Ticket.objects.filter(gym=gym)
+                serializer = TicketViewSerializer(tickets, many=True)
+                return Response(serializer.data)
         else:
             return Response(status=403)
 
@@ -94,13 +98,16 @@ class TicketListByEquipmentView(APIView):
 class TicketCreateView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
-        request_user = CustomUser.objects.get(username=request.user)
-        client = Client.objects.get(user=request_user)
-        serializer = TicketSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(client=client, gym=client.gym)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.rol=='client':
+            request_user = CustomUser.objects.get(username=request.user)
+            client = Client.objects.get(user=request_user)
+            serializer = TicketSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(client=client, gym=client.gym)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=403)
 
 @permission_classes([IsAuthenticated])
 class TicketDetailView(APIView):
