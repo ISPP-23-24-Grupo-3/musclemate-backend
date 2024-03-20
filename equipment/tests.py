@@ -6,7 +6,7 @@ from user.models import CustomUser
 from .models import Equipment,Gym
 from .views import EquipmentCreateView,EquipmentDeleteView,EquipmentDetailView,EquipmentListView,EquipmentUpdateView,EquipmentObtainTime
 
-class ClientTests(TestCase):
+class EquipmentTests(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
