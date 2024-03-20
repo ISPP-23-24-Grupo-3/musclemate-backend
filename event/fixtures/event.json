@@ -13,8 +13,7 @@
             "duration": "01:30:00",
             "intensity": "L",
             "isNotice": false,
-            "gym": 216278,
-            "attendees":20
+            "gym": 216278
         }
     },
     {
@@ -31,8 +30,7 @@
             "duration": "01:30:00",
             "intensity": "H",
             "isNotice": true,
-            "gym": 216278,
-            "attendees":20
+            "gym": 216278
         }
     },
     {
@@ -49,8 +47,7 @@
             "duration": "01:15:00",
             "intensity": "M",
             "isNotice": false,
-            "gym": 540890,
-            "attendees":30
+            "gym": 540890
         }
     }
   ]

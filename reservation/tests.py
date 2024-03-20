@@ -53,7 +53,7 @@ class ReservationTests(TestCase):
 
     def test_reservation_update_view(self):
         data = {'client':self.client1.pk, 'event':self.event2.pk}
-        response = self.apiClient.post(f'/reservations/update/{self.reservation.pk}/', data=data)
+        response = self.apiClient.put(f'/reservations/update/{self.reservation.pk}/', data=data)
         self.assertEqual(response.status_code, 200)
 
     def test_reservation_delete_view(self):

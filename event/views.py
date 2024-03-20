@@ -5,8 +5,10 @@ from owner.models import Owner
 from .models import Event,Gym
 from reservation.models import Reservation
 from .serializers import EventSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
-
+@permission_classes([IsAuthenticated])
 class EventListView(APIView):
     def get(self, request):
         if request.user.rol=='gym' or request.user.rol=='owner':
@@ -15,7 +17,8 @@ class EventListView(APIView):
             return Response(serializer.data)
         else:
             return Response(status=403)
-        
+
+@permission_classes([IsAuthenticated])
 class EventListByGymView(APIView):
     def get(self, request,gymId):
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
@@ -28,6 +31,7 @@ class EventListByGymView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class EventListByClientView(APIView):
     def get(self, request, clientId):
         client = Client.objects.get(id = clientId)
@@ -45,7 +49,7 @@ class EventListByClientView(APIView):
         else:
             return Response(status=403)
 
-
+@permission_classes([IsAuthenticated])
 class EventDetailView(APIView):
     def get(self, request,pk):
         gymId=Event.objects.get(pk=pk).gym.id
@@ -59,7 +63,7 @@ class EventDetailView(APIView):
         else:
             return Response(status=403)
 
-
+@permission_classes([IsAuthenticated])
 class EventCreateView(APIView):
     def post(self, request):
         gymId=int(request.data.get('gym'))
@@ -75,9 +79,9 @@ class EventCreateView(APIView):
         else:
             return Response(status=403)
 
-
+@permission_classes([IsAuthenticated])
 class EventUpdateView(APIView):
-    def post(self, request, pk):
+    def put(self, request, pk):
         gym=Event.objects.get(pk=pk).gym
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gym.id) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
@@ -91,6 +95,7 @@ class EventUpdateView(APIView):
         else:
             return Response(status=403)
 
+@permission_classes([IsAuthenticated])
 class EventDeleteView(APIView):
     def delete(self, request, pk):
         gym=Event.objects.get(pk=pk).gym
