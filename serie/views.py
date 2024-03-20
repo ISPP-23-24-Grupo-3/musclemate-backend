@@ -9,14 +9,13 @@ from rest_framework.permissions import BasePermission
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-
 class IsGymOrOwner(BasePermission):
     def has_permission(self,request):
         return request.user.is_authenticated and (request.user.rol == 'gym' or request.user.rol == 'owner')
 
 class SerieListView(APIView):
     def get(self, request):
-        if IsGymOrOwner().has_permission(request):
+        if request.user.rol == 'client':
             series = Serie.objects.all()
             serializer=SerieSerializer(series,many=True)
             return Response(serializer.data)
@@ -53,7 +52,6 @@ class SerieDetailView(APIView):
                 return Response(status=403)
         else:
             return Response(status=403)
-
 @permission_classes([IsAuthenticated])
 class SerieCreateView(APIView):
     def post(self, request):
@@ -71,7 +69,6 @@ class SerieCreateView(APIView):
                 return Response(status=403)
         else:
             return Response(status=403)
-
 @permission_classes([IsAuthenticated])
 class SerieUpdateView(APIView):
     def put(self, request, pk):
@@ -89,7 +86,6 @@ class SerieUpdateView(APIView):
                 return Response('clientId diferent of workoutClientId',status=403)
         else:
             return Response('rol is not Client',status=403)
-
 @permission_classes([IsAuthenticated])
 class SerieDeleteView(APIView):
     def delete(self, request, pk):

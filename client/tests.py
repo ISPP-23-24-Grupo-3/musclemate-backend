@@ -4,23 +4,21 @@ from gym.models import Gym
 from owner.models import Owner
 from user.models import CustomUser
 from .models import Client
-from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView
+from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
 
-class ClientTests(TestCase):
+class SerieTestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
         self.userClient2 = CustomUser.objects.create(username='test_user_4', email='test4@example.com', rol='client')
-
-
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
             phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
             descripcion='Test Gym Description', zip_code=54321, email='gym@example.com',
             owner=self.owner, userCustom=self.userGym)
-        self.client1 = Client.objects.create(name='Client 1', lastName='Lastname 1', email='client1@example.com',
+        self.client = Client.objects.create(name='Client 1', lastName='Lastname 1', email='client1@example.com',
             birth='2000-01-01', zipCode=12345, gender='M', phoneNumber=123456789,address='123 Test St',
             city='Test City', register=True,user=self.userClient,gym=self.gym)
 
@@ -59,21 +57,29 @@ class ClientTests(TestCase):
         request = self.factory.get('/clients/detail/')
         force_authenticate(request, user=self.userClient)
         view = ClientDetailView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_client_detail_view_how_gym(self):
         request = self.factory.get('/clients/detail/')
         force_authenticate(request, user=self.userGym)
         view = ClientDetailView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_client_detail_view_how_owner(self):
         request = self.factory.get('/clients/detail/')
         force_authenticate(request, user=self.userOwner)
         view = ClientDetailView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
+        self.assertEqual(response.status_code, 200)
+
+    #test del detail view by username
+    def test_client_detail_username_view_how_client(self):
+        request = self.factory.get('/clients/detail/')
+        force_authenticate(request, user=self.userClient)
+        view = ClientUsernameDetailView.as_view()
+        response = view(request, username=self.userClient.username)
         self.assertEqual(response.status_code, 200)
 
     #test create view
@@ -81,19 +87,21 @@ class ClientTests(TestCase):
         data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
                 'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 123456789,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
-                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk}
-        request = self.factory.post('/clients/create/',data)
+                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
+                "userCustom": {"username": "testClient1","password": "musclemate123"}}
+        request = self.factory.post('/clients/create/',data,format='json')
         force_authenticate(request, user=self.userGym)
         view = ClientCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 201)
 
     def test_client_create_view_how_owner(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
+        data = {'name': 'New Client 2', 'lastName': 'New Lastname', 'email': 'newclient2@example.com',
                 'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 123456789,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
-                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk}
-        request = self.factory.post('/clients/create/',data)
+                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
+                "userCustom": {"username": "testClient2","password": "musclemate123"}}
+        request = self.factory.post('/clients/create/',data,format='json')
         force_authenticate(request, user=self.userOwner)
         view = ClientCreateView.as_view()
         response = view(request)
@@ -108,7 +116,7 @@ class ClientTests(TestCase):
         request = self.factory.put('/clients/update/',data)
         force_authenticate(request, user=self.userClient)
         view = ClientUpdateView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_client_update_view_how_gym(self):
@@ -119,7 +127,7 @@ class ClientTests(TestCase):
         request = self.factory.put('/clients/update/',data)
         force_authenticate(request, user=self.userGym)
         view = ClientUpdateView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_client_update_view_how_owner(self):
@@ -130,7 +138,7 @@ class ClientTests(TestCase):
         request = self.factory.put('/clients/update/',data)
         force_authenticate(request, user=self.userOwner)
         view = ClientUpdateView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
 
     #test delete view
@@ -138,12 +146,12 @@ class ClientTests(TestCase):
         request = self.factory.delete('/clients/')
         force_authenticate(request, user=self.userGym)
         view = ClientDeleteView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_client_delete_view_how_owner(self):
         request = self.factory.delete('/clients/')
         force_authenticate(request, user=self.userOwner)
         view = ClientDeleteView.as_view()
-        response = view(request, pk=self.client1.pk)
+        response = view(request, pk=self.client.pk)
         self.assertEqual(response.status_code, 200)
