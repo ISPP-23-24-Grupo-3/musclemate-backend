@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from client.models import Client
 from owner.models import Owner
 from .models import Event,Gym
+from reservation.models import Reservation
 from .serializers import EventSerializer
 
 
@@ -26,6 +27,24 @@ class EventListByGymView(APIView):
             return Response(serializer.data)
         else:
             return Response(status=403)
+
+class EventListByClientView(APIView):
+    def get(self, request, clientId):
+        client = Client.objects.get(id = clientId)
+        gymId = Gym.objects.get(id = client.gym.id).id
+        if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
+                request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
+                Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client'
+                and Client.objects.get(user=request.user).gym.id==gymId):
+            reservations = Reservation.objects.filter(client = client.id)
+            events = []
+            for reservation in reservations:
+                events.append(reservation.event)
+            serializer = EventSerializer(events,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
 
 class EventDetailView(APIView):
     def get(self, request,pk):
