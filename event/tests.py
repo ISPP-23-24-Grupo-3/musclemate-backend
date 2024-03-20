@@ -121,7 +121,7 @@ class EventAPITestCase(TestCase):
                 'attendees':15, 'instructor':'Jane Smith',
                 'date':'2024-03-02','isClickable':True,'duration':timedelta(hours=1.5),'intensity':'H',
                 'isNotice':True,'gym':self.gym.pk}
-        request = self.factory.post('/events/update/', data)
+        request = self.factory.put('/events/update/', data)
         force_authenticate(request, user=self.userGym)
         view = EventUpdateView.as_view()
         response = view(request, pk=self.event1.pk)
@@ -132,7 +132,7 @@ class EventAPITestCase(TestCase):
                 'attendees':15, 'instructor':'Jane Smith',
                 'date':'2024-03-02','isClickable':True,'duration':timedelta(hours=1.5),'intensity':'H',
                 'isNotice':True,'gym':self.gym.pk}
-        request = self.factory.post('/events/update/', data)
+        request = self.factory.put('/events/update/', data)
         force_authenticate(request, user=self.userOwner)
         view = EventUpdateView.as_view()
         response = view(request, pk=self.event1.pk)
