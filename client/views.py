@@ -12,13 +12,22 @@ class IsGymOrOwner(BasePermission):
 
 class ClientListView(APIView):
     def get(self, request):
-        if IsGymOrOwner().has_permission(request):
-            clients = Client.objects.all()
+        if request.user.rol == 'owner':
+            owner=Owner.objects.get(userCustom=request.user)
+            gyms=Gym.objects.filter(owner=owner)
+            clients=[]
+            for gym in gyms:
+                clients.extend(Client.objects.filter(gym=gym))
+            serializer=ClientSerializer(clients,many=True)
+            return Response(serializer.data)
+        elif request.user.rol == 'gym':
+            gym=Gym.objects.get(userCustom=request.user)
+            clients = Client.objects.filter(gym=gym)
             serializer=ClientSerializer(clients,many=True)
             return Response(serializer.data)
         else:
             return Response(status=403)
-        
+
 class ClientListByGymView(APIView):
     def get(self, request,gymId):
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
