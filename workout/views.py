@@ -9,13 +9,43 @@ from rest_framework.permissions import IsAuthenticated
 
 class WorkoutListView(APIView):
     def get(self, request):
-        if request.user.is_authenticated:
+        if request.user.rol=='client':
             workouts = Workout.objects.filter(client__user=request.user)
         if request.user.is_superuser:
             workouts = Workout.objects.all()
         serializer=WorkoutSerializer(workouts,many=True)
         return Response(serializer.data)
-    
+
+class WorkoutListByEquipmentListView(APIView):
+    def get(self, request,equipmentId):
+        if request.user.rol=='client':
+            equipment=Equipment.objects.get(pk=equipmentId)
+            workouts = Workout.objects.filter(equipment=equipment,client__user=request.user)
+            serializer=WorkoutSerializer(workouts,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
+class WorkoutListByRoutineListView(APIView):
+    def get(self, request,routineId):
+        if request.user.rol=='client':
+            routine=Routine.objects.get(pk=routineId)
+            workouts = Workout.objects.filter(routine=routine,client__user=request.user)
+            serializer=WorkoutSerializer(workouts,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
+class WorkoutListByClientListView(APIView):
+    def get(self, request,clientId):
+        if request.user.rol=='owner' or request.user.rol=='gym':
+            client=Client.objects.get(pk=clientId)
+            workouts = Workout.objects.filter(client=client)
+            serializer=WorkoutSerializer(workouts,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
 class WorkoutDetailView(APIView):
     def get(self, request,pk):
         workout = Workout.objects.get(pk=pk)
