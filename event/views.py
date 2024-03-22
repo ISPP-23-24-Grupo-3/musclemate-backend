@@ -11,12 +11,21 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([IsAuthenticated])
 class EventListView(APIView):
     def get(self, request):
-        if request.user.rol=='gym' or request.user.rol=='owner':
-            events = Event.objects.all()
-            serializer=EventSerializer(events,many=True)
-            return Response(serializer.data)
+        allEvents = Event.objects.all()
+        events = []
+        if request.user.rol=='owner':
+            gyms = Gym.objects.filter(owner = Owner.objects.get(userCustom = request.user))
+        elif request.user.rol=='gym':
+            gyms = Gym.objects.filter(userCustom = request.user)
+        elif request.user.rol=='client':
+            gyms = Gym.objects.filter(id = Client.objects.get(user = request.user).gym.id)
         else:
             return Response(status=403)
+        for event in allEvents:
+            if event.gym in gyms:
+                events.append(event)
+        serializer=EventSerializer(events,many=True)
+        return Response(serializer.data)
 
 @permission_classes([IsAuthenticated])
 class EventListByGymView(APIView):
