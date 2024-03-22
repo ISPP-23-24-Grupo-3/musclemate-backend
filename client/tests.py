@@ -6,13 +6,15 @@ from user.models import CustomUser
 from .models import Client
 from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
 
-class ClientTestCase(TestCase):
+class ClientTests(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
         self.userClient2 = CustomUser.objects.create(username='test_user_4', email='test4@example.com', rol='client')
+
+
         self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
             phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
@@ -38,14 +40,14 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     #test del list by gym id view
-    def test_client_list_by_gymId_view_how_gym(self):
+    def test_client_list__by_gymId_view_how_gym(self):
         request = self.factory.get('/clients/')
         force_authenticate(request, user=self.userGym)
         view = ClientListByGymView.as_view()
         response = view(request,gymId=self.gym.id)
         self.assertEqual(response.status_code, 200)
 
-    def test_client_list_by_gymId_view_how_owner(self):
+    def test_client_list__by_gymId_view_how_owner(self):
         request = self.factory.get('/clients/')
         force_authenticate(request, user=self.userOwner)
         view = ClientListByGymView.as_view()

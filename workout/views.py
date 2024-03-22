@@ -9,43 +9,13 @@ from rest_framework.permissions import IsAuthenticated
 
 class WorkoutListView(APIView):
     def get(self, request):
-        if request.user.rol=='client':
+        if request.user.is_authenticated:
             workouts = Workout.objects.filter(client__user=request.user)
         if request.user.is_superuser:
             workouts = Workout.objects.all()
         serializer=WorkoutSerializer(workouts,many=True)
         return Response(serializer.data)
-
-class WorkoutListByEquipmentListView(APIView):
-    def get(self, request,equipmentId):
-        if request.user.rol=='client':
-            equipment=Equipment.objects.get(pk=equipmentId)
-            workouts = Workout.objects.filter(equipment=equipment,client__user=request.user)
-            serializer=WorkoutSerializer(workouts,many=True)
-            return Response(serializer.data)
-        else:
-            return Response(status=403)
-
-class WorkoutListByRoutineListView(APIView):
-    def get(self, request,routineId):
-        if request.user.rol=='client':
-            routine=Routine.objects.get(pk=routineId)
-            workouts = Workout.objects.filter(routine=routine,client__user=request.user)
-            serializer=WorkoutSerializer(workouts,many=True)
-            return Response(serializer.data)
-        else:
-            return Response(status=403)
-
-class WorkoutListByClientListView(APIView):
-    def get(self, request,clientId):
-        if request.user.rol=='owner' or request.user.rol=='gym':
-            client=Client.objects.get(pk=clientId)
-            workouts = Workout.objects.filter(client=client)
-            serializer=WorkoutSerializer(workouts,many=True)
-            return Response(serializer.data)
-        else:
-            return Response(status=403)
-
+    
 class WorkoutDetailView(APIView):
     def get(self, request,pk):
         workout = Workout.objects.get(pk=pk)
@@ -59,7 +29,7 @@ class WorkoutCreateView(APIView):
     def post(self, request):
         if request.user.rol == "client":
             serializer = WorkoutCreateSerializer(data=request.data)
-            client = Client.objects.get(user=request.user.username)
+            client = Client.objects.get(user=request.user)
             if serializer.is_valid():
                 has_equipment = 'equipment' in serializer.validated_data
                 has_routine = 'routine' in serializer.validated_data
@@ -85,12 +55,12 @@ class WorkoutCreateView(APIView):
                             if client != routine.client:
                                 return Response({'message': 'You are not allowed to create a workout with this equipment or routine'}, status=401)
 
-                    serializer.save()
+                    serializer.save(client=client)  # Add client to the workout
                     return Response(serializer.data, status=201)
 
                 else:
                     # Handle case when both equipment and routine are empty
-                    serializer.save()
+                    serializer.save(client=client)  # Add client to the workout
                     return Response(serializer.data, status=201)
 
             else:

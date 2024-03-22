@@ -21,7 +21,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
 class WorkoutCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
-        fields = ['id', 'name', 'routine', 'equipment', 'client']
+        fields = ['id', 'name', 'routine', 'equipment']
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
