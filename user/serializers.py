@@ -4,7 +4,7 @@ from .models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'email']
 
     def create(self, validated_data):  # Fix the typo here
         password = validated_data.pop('password', None)
