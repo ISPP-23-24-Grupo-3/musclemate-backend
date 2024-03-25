@@ -88,8 +88,8 @@ def gym_delete(request, id):
     
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
-def subscription_standar_uptade(request, id):
-    gym = get_object_or_404(Gym, id=id)
+def subscription_standar_uptade(request, gym_id):
+    gym = get_object_or_404(Gym, id=gym_id)
     owner = get_object_or_404(Owner, userCustom=request.user)
     if gym.owner == owner:
         if request.method == 'PUT':
@@ -109,8 +109,8 @@ def subscription_standar_uptade(request, id):
     
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
-def subscription_premium_uptade(request, id):
-    gym = get_object_or_404(Gym, id=id)
+def subscription_premium_uptade(request, gym_id):
+    gym = get_object_or_404(Gym, id=gym_id)
     owner = get_object_or_404(Owner, userCustom=request.user)
     if gym.owner == owner:
         if request.method == 'PUT':
