@@ -85,7 +85,7 @@ def gym_delete(request, id):
             return Response({'error': 'DELETE method required'}, status=400)
     else:
         return Response({'message': "Please authenticate as this gym's owner"}, status=401)
-    
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
 def subscription_standar_uptade(request, gym_id):
