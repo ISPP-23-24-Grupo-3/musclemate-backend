@@ -15,7 +15,7 @@ class OwnerListView(APIView):
     
 class OwnerDetailView(APIView):
     def get(self, request,pk):
-        owner = Owner.objects.get(pk=pk)
+        owner = Owner.objects.get(userCustom = pk)
         serializer=OwnerSerializer(owner)
         return Response(serializer.data)
 
