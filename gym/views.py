@@ -106,7 +106,7 @@ def subscription_standar_uptade(request, gym_id):
             return Response({'error': 'PUT method required'}, status=400)
     else:
         return Response({'message': "Please authenticate as this gym's owner"}, status=401)
-    
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
 def subscription_premium_uptade(request, gym_id):
