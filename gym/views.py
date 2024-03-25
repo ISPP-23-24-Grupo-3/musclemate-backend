@@ -51,6 +51,7 @@ def gym_create(request):
                 gym_serializer.save()
                 return Response(gym_serializer.data, status=201)
             else:
+                user.delete()
                 return Response(gym_serializer.errors, status=400)
         else:
             return Response(user_serializer.errors, status=400)
