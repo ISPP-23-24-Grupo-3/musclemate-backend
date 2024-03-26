@@ -22,6 +22,7 @@ class OwnerDetailView(APIView):
 class OwnerCreateView(APIView):
     def post(self, request):
         user_data = request.data.get('userCustom')
+        user_data['email'] = request.data.get('email')
         user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='owner')
