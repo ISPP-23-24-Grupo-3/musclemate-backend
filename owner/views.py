@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import Owner, CustomUser
 from .serializers import OwnerSerializer, CustomUserSerializer
+from user.utils import send_verification_email
 
 
 
@@ -22,9 +23,11 @@ class OwnerDetailView(APIView):
 class OwnerCreateView(APIView):
     def post(self, request):
         user_data = request.data.get('userCustom')
+        user_data['email'] = request.data.get('email')
         user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='owner')
+            send_verification_email(user)
             owner_data = request.data
             owner_data['userCustom'] = user.username
             owner_serializer = OwnerSerializer(data=owner_data)

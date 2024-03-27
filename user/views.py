@@ -4,11 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from .models import CustomUser
 from .serializers import CustomUserSerializer
+from .utils import send_verification_email
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.contrib.auth.tokens import default_token_generator
 
 @permission_classes([IsAuthenticated, IsAdminUser])
 class UserListView(APIView):
@@ -33,8 +35,20 @@ class UserCreateView(APIView):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            user = CustomUser.objects.get(username = request.data["username"])
+            send_verification_email(user)
             return Response(serializer.data)
         return Response(serializer.errors)
+
+class UserVerifyView(APIView):
+    def get(self, request, username, token):
+        user = CustomUser.objects.get(username = username)
+        if default_token_generator.check_token(user, token):
+            user.is_verified = True
+            user.save()
+            return Response('Verification success')
+        else:
+            return Response('Invalid token', status=400)
 
 @permission_classes([IsAuthenticated, IsAdminUser])
 class UserUpdateView(APIView):
