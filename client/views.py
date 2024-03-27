@@ -75,7 +75,6 @@ class ClientUsernameDetailView(APIView):
     
 class ClientCreateView(APIView):
     def post(self, request):
-        print("request")
         if request.user.rol == 'client':
             return Response('You are not authorized to create a client', status=403)
     
