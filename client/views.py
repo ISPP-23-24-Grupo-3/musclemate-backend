@@ -96,6 +96,7 @@ class ClientCreateView(APIView):
                 client_serializer.save(user=user)
                 return Response(client_serializer.data, status=201)
             else:
+                user.delete()
                 return Response(client_serializer.errors, status=400)
         else:
             return Response(user_serializer.errors, status=400)
