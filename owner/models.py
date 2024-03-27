@@ -17,6 +17,7 @@ class Owner(models.Model):
     email = models.EmailField()
     phoneNumber=models.IntegerField()
     address=models.CharField(max_length=250)
+    customer_id = models.CharField(max_length=50, unique=True, null = True, default=None)
 
     userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
