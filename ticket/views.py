@@ -28,14 +28,15 @@ def getGymFromUser(username):
 
 def clientAuthority(user, client):
     has_authority = False
+    username= user.username
     if user.rol == "client":
-        if getClientFromUser(user).id == client.id:
+        if getClientFromUser(username).id == client.id:
             has_authority=True
     elif user.rol == "owner":
-        if getOwnerFromUser(user).id == client.gym.owner.id:
+        if getOwnerFromUser(username).id == client.gym.owner.id:
             has_authority=True
     elif user.rol == "gym":
-        if getGymFromUser(user).id == client.gym.id:
+        if getGymFromUser(username).id == client.gym.id:
             has_authority=True
     return has_authority
 
@@ -113,6 +114,8 @@ class TicketCreateView(APIView):
 class TicketDetailView(APIView):
     def get(self, request,pk):
         ticket = Ticket.objects.get(pk=pk)
+        print (ticket.client)
+        print(request.user.username)
         if clientAuthority(request.user, ticket.client):
             serializer=TicketViewSerializer(ticket)
             return Response(serializer.data)
