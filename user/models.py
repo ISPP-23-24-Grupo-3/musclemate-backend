@@ -13,7 +13,7 @@ from .validators import UnicodeUsernameValidator
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     def random_id():
         return randint(100000, 999999)
-    
+
     def gen_verification_token(self):
         return default_token_generator.make_token(self)
 
