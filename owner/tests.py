@@ -28,7 +28,7 @@ class OwnerAPITestCase(TestCase):
 
     def test_owner_detail_view(self):
         request = self.factory.get('/owners/detail/')
-        response = OwnerDetailView.as_view()(request, pk=self.owner.pk)
+        response = OwnerDetailView.as_view()(request, pk=self.owner.userCustom)
         self.assertEqual(response.status_code, 200)
 
     def test_owner_create_view(self):

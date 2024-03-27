@@ -85,3 +85,44 @@ def gym_delete(request, id):
             return Response({'error': 'DELETE method required'}, status=400)
     else:
         return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsGymOwner])
+def subscription_standar_uptade(request, gym_id):
+    gym = get_object_or_404(Gym, id=gym_id)
+    owner = get_object_or_404(Owner, userCustom=request.user)
+    if gym.owner == owner:
+        if request.method == 'PUT':
+            gym_data = request.data
+            gym_data['subscription_plan'] = 'standard'
+            serializer = GymSerializer(gym, data=gym_data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                gym.refresh_from_db()
+                return Response({'message': 'Subscription plan updated to standard'})
+            else:
+                return Response(serializer.errors, status=400)
+        else:
+            return Response({'error': 'PUT method required'}, status=400)
+    else:
+        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsGymOwner])
+def subscription_premium_uptade(request, gym_id):
+    gym = get_object_or_404(Gym, id=gym_id)
+    owner = get_object_or_404(Owner, userCustom=request.user)
+    if gym.owner == owner:
+        if request.method == 'PUT':
+            gym_data = request.data
+            gym_data['subscription_plan'] = 'premium'
+            serializer = GymSerializer(gym, data=gym_data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'message': 'Subscription plan updated to premium'})
+            else:
+                return Response(serializer.errors, status=400)
+        else:
+            return Response({'error': 'PUT method required'}, status=400)
+    else:
+        return Response({'message': "Please authenticate as this gym's owner"}, status=401)

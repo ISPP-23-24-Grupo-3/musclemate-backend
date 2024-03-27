@@ -15,7 +15,7 @@ class OwnerListView(APIView):
     
 class OwnerDetailView(APIView):
     def get(self, request,pk):
-        owner = Owner.objects.get(pk=pk)
+        owner = Owner.objects.get(userCustom = pk)
         serializer=OwnerSerializer(owner)
         return Response(serializer.data)
 
@@ -39,10 +39,13 @@ class OwnerCreateView(APIView):
 class OwnerUpdateView(APIView):
     def put(self, request, pk):
         owner = Owner.objects.get(pk=pk)
-        serializer = OwnerSerializer(owner, data=request.data)
+        print(f"Request data: {request.data}")
+        serializer = OwnerSerializer(owner, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
+            print(f"Owner data after save: {serializer.data}")
             return Response(serializer.data)
+        print(f"Serializer errors: {serializer.errors}")
         return Response(serializer.errors, status=400)
 
 class OwnerDeleteView(APIView):
