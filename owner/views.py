@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Owner, CustomUser 
+from .models import Owner, CustomUser
 from gym.models import Gym
 from .serializers import OwnerSerializer, CustomUserSerializer
 from user.utils import send_verification_email
@@ -20,7 +20,7 @@ class OwnerListView(APIView):
     
 class OwnerDetailView(APIView):
     def get(self, request,pk):
-        if(request.user.rol=='owner' and request.user.username==pk) or request.user.is_superuser:
+        if (request.user.rol=='owner' and request.user.username==pk) or request.user.is_superuser:
             owner = Owner.objects.get(userCustom=pk)
             serializer=OwnerSerializer(owner)
             return Response(serializer.data)
@@ -29,7 +29,7 @@ class OwnerDetailView(APIView):
             if gym.owner.userCustom.username==pk:
                 owner = Owner.objects.get(userCustom=pk)
                 serializer=OwnerSerializer(owner)
-                return Response(serializer.data) 
+                return Response(serializer.data)
             else:
                 return Response('You are not authorized to see this owner',status=403)
         else:
