@@ -5,6 +5,7 @@ from owner.models import Owner
 from .serializers import ClientSerializer
 from rest_framework.permissions import BasePermission
 from user.serializers import CustomUserSerializer
+from user.utils import send_verification_email
 
 class IsGymOrOwner(BasePermission):
     def has_permission(self,request):
@@ -75,12 +76,14 @@ class ClientUsernameDetailView(APIView):
 class ClientCreateView(APIView):
     def post(self, request):
         if request.user.rol == 'client':
-            return Response('You are not authorized to create a client')
+            return Response('You are not authorized to create a client', status=403)
     
         user_data = request.data.get('userCustom')
+        user_data['email'] = request.data.get('email')
         user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='client')
+            send_verification_email(user)
             client_data = request.data
             client_data['user'] = user.username  # Pass the primary key of the user
             client_serializer = ClientSerializer(data=client_data)
