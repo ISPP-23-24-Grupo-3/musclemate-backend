@@ -42,7 +42,7 @@ class OwnerCreateView(APIView):
 
 class OwnerUpdateView(APIView):
     def put(self, request, pk):
-        owner = Owner.objects.get(pk=pk)
+        owner = Owner.objects.get(userCustom=pk)
         print(f"Request data: {request.data}")
         serializer = OwnerSerializer(owner, data=request.data, partial=True)
         if serializer.is_valid():

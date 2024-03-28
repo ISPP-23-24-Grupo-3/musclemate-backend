@@ -63,7 +63,7 @@ def gym_update(request, id):
     owner = get_object_or_404(Owner, userCustom=request.user)
     if gym.owner == owner:
         if request.method == 'PUT':
-            serializer = GymSerializer(gym, data=request.data)
+            serializer = GymSerializer(gym, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)

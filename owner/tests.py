@@ -42,7 +42,7 @@ class OwnerAPITestCase(TestCase):
         data = {'name':'Update','lastName':'Doe','email':'john.doe2@example.com','phoneNumber':123456789,
                 'address':'123 Owner St','userCustom':self.user.pk}
         request = self.factory.put('/owners/update/', data)
-        response = OwnerUpdateView.as_view()(request, pk=self.owner.pk)
+        response = OwnerUpdateView.as_view()(request, pk=self.owner.userCustom)
         self.assertEqual(response.status_code, 200)
 
     def test_owner_delete_view(self):
