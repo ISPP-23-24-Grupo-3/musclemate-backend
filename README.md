@@ -29,7 +29,7 @@ Realiza el setup de la base de datos (PostgresSQL):
     psql -c "create user muscleuser with password 'musclepass123'"
     psql -c "create database muscledb owner muscleuser"
 
-Modifica el archivo local_settings.example.py para introducir la nueva base de datos y renómbralo como "local_settings.py".
+Modifica el archivo local_settings.example.py para introducir tanto la base de datos como el correo electrónico y renómbralo como "local_settings.py".
 
 Realiza las migraciones:
 
