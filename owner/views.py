@@ -37,27 +37,23 @@ class OwnerDetailView(APIView):
 
 class OwnerCreateView(APIView):
     def post(self, request):
-        if request.user.is_superuser or request.user.rol=='gym':
-            user_data = request.data.get('userCustom')
-            user_data['email'] = request.data.get('email')
-            user_serializer = CustomUserSerializer(data=user_data)
-            user_serializer = CustomUserSerializer(data=user_data)
-            if user_serializer.is_valid():
-                user = user_serializer.save(rol='owner')
-                send_verification_email(user)
-                owner_data = request.data
-                owner_data['userCustom'] = user.username
-                owner_serializer = OwnerSerializer(data=owner_data)
-                if owner_serializer.is_valid():
-                    owner_serializer.save()
-                    return Response(owner_serializer.data, status=201)
-                else:
-                    user.delete()
-                    return Response(owner_serializer.errors, status=400)
+        user_data = request.data.get('userCustom')
+        user_data['email'] = request.data.get('email')
+        user_serializer = CustomUserSerializer(data=user_data)
+        if user_serializer.is_valid():
+            user = user_serializer.save(rol='owner')
+            send_verification_email(user)
+            owner_data = request.data
+            owner_data['userCustom'] = user.username
+            owner_serializer = OwnerSerializer(data=owner_data)
+            if owner_serializer.is_valid():
+                owner_serializer.save()
+                return Response(owner_serializer.data, status=201)
             else:
-                return Response(user_serializer.errors, status=400)
+                user.delete()
+                return Response(owner_serializer.errors, status=400)
         else:
-            return Response('You are not authorized to create a owner', status=403)
+            return Response(user_serializer.errors, status=400)
 
 class OwnerUpdateView(APIView):
     def put(self, request, pk):
