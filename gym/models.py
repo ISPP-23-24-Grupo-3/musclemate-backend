@@ -22,7 +22,7 @@ class Gym(models.Model):
     email = models.EmailField()
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    subscription_plan = models.CharField(max_length=50, choices=SUBSCRIPTION_CHOICE, default=None, null = True)
+    subscription_plan = models.CharField(max_length=50, choices=SUBSCRIPTION_CHOICE, default='free', null = True)
 
     def __str__(self):
         return f"Gym - {self.name} ({self.id})"
