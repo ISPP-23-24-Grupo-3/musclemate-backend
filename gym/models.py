@@ -9,7 +9,8 @@ class Gym(models.Model):
     
     SUBSCRIPTION_CHOICE = (
         ('standard', 'Standard'),
-        ('premium', 'Premium')
+        ('premium', 'Premium'),
+        ('free', 'Free')
     )
     
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
