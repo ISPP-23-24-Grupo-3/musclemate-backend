@@ -102,7 +102,7 @@ class WorkoutCreateView(APIView):
 class WorkoutUpdateView(APIView):
     def put(self, request, pk):
         workout = Workout.objects.get(pk=pk)
-        serializer = WorkoutCreateSerializer(workout, data=request.data)
+        serializer = WorkoutCreateSerializer(workout, data=request.data, partial=True)
         if serializer.is_valid():
             if request.user == workout.client.user:
                 serializer.save()

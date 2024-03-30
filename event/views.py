@@ -96,7 +96,7 @@ class EventUpdateView(APIView):
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
                 gym.owner.id):
             event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(event, data=request.data)
+            serializer = EventSerializer(event, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)

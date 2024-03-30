@@ -77,7 +77,7 @@ class SerieUpdateView(APIView):
             serie = Serie.objects.get(pk=pk)
             clientIdBySerie=serie.workout.client.id
             if clientIdByUser==clientIdBySerie:
-                serializer = SerieSerializer(serie, data=request.data)
+                serializer = SerieSerializer(serie, data=request.data, partial=True)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data)

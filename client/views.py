@@ -109,7 +109,7 @@ class ClientUpdateView(APIView):
         client = Client.objects.get(pk=pk)
         if IsGymOrOwner().has_permission(request) or client.user==request.user:
             client = Client.objects.get(pk=pk)
-            serializer = ClientSerializer(client, data=request.data)
+            serializer = ClientSerializer(client, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data,status=200)

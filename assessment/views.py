@@ -85,7 +85,7 @@ class AssessmentUpdateView(APIView):
             clientIdByAssesstment=request.data.get('client')
             if clientIdByUser == int(clientIdByAssesstment) and Client.objects.get(id=clientIdByUser).register:
                 assessment = self.get_object(pk)
-                serializer = AssessmentSerializer(assessment, data=request.data)
+                serializer = AssessmentSerializer(assessment, data=request.data, partial=True)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data)

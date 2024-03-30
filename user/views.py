@@ -54,7 +54,7 @@ class UserVerifyView(APIView):
 class UserUpdateView(APIView):
     def put(self, request, username):
         user = CustomUser.objects.get(username=username)
-        serializer = CustomUserSerializer(user, data=request.data)
+        serializer = CustomUserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
