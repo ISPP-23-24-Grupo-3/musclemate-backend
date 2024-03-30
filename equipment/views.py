@@ -71,7 +71,7 @@ class EquipmentUpdateView(APIView):
         owner = get_object_or_404(Owner, userCustom=request.user)
         gym = get_object_or_404(Gym, id=equipment.gym.id)
         if gym.owner == owner:
-            serializer = EquipmentSerializer(equipment, data=request.data)
+            serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)

@@ -91,7 +91,7 @@ class ReservationUpdateView(APIView):
     def put(self, request, pk):
         if IsGymOrOwnerOrClient().has_permission(request,pk):
             reservation = Reservation.objects.get(pk=pk)
-            serializer = ReservationSerializer(reservation, data=request.data)
+            serializer = ReservationSerializer(reservation, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
