@@ -42,12 +42,12 @@ class OwnerCreateView(APIView):
         user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='owner')
-            send_verification_email(user)
             owner_data = request.data
             owner_data['userCustom'] = user.username
             owner_serializer = OwnerSerializer(data=owner_data)
             if owner_serializer.is_valid():
                 owner_serializer.save()
+                send_verification_email(user)
                 return Response(owner_serializer.data, status=201)
             else:
                 user.delete()
