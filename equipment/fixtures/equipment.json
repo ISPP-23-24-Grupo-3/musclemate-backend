@@ -118,5 +118,353 @@
                 "muscular_group": "arms",
                 "gym": 216278
             }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 1000000,
+            "fields": {
+                "name": "Máquina de Remo de poleas",
+                "brand": "Marca X",
+                "serial_number": "MR001",
+                "description": "Máquina de remo profesional con resistencia ajustable",
+                "muscular_group": "back",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 1000001,
+            "fields": {
+                "name": "Banco de Pecho",
+                "brand": "Marca Y",
+                "serial_number": "BP002",
+                "description": "Banco de pesas ajustable para ejercicios de pecho",
+                "muscular_group": "chest",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 1000002,
+            "fields": {
+                "name": "Prensa de poleas",
+                "brand": "Marca Z",
+                "serial_number": "MP003",
+                "description": "Máquina para ejercicios de piernas con sistema de polea",
+                "muscular_group": "legs",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 2000000,
+            "fields": {
+                "name": "Máquina de Abdominales",
+                "brand": "Marca A",
+                "serial_number": "MA001",
+                "description": "Máquina para fortalecer los músculos abdominales",
+                "muscular_group": "core",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 2000001,
+            "fields": {
+                "name": "Mancuernas Ajustables",
+                "brand": "Marca B",
+                "serial_number": "MA002",
+                "description": "Mancuernas con peso ajustable para diferentes ejercicios",
+                "muscular_group": "arms",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 2000002,
+            "fields": {
+                "name": "Bola Medicinal",
+                "brand": "Marca C",
+                "serial_number": "BM003",
+                "description": "Bola medicinal de 5 kg para entrenamiento funcional",
+                "muscular_group": "other",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 3000000,
+            "fields": {
+                "name": "Bicicleta Estática",
+                "brand": "Marca X",
+                "serial_number": "BE001",
+                "description": "Bicicleta estática con pantalla LCD y resistencia magnética",
+                "muscular_group": "legs",
+                "gym": 216278
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 3000001,
+            "fields": {
+                "name": "Barra Olímpica",
+                "brand": "Marca Y",
+                "serial_number": "BO002",
+                "description": "Barra olímpica de 20 kg para levantamiento de pesas",
+                "muscular_group": "other",
+                "gym": 216278
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 3000002,
+            "fields": {
+                "name": "Cinta de Correr Profesional",
+                "brand": "Marca Z",
+                "serial_number": "CC003",
+                "description": "Cinta de correr profesional con motor potente y sistema de amortiguación",
+                "muscular_group": "other",
+                "gym": 216278
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 1000020,
+            "fields": {
+                "name": "Bicicleta Estática",
+                "brand": "Marca A",
+                "serial_number": "BE020",
+                "description": "Bicicleta estática con pantalla LCD y resistencia ajustable",
+                "muscular_group": "legs",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 1000021,
+            "fields": {
+                "name": "Banco Ajustable",
+                "brand": "Marca B",
+                "serial_number": "BP021",
+                "description": "Banco de pesas multifunción con inclinación ajustable",
+                "muscular_group": "other",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 1000022,
+            "fields": {
+                "name": "Máquina de Abdominales",
+                "brand": "Marca C",
+                "serial_number": "MA022",
+                "description": "Máquina para ejercicios abdominales con soporte lumbar",
+                "muscular_group": "core",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 2000020,
+            "fields": {
+                "name": "Prensa de Pierna",
+                "brand": "Marca D",
+                "serial_number": "MP020",
+                "description": "Máquina para ejercicios de piernas con sistema de discos",
+                "muscular_group": "legs",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 2000021,
+            "fields": {
+                "name": "Barras Paralelas",
+                "brand": "Marca E",
+                "serial_number": "BP021",
+                "description": "Equipo para entrenamiento de tríceps y pecho",
+                "muscular_group": "arms",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 2000022,
+            "fields": {
+                "name": "Bola de Ejercicio",
+                "brand": "Marca F",
+                "serial_number": "BE022",
+                "description": "Bola de ejercicio anti-explosión para entrenamiento de core",
+                "muscular_group": "core",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 3000020,
+            "fields": {
+                "name": "Cuerda de Batalla",
+                "brand": "Marca G",
+                "serial_number": "CB020",
+                "description": "Cuerda gruesa para entrenamiento de fuerza y resistencia",
+                "muscular_group": "other",
+                "gym": 216278
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 3000022,
+            "fields": {
+                "name": "Polea ajustable",
+                "brand": "Marca I",
+                "serial_number": "MC022",
+                "description": "Máquina para ejercicios de pecho, hombros y espalda con poleas",
+                "muscular_group": "other",
+                "gym": 216278
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 3000021,
+            "fields": {
+                "name": "Máquina de Remo de Cardio",
+                "brand": "Marca H",
+                "serial_number": "MR021",
+                "description": "Máquina de remo con resistencia de aire y asiento deslizante",
+                "muscular_group": "other",
+                "gym": 216278
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 9151508,
+            "fields": {
+                "name": "Jalón al Pecho",
+                "brand": "Marca A",
+                "serial_number": "MA096",
+                "description": "Máquina para fortalecer los músculos de la espalda",
+                "muscular_group": "back",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 4000001,
+            "fields": {
+                "name": "Maquina de Gemelos",
+                "brand": "Marca B",
+                "serial_number": "MA111",
+                "description": "Máquina para fortalecer los gemelos con sistema de placas",
+                "muscular_group": "legs",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 4000002,
+            "fields": {
+                "name": "Máquina Haka",
+                "brand": "Marca C",
+                "serial_number": "MA003",
+                "description": "Máquina para realizar sentadilla Haka con sistema de discos",
+                "muscular_group": "legs",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 5000000,
+            "fields": {
+                "name": "Remo gironda",
+                "brand": "Marca X",
+                "serial_number": "MA048",
+                "description": "Máquina para realizar remo horizontal con sistema de poleas",
+                "muscular_group": "back",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 5000001,
+            "fields": {
+                "name": "Remo en T",
+                "brand": "Marca Y",
+                "serial_number": "MA112",
+                "description": "Máquina para realizar remo en T con sistema de discos",
+                "muscular_group": "back",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 5000002,
+            "fields": {
+                "name": "Banco Scott",
+                "brand": "Marca Z",
+                "serial_number": "MA115",
+                "description": "Banco para realizar curl de bíceps Scott con barra",
+                "muscular_group": "arms",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 6000000,
+            "fields": {
+                "name": "Máquina Biceps Scott",
+                "brand": "Marca A",
+                "serial_number": "MA078",
+                "description": "Máquina para realizar bíceps Scott con sistema de discos",
+                "muscular_group": "arms",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 6000001,
+            "fields": {
+                "name": "Barra Z",
+                "brand": "Marca B",
+                "serial_number": "MA113",
+                "description": "Barra en forma de Z para realizar curl de bíceps con discos",
+                "muscular_group": "arms",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 6000002,
+            "fields": {
+                "name": "Máquina de Extensiones de Cuadriceps",
+                "brand": "Marca C",
+                "serial_number": "MA116",
+                "description": "Máquina para realizar extensiones de cuádriceps con sistema de placas",
+                "muscular_group": "legs",
+                "gym": 221987
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 7000000,
+            "fields": {
+                "name": "Máquina de Curl Femoral Tumbado",
+                "brand": "Marca X",
+                "serial_number": "MA098",
+                "description": "Máquina para realizar curl femoral tumbado con sistema de placas",
+                "muscular_group": "legs",
+                "gym": 540890
+            }
+        },
+        {
+            "model": "equipment.equipment",
+            "pk": 7000001,
+            "fields": {
+                "name": "Máquina de Curl Femoral Sentado",
+                "brand": "Marca Y",
+                "serial_number": "MA114",
+                "description": "Máquina para realizar curl femoral sentado con sistema de placas",
+                "muscular_group": "legs",
+                "gym": 540890
+            }
         }
 ]
