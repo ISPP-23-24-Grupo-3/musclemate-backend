@@ -36,9 +36,10 @@ def gym_detail(request, id):
 @api_view(['POST'])
 def gym_create(request):
     if request.method == 'POST':
-        if request.user.rol != 'admin' and request.user.rol != 'owner':
-            return Response('You are not authorized to create a gym')
+        if request.user.rol != 'owner':
+            return Response('You are not authorized to create a gym', status=403)
         user_data = request.data.get('userCustom')
+        user_data['email'] = request.data.get('email')
         user_serializer = CustomUserSerializer(data=user_data)
         if user_serializer.is_valid():
             user = user_serializer.save(rol='gym')

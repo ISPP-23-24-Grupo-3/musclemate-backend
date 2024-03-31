@@ -9,7 +9,7 @@ class GymSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(queryset=Owner.objects.all())
     class Meta:
         model = Gym
-        fields = ['id','name', 'address', 'zip_code', 'descripcion', 'phone_number', 'email','owner','userCustom', 'subscription_plan', 'subscription_plan_id']
+        fields = ['id','name', 'address', 'zip_code', 'descripcion', 'phone_number', 'email','owner','userCustom', 'subscription_plan']
 
     def validate_phone_number(self, value):
         """
