@@ -47,8 +47,12 @@ class OwnerCreateView(APIView):
             owner_serializer = OwnerSerializer(data=owner_data)
             if owner_serializer.is_valid():
                 owner_serializer.save()
-                send_verification_email(user)
-                return Response(owner_serializer.data, status=201)
+                try:
+                    send_verification_email(user)
+                except:
+                    return Response("Owner registered but e-mail verification failed.", status=201)
+                else:
+                    return Response(owner_serializer.data, status=201)
             else:
                 user.delete()
                 return Response(owner_serializer.errors, status=400)
