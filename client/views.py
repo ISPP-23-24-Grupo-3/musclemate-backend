@@ -89,8 +89,12 @@ class ClientCreateView(APIView):
             client_serializer = ClientSerializer(data=client_data)
             if client_serializer.is_valid():
                 client_serializer.save(user=user)
-                send_verification_email(user)
-                return Response(client_serializer.data, status=201)
+                try:
+                    send_verification_email(user)
+                except:
+                    return Response("Client registered but e-mail verification failed.", status=201)
+                else:
+                    return Response(client_serializer.data, status=201)
             else:
                 user.delete()
                 return Response(client_serializer.errors, status=400)
