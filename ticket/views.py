@@ -83,6 +83,8 @@ class TicketListByEquipmentView(APIView):
         elif user.rol == "gym":
             if getGymFromUser(user).id == equipment.gym.id:
                 has_authority=True
+        elif user.rol=='client':
+            has_authority=True
         return has_authority
     
     def get(self, request, equipmentId):
