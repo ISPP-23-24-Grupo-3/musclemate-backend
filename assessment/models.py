@@ -11,6 +11,9 @@ class Assessment(models.Model):
     
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
 
-    stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    stars = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Assesment - {self.equipment.name}, {self.client.name} {self.client.lastName} ({self.id})"

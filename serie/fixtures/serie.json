@@ -6,7 +6,9 @@
             "reps": 10,
             "weight": 100,
             "date": "2020-01-05",
-            "workout": 123456
+            "workout": 123456,
+            "duration": 60
+
         }
     },
     {
@@ -16,7 +18,8 @@
             "reps": 4,
             "weight": 180,
             "date": "2020-01-03",
-            "workout": 123456
+            "workout": 123456,
+            "duration": 35
         }
     },
     {
@@ -26,7 +29,8 @@
             "reps": 20,
             "weight": 120,
             "date": "2020-01-02",
-            "workout": 123456
+            "workout": 123456,
+            "duration": 50
         }
     }
 ]

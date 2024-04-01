@@ -17,9 +17,13 @@ class Owner(models.Model):
     email = models.EmailField()
     phoneNumber=models.IntegerField()
     address=models.CharField(max_length=250)
+    customer_id = models.CharField(max_length=50, unique=True, null = True, default=None, blank=True)
 
     userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     def validate_phone_number_length(value):
         if len(str(value)) != 9:
             raise ValidationError('The phone number must be exactly 9 digits.')
+        
+    def __str__(self):
+        return f"Owner - {self.name} {self.lastName} ({self.id})"

@@ -14,3 +14,4 @@ class SerieSerializer(serializers.ModelSerializer):
         if not Workout.objects.filter(id=value.id).exists():
             raise serializers.ValidationError("Workout does not exist.")
         return value
+

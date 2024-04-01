@@ -4,7 +4,7 @@ project:
   teamId: '03'
   identities: {}
   notifications:
-    email: 'etomasvela@gmail.com'
+    email: 'alesoscor@alum.us.es'
   members:
     member1:
       name: 'Pedro'
@@ -66,3 +66,4 @@ project:
       name: 'Alejandro'
       surname: 'Mateo Capilla' 
       githubUsername: 'AMC112002'
+

@@ -4,9 +4,11 @@ from .models import Gym
 from .models import CustomUser
 
 class ClientSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    gym = serializers.PrimaryKeyRelatedField(queryset=Gym.objects.all())
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = ['id','name', 'lastName', 'birth', 'zipCode','gender', 'phoneNumber', 'email','address','city','register', 'user', 'gym']
 
     def validate_phoneNumber(self, value):
         """

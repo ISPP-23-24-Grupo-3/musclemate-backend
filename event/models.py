@@ -16,11 +16,15 @@ class Event(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     capacity = models.PositiveIntegerField()
+    attendees = models.PositiveIntegerField()
     instructor = models.CharField(max_length=100)
     date = models.DateField()
-    isClickable = models.BooleanField()
+    isClickable = models.BooleanField(default=False, blank=True, null=True)
     duration = models.DurationField()
     intensity = models.CharField(max_length=1, choices=INTENSITY_CHOICES, blank=True, null=True)
-    isNotice = models.BooleanField()
+    isNotice = models.BooleanField(default=False, blank=True, null=True)
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Event - {self.name}, {self.gym.name} ({self.id})"

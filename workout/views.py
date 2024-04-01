@@ -2,44 +2,120 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Workout
-from .serializers import WorkoutSerializer
-
-
+from .serializers import WorkoutSerializer, WorkoutCreateSerializer
+from .models import Workout, Client, Equipment, Routine
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 class WorkoutListView(APIView):
     def get(self, request):
-        workouts = Workout.objects.all()
+        if request.user.rol=='client':
+            workouts = Workout.objects.filter(client__user=request.user)
+        if request.user.is_superuser:
+            workouts = Workout.objects.all()
         serializer=WorkoutSerializer(workouts,many=True)
         return Response(serializer.data)
-    
+
+class WorkoutListByEquipmentListView(APIView):
+    def get(self, request,equipmentId):
+        if request.user.rol=='client':
+            equipment=Equipment.objects.get(pk=equipmentId)
+            workouts = Workout.objects.filter(equipment=equipment,client__user=request.user)
+            serializer=WorkoutSerializer(workouts,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
+class WorkoutListByRoutineListView(APIView):
+    def get(self, request,routineId):
+        if request.user.rol=='client':
+            routine=Routine.objects.get(pk=routineId)
+            workouts = Workout.objects.filter(routine=routine,client__user=request.user)
+            serializer=WorkoutSerializer(workouts,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
+class WorkoutListByClientListView(APIView):
+    def get(self, request,clientId):
+        if request.user.rol=='owner' or request.user.rol=='gym':
+            client=Client.objects.get(pk=clientId)
+            workouts = Workout.objects.filter(client=client)
+            serializer=WorkoutSerializer(workouts,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
 class WorkoutDetailView(APIView):
     def get(self, request,pk):
         workout = Workout.objects.get(pk=pk)
+        if request.user != workout.client.user:
+            return Response({'message': 'You are not allowed to see this workout'}, status=401)
         serializer=WorkoutSerializer(workout)
         return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
 class WorkoutCreateView(APIView):
     def post(self, request):
-        serializer = WorkoutSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        else:
-            return Response(serializer.errors, status=400)
+        if request.user.rol == "client":
+            serializer = WorkoutCreateSerializer(data=request.data)
+            client = Client.objects.get(user=request.user.username)
+            if serializer.is_valid():
+                has_equipment = 'equipment' in serializer.validated_data
+                has_routine = 'routine' in serializer.validated_data
 
+                if has_equipment or has_routine:
+                    # Convert ManyRelatedManager to list for iteration
+                    equipment_ids = [eq.id for eq in serializer.validated_data.get('equipment', [])]
+                    routine_ids = [rt.id for rt in serializer.validated_data.get('routine', [])]
+                    
+                    for equipment_id in equipment_ids:
+                        equipment_exists = Equipment.objects.filter(id=equipment_id).exists()
+
+                        if equipment_exists:
+                            equipment = Equipment.objects.get(id=equipment_id)
+                            if client.gym != equipment.gym:
+                                return Response({'message': 'You are not allowed to create a workout with this equipment or routine'}, status=401)
+
+                    for routine_id in routine_ids:
+                        routine_exists = Routine.objects.filter(id=routine_id).exists()
+
+                        if routine_exists:
+                            routine = Routine.objects.get(id=routine_id)
+                            if client != routine.client:
+                                return Response({'message': 'You are not allowed to create a workout with this equipment or routine'}, status=401)
+
+                    serializer.save()
+                    return Response(serializer.data, status=201)
+
+                else:
+                    # Handle case when both equipment and routine are empty
+                    serializer.save()
+                    return Response(serializer.data, status=201)
+
+            else:
+                return Response(serializer.errors, status=400)
+        
+        else:
+            Response(status=403)
 
 class WorkoutUpdateView(APIView):
-    def post(self, request, pk):
+    def put(self, request, pk):
         workout = Workout.objects.get(pk=pk)
-        serializer = WorkoutSerializer(workout, data=request.data)
+        serializer = WorkoutCreateSerializer(workout, data=request.data, partial=True)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            if request.user == workout.client.user:
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response({'message': 'You are not allowed to update this workout'}, status=401)
         return Response(serializer.errors, status=400)
 
 class WorkoutDeleteView(APIView):
     def delete(self, request, pk):
         workout = Workout.objects.get(pk=pk)
-        workout.delete()
+        if request.user == workout.client.user:
+            workout.delete()
+        else:
+            return Response({'message': 'You are not allowed to delete this workout'}, status=401)
         return Response('Workout deleted')
