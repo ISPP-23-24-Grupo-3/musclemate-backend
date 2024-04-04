@@ -63,13 +63,10 @@ class OwnerUpdateView(APIView):
     def put(self, request, pk):
         if (request.user.rol=='owner' and request.user.username==pk) or request.user.is_superuser:
             owner = Owner.objects.get(userCustom=pk)
-            print(f"Request data: {request.data}")
             serializer = OwnerSerializer(owner, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                print(f"Owner data after save: {serializer.data}")
                 return Response(serializer.data)
-            print(f"Serializer errors: {serializer.errors}")
             return Response(serializer.errors, status=400)
         elif request.user.rol=='gym':
             gym = Gym.objects.get(userCustom=request.user)
@@ -78,9 +75,7 @@ class OwnerUpdateView(APIView):
                 serializer = OwnerSerializer(owner, data=request.data, partial=True)
                 if serializer.is_valid():
                     serializer.save()
-                    print(f"Owner data after save: {serializer.data}")
                     return Response(serializer.data)
-                print(f"Serializer errors: {serializer.errors}")
                 return Response(serializer.errors, status=400)
             else:
                 return Response('You are not authorized to update a owner', status=403)
