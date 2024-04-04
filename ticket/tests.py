@@ -79,7 +79,7 @@ class TicketTests(TestCase):
         view = TicketListByEquipmentView.as_view()
         response = view(request,equipmentId=self.equipment.id)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_tickets_list_by_equipmentId_view_how_client(self):
         request = self.factory.get('/tickets/byEquipment')
         force_authenticate(request, user=self.userClient)
