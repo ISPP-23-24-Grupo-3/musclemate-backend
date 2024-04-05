@@ -5,9 +5,9 @@ from .permissions import IsGymOwner
 from django.shortcuts import get_object_or_404
 from .models import Gym
 from owner.models import Owner
+from client.models import Client
 from .serializers import GymSerializer
 from user.serializers import CustomUserSerializer
-from user.models import CustomUser
 from owner.models import Owner
 
 
@@ -23,15 +23,24 @@ def gym_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsGymOwner])
+@permission_classes([IsAuthenticated])
 def gym_detail(request, id):
     gym = get_object_or_404(Gym, id=id)
-    owner = get_object_or_404(Owner, userCustom=request.user)
-    if gym.owner == owner:
-        serializer = GymSerializer(gym)
-        return Response(serializer.data)
-    else:
-        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+    print(gym.subscription_plan)
+    if (request.user.rol == "owner"):
+        owner = get_object_or_404(Owner, userCustom=request.user)
+        if gym.owner == owner:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+    if (request.user.rol == 'client'):
+        client = get_object_or_404(Client, user=request.user)
+        if client.gym.id == id:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Please authenticate as this gym's client"}, status=401)
 
 @api_view(['POST'])
 def gym_create(request):
