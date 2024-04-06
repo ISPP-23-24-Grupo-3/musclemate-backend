@@ -3,7 +3,6 @@ from routine.models import Routine
 from client.models import Client
 from equipment.models import Equipment
 from random import randint
-from django.core.exceptions import ValidationError
 class Workout(models.Model):
     def random_id():
         return randint(100000, 999999)
