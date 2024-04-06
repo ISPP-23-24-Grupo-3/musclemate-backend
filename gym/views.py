@@ -164,7 +164,7 @@ def monthly_usage(request, gym_id, year=None, month=None):
                     date__year=current_year)\
                     .values('workout__equipment__name', 'date__month')\
                     .annotate(total=Count('workout__equipment__name'))
-            else: 
+            else:
                 print(current_year, current_month)
                 data = Serie.objects.filter(
                     workout__client__gym=gym,
@@ -180,7 +180,6 @@ def monthly_usage(request, gym_id, year=None, month=None):
                     'total': entry['total']
                 })
             return JsonResponse(formatted_data, safe=False)
-        
         else:
             return Response({'error': 'GET method required'}, status=400)
     else:
