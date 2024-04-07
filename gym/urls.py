@@ -9,4 +9,8 @@ urlpatterns = [
     path('gyms/update/<int:id>/', views.gym_update),
     path('gyms/standard/<int:id>/', views.subscription_standar_uptade),
     path('gyms/premium/<int:id>/', views.subscription_premium_uptade),
+    path('gyms/usage/<int:gym_id>/', views.monthly_usage),
+    path('gyms/usage/<int:gym_id>/year/<int:year>/', views.monthly_usage),
+    path('gyms/usage/<int:gym_id>/year/<int:year>/month/<int:month>/', views.monthly_usage),
+    path('gyms/usage/<int:gym_id>/month/<int:month>/', views.monthly_usage),
 ]

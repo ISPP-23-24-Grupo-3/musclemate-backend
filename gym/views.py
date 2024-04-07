@@ -9,6 +9,10 @@ from client.models import Client
 from .serializers import GymSerializer
 from user.serializers import CustomUserSerializer
 from owner.models import Owner
+from django.db.models import Count
+from serie.models import Serie
+from datetime import datetime
+from django.http import JsonResponse
 
 
 @api_view(['GET'])
@@ -135,5 +139,48 @@ def subscription_premium_uptade(request, gym_id):
                 return Response(serializer.errors, status=400)
         else:
             return Response({'error': 'PUT method required'}, status=400)
+    else:
+        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsGymOwner])
+def monthly_usage(request, gym_id, year=None, month=None):
+    gym = get_object_or_404(Gym, id=gym_id)
+    owner = get_object_or_404(Owner, userCustom=request.user)
+    if year is None:
+        current_year = datetime.now().year
+    else:
+        current_year = year
+    if month is None:
+        current_month = datetime.now().month
+    else:
+        current_month = month
+    print(year, month)
+    print(current_year, current_month)
+    if gym.owner == owner:
+        if request.method == 'GET':
+            if year is not None and month is None:
+                data = Serie.objects.filter(
+                    date__year=current_year)\
+                    .values('workout__equipment__name', 'date__month')\
+                    .annotate(total=Count('workout__equipment__name'))
+            else:
+                print(current_year, current_month)
+                data = Serie.objects.filter(
+                    workout__client__gym=gym,
+                    date__year=current_year,
+                    date__month=current_month)\
+                    .values('workout__equipment__name')\
+                    .annotate(total=Count('workout__equipment__name'))
+            formatted_data = []
+            for entry in data:
+                formatted_data.append({
+                    'month': entry['date__month'] if 'date__month' in entry else current_month,
+                    'equipment_name': entry['workout__equipment__name'],
+                    'total': entry['total']
+                })
+            return JsonResponse(formatted_data, safe=False)
+        else:
+            return Response({'error': 'GET method required'}, status=400)
     else:
         return Response({'message': "Please authenticate as this gym's owner"}, status=401)
