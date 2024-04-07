@@ -5,6 +5,8 @@ from owner.models import Owner
 from user.models import CustomUser
 from .models import Client
 from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
+from django.core.exceptions import ValidationError
+
 
 class ClientTestCase(TestCase):
     def setUp(self):
@@ -94,6 +96,56 @@ class ClientTestCase(TestCase):
         view = ClientCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 201)
+
+    def test_client_create_view_error_phone_number(self):
+        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 1,
+                'address': '789 Test St', 'city': 'New City', 'register': True,
+                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
+                "userCustom": {"username": "testClient1","password": "musclemate123"}}
+        request = self.factory.post('/clients/create/',data,format='json')
+        force_authenticate(request, user=self.userGym)
+        view = ClientCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phoneNumber'][0])
+
+    def test_client_create_view_error_phone_number_2(self):
+        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 'aasdf',
+                'address': '789 Test St', 'city': 'New City', 'register': True,
+                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
+                "userCustom": {"username": "testClient1","password": "musclemate123"}}
+        request = self.factory.post('/clients/create/',data,format='json')
+        force_authenticate(request, user=self.userGym)
+        view = ClientCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+
+    def test_client_create_view_error_zipcode(self):
+        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 1, 'gender': 'O', 'phoneNumber': 155555555,
+                'address': '789 Test St', 'city': 'New City', 'register': True,
+                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
+                "userCustom": {"username": "testClient1","password": "musclemate123"}}
+        request = self.factory.post('/clients/create/',data,format='json')
+        force_authenticate(request, user=self.userGym)
+        view = ClientCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('El código postal debe contener 5 dígitos numéricos.',response.data['zipcode'][0])
+
+    def test_client_create_view_error_zipcode(self):
+        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 'asdf', 'gender': 'O', 'phoneNumber': 155555555,
+                'address': '789 Test St', 'city': 'New City', 'register': True,
+                'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
+                "userCustom": {"username": "testClient1","password": "musclemate123"}}
+        request = self.factory.post('/clients/create/',data,format='json')
+        force_authenticate(request, user=self.userGym)
+        view = ClientCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
 
     def test_client_create_view_how_owner(self):
         data = {'name': 'New Client 2', 'lastName': 'New Lastname', 'email': 'newclient2@example.com',
