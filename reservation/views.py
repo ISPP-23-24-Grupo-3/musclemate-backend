@@ -54,14 +54,16 @@ class ReservationListByEventView(APIView):
             return Response(status=403)
         
 class ReservationListByClientEvent(APIView):
-    def get(self, request, clientId, eventId):
+    def get(self, request, eventId):
+        user=CustomUser.objects.get(username=request.user)
+        client=Client.objects.get(user=user)
         gymId=Event.objects.get(pk=eventId).gym.id
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
                 request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
                 Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client' and
-                clientId == Client.objects.get(user=request.user).id):
+                client.id == Client.objects.get(user=request.user).id):
             event = Event.objects.get(id=eventId)
-            client = Client.objects.get(id=clientId)
+            client = Client.objects.get(id=client.id)
             reservations = Reservation.objects.filter(event=event, client=client)
             serializer=ReservationSerializer(reservations,many=True)
             return Response(serializer.data)
