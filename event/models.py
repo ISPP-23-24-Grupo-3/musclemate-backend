@@ -1,6 +1,8 @@
 from django.db import models
 from gym.models import Gym
 from random import randint
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+
 
 class Event(models.Model):
 
@@ -13,8 +15,8 @@ class Event(models.Model):
         ('M', 'Medium'),
         ('H', 'High'),
     ]
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=255)
+    name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-z, A-Z]', message="El nombre debe contener letras.")])
+    description = models.CharField(max_length=255, validators=[RegexValidator(r'^[a-z, A-Z]', message="La descripción debe contener letras.")])
     capacity = models.PositiveIntegerField()
     attendees = models.PositiveIntegerField()
     instructor = models.CharField(max_length=100)

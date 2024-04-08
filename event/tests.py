@@ -90,7 +90,6 @@ class EventAPITestCase(TestCase):
         response = view(request, pk=self.event1.pk)
         self.assertEqual(response.status_code, 200)
 
-
     #tests del create view
     def test_event_create_view_how_gym(self):
         data = {'name':'Event 3','description':'This is event 3','capacity':30,
@@ -102,6 +101,30 @@ class EventAPITestCase(TestCase):
         view = EventCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 201)
+
+    def test_event_create_view_name_validator(self):
+        data = {'name':2,'description':'This is event 3','capacity':30,
+                'attendees':15 , 'instructor':'Jane Smith',
+                'date':'2024-03-02','isClickable':True,'duration':timedelta(hours=1),'intensity':'H',
+                'isNotice':True,'gym':self.gym.pk}
+        request = self.factory.post('/events/create/', data)
+        force_authenticate(request, user=self.userGym)
+        view = EventCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('El nombre debe contener letras.',response.data['name'][0])
+
+    def test_event_create_view_description_validator(self):
+        data = {'name':'event','description':5,'capacity':30,
+                'attendees':15 , 'instructor':'Jane Smith',
+                'date':'2024-03-02','isClickable':True,'duration':timedelta(hours=1),'intensity':'H',
+                'isNotice':True,'gym':self.gym.pk}
+        request = self.factory.post('/events/create/', data)
+        force_authenticate(request, user=self.userGym)
+        view = EventCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('La descripción debe contener letras.',response.data['description'][0])
 
     def test_event_create_view_how_owner(self):
         data = {'name':'Event 3','description':'This is event 3','capacity':30,

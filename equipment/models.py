@@ -1,5 +1,6 @@
 from django.db import models
 from gym.models import Gym
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from random import randint
 class Equipment(models.Model):
 
@@ -18,10 +19,10 @@ class Equipment(models.Model):
         ('other', 'Other')
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-z, A-Z]', message="El nombre debe contener letras.")])
     brand = models.CharField(max_length=100)
     serial_number = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(validators=[RegexValidator(r'^[a-z, A-Z]', message="La descripción debe contener letras.")])
     muscular_group = models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES)
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
