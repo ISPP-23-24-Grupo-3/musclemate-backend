@@ -24,3 +24,16 @@ class ReservationSerializer(serializers.ModelSerializer):
         if not Event.objects.filter(id=value.id).exists():
             raise serializers.ValidationError("Event does not exist.")
         return value
+    
+class ReservationUserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = ['event']
+    
+    def validate_event(self, value):
+        """
+        Comprobar si existe el evento proporcionado.
+        """
+        if not Event.objects.filter(id=value.id).exists():
+            raise serializers.ValidationError("Event does not exist.")
+        return value
