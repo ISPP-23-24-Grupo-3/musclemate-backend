@@ -30,7 +30,6 @@ def gym_list(request):
 @permission_classes([IsAuthenticated])
 def gym_detail(request, id):
     gym = get_object_or_404(Gym, id=id)
-    print(gym.subscription_plan)
     if (request.user.rol == "owner"):
         owner = get_object_or_404(Owner, userCustom=request.user)
         if gym.owner == owner:
@@ -45,6 +44,32 @@ def gym_detail(request, id):
             return Response(serializer.data)
         else:
             return Response({'message': "Please authenticate as this gym's client"}, status=401)
+    if (request.user.rol == 'gym'):
+        gymreq = get_object_or_404(Gym, userCustom=request.user)
+        if gym == gymreq:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Please authenticate as this gym"}, status=401)
+        
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def gym_detail_username(request, username):
+    gym = get_object_or_404(Gym, userCustom=username)
+    if (request.user.rol == "owner"):
+        owner = get_object_or_404(Owner, userCustom=request.user)
+        if gym.owner == owner:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+    if (request.user.rol == 'gym'):
+        gymreq = get_object_or_404(Gym, userCustom=request.user)
+        if gym == gymreq:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Please authenticate as this gym"}, status=401)
 
 @api_view(['POST'])
 def gym_create(request):

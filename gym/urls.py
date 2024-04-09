@@ -4,6 +4,7 @@ from gym import views
 urlpatterns = [
     path('gyms/', views.gym_list),
     path('gyms/detail/<int:id>/', views.gym_detail),
+    path('gyms/detail/<str:username>/', views.gym_detail_username),
     path('gyms/delete/<int:id>/', views.gym_delete),
     path('gyms/create/', views.gym_create),
     path('gyms/update/<int:id>/', views.gym_update),
