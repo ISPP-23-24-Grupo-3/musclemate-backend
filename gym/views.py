@@ -30,27 +30,52 @@ def gym_list(request):
 @permission_classes([IsAuthenticated])
 def gym_detail(request, id):
     gym = get_object_or_404(Gym, id=id)
-    print(gym.subscription_plan)
     if (request.user.rol == "owner"):
         owner = get_object_or_404(Owner, userCustom=request.user)
         if gym.owner == owner:
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
     if (request.user.rol == 'client'):
         client = get_object_or_404(Client, user=request.user)
         if client.gym.id == id:
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Please authenticate as this gym's client"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el cliente de este gimnasio"}, status=401)
+    if (request.user.rol == 'gym'):
+        gymreq = get_object_or_404(Gym, userCustom=request.user)
+        if gym == gymreq:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Por favor inicie sesión como este gimnasio"}, status=401)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def gym_detail_username(request, username):
+    gym = get_object_or_404(Gym, userCustom=username)
+    if (request.user.rol == "owner"):
+        owner = get_object_or_404(Owner, userCustom=request.user)
+        if gym.owner == owner:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
+    if (request.user.rol == 'gym'):
+        gymreq = get_object_or_404(Gym, userCustom=request.user)
+        if gym == gymreq:
+            serializer = GymSerializer(gym)
+            return Response(serializer.data)
+        else:
+            return Response({'message': "Por favor inicie sesión como este gimnasio"}, status=401)
 
 @api_view(['POST'])
 def gym_create(request):
     if request.method == 'POST':
         if request.user.rol != 'owner':
-            return Response('You are not authorized to create a gym', status=403)
+            return Response('No tiene la autorización para crear un gimnasio', status=403)
         user_data = request.data.get('userCustom')
         user_data['email'] = request.data.get('email')
         user_serializer = CustomUserSerializer(data=user_data)
@@ -85,7 +110,7 @@ def gym_update(request, id):
         else:
             return Response({'error': 'PUT method required'}, status=400)
     else:
-        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -95,11 +120,11 @@ def gym_delete(request, id):
     if gym.owner == owner:
         if request.method == 'DELETE':
             gym.delete()
-            return Response({'message': 'Gym deleted successfully'})
+            return Response({'message': 'Gimnasio eliminado correctamente'})
         else:
             return Response({'error': 'DELETE method required'}, status=400)
     else:
-        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -114,13 +139,13 @@ def subscription_standar_uptade(request, gym_id):
             if serializer.is_valid():
                 serializer.save()
                 gym.refresh_from_db()
-                return Response({'message': 'Subscription plan updated to standard'})
+                return Response({'message': 'Plan de subscripción actualizado a standard'})
             else:
                 return Response(serializer.errors, status=400)
         else:
             return Response({'error': 'PUT method required'}, status=400)
     else:
-        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -134,13 +159,13 @@ def subscription_premium_uptade(request, gym_id):
             serializer = GymSerializer(gym, data=gym_data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                return Response({'message': 'Subscription plan updated to premium'})
+                return Response({'message': 'Plan de subscripción actualizado a premium'})
             else:
                 return Response(serializer.errors, status=400)
         else:
             return Response({'error': 'PUT method required'}, status=400)
     else:
-        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -183,4 +208,4 @@ def monthly_usage(request, gym_id, year=None, month=None):
         else:
             return Response({'error': 'GET method required'}, status=400)
     else:
-        return Response({'message': "Please authenticate as this gym's owner"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
