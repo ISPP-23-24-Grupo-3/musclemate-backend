@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsGymOwner
 from .models import Equipment
 from workout.models import Workout
 from serie.models import Serie
@@ -42,23 +41,33 @@ class EquipmentDetailView(APIView):
             serializer=EquipmentSerializer(equipment)
             return Response(serializer.data)
         else:
-            return Response({'message': "Please authenticate as the provided gym's owner, client or gym user"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de, cliente de o el gimnasio indicado"}, status=401)
 
-@permission_classes([IsAuthenticated, IsGymOwner])
+@permission_classes([IsAuthenticated])
 class EquipmentCreateView(APIView):
     def post(self, request):
-        owner = get_object_or_404(Owner, userCustom=request.user)
         gym = get_object_or_404(Gym, id=request.data.get("gym"))
-        if gym.owner == owner:
-            serializer = EquipmentSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'message': "Please authenticate as the provided gym's owner"}, status=401)
+        if request.user.rol == "owner":
+            owner = get_object_or_404(Owner, userCustom=request.user)
+            if gym.owner == owner:
+                serializer = EquipmentSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+        elif request.user.rol == "gym":
+            if gym.userCustom == request.user:
+                serializer = EquipmentSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
 
-@permission_classes([IsAuthenticated, IsGymOwner])
+@permission_classes([IsAuthenticated])
 class EquipmentUpdateView(APIView):
     def get_object(self, pk):
         try:
@@ -68,18 +77,28 @@ class EquipmentUpdateView(APIView):
 
     def put(self, request, pk):
         equipment = self.get_object(pk)
-        owner = get_object_or_404(Owner, userCustom=request.user)
         gym = get_object_or_404(Gym, id=equipment.gym.id)
-        if gym.owner == owner:
-            serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'message': "Please authenticate as the provided gym's owner"}, status=401)
+        if request.user.rol == "owner":
+            owner = get_object_or_404(Owner, userCustom=request.user)
+            if gym.owner == owner:
+                serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+        elif request.user.rol == "gym":
+            if gym.userCustom == request.user:
+                serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
 
-@permission_classes([IsAuthenticated, IsGymOwner])
+@permission_classes([IsAuthenticated])
 class EquipmentDeleteView(APIView):
     def get_object(self, pk):
         try:
@@ -89,13 +108,20 @@ class EquipmentDeleteView(APIView):
 
     def delete(self, request, pk):
         equipment = self.get_object(pk)
-        owner = get_object_or_404(Owner, userCustom=request.user)
         gym = get_object_or_404(Gym, id=equipment.gym.id)
-        if gym.owner == owner:
-            equipment.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            return Response({'message': "Please authenticate as the provided gym's owner"}, status=401)
+        if request.user.rol == "owner":
+            owner = get_object_or_404(Owner, userCustom=request.user)
+            if gym.owner == owner:
+                equipment.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+        elif request.user.rol == "gym":
+            if gym.userCustom == request.user:
+                equipment.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
 
 class EquipmentObtainTime(APIView):
     def get_object(self, pk):
@@ -120,4 +146,4 @@ class EquipmentObtainTime(APIView):
                     timer += serie.duration
             return Response({"time": timer}, status=status.HTTP_200_OK)
         else:
-            return Response({'message': "Please authenticate as the provided gym's owner"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
