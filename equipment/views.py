@@ -41,7 +41,7 @@ class EquipmentDetailView(APIView):
             serializer=EquipmentSerializer(equipment)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor autentiquese como el dueño de, cliente de o el gimnasio indicado"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de, cliente de o el gimnasio indicado"}, status=401)
 
 @permission_classes([IsAuthenticated])
 class EquipmentCreateView(APIView):
@@ -56,7 +56,7 @@ class EquipmentCreateView(APIView):
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor autentiquese como el dueño de el gimnasio indicado"}, status=401)
+                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
         elif request.user.rol == "gym":
             if gym.userCustom == request.user:
                 serializer = EquipmentSerializer(data=request.data)
@@ -65,7 +65,7 @@ class EquipmentCreateView(APIView):
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor autentiquese como el gimnasio indicado"}, status=401)
+                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
 
 @permission_classes([IsAuthenticated])
 class EquipmentUpdateView(APIView):
@@ -87,7 +87,7 @@ class EquipmentUpdateView(APIView):
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor autentiquese como el dueño de el gimnasio indicado"}, status=401)
+                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
         elif request.user.rol == "gym":
             if gym.userCustom == request.user:
                 serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
@@ -96,7 +96,7 @@ class EquipmentUpdateView(APIView):
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor autentiquese como el gimnasio indicado"}, status=401)
+                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
 
 @permission_classes([IsAuthenticated])
 class EquipmentDeleteView(APIView):
@@ -115,13 +115,13 @@ class EquipmentDeleteView(APIView):
                 equipment.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response({'message': "Por favor autentiquese como el dueño de el gimnasio indicado"}, status=401)
+                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
         elif request.user.rol == "gym":
             if gym.userCustom == request.user:
                 equipment.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response({'message': "Por favor autentiquese como el gimnasio indicado"}, status=401)
+                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
 
 class EquipmentObtainTime(APIView):
     def get_object(self, pk):
@@ -146,4 +146,4 @@ class EquipmentObtainTime(APIView):
                     timer += serie.duration
             return Response({"time": timer}, status=status.HTTP_200_OK)
         else:
-            return Response({'message': "Por favor autentiquese como el dueño de el gimnasio indicado"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
