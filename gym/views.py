@@ -36,22 +36,22 @@ def gym_detail(request, id):
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
     if (request.user.rol == 'client'):
         client = get_object_or_404(Client, user=request.user)
         if client.gym.id == id:
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor autentiquese como el cliente de este gimnasio"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el cliente de este gimnasio"}, status=401)
     if (request.user.rol == 'gym'):
         gymreq = get_object_or_404(Gym, userCustom=request.user)
         if gym == gymreq:
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor autentiquese como este gimnasio"}, status=401)
-        
+            return Response({'message': "Por favor inicie sesión como este gimnasio"}, status=401)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def gym_detail_username(request, username):
@@ -62,14 +62,14 @@ def gym_detail_username(request, username):
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+            return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
     if (request.user.rol == 'gym'):
         gymreq = get_object_or_404(Gym, userCustom=request.user)
         if gym == gymreq:
             serializer = GymSerializer(gym)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor autentiquese como este gimnasio"}, status=401)
+            return Response({'message': "Por favor inicie sesión como este gimnasio"}, status=401)
 
 @api_view(['POST'])
 def gym_create(request):
@@ -110,7 +110,7 @@ def gym_update(request, id):
         else:
             return Response({'error': 'PUT method required'}, status=400)
     else:
-        return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -124,7 +124,7 @@ def gym_delete(request, id):
         else:
             return Response({'error': 'DELETE method required'}, status=400)
     else:
-        return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -145,7 +145,7 @@ def subscription_standar_uptade(request, gym_id):
         else:
             return Response({'error': 'PUT method required'}, status=400)
     else:
-        return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -165,7 +165,7 @@ def subscription_premium_uptade(request, gym_id):
         else:
             return Response({'error': 'PUT method required'}, status=400)
     else:
-        return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsGymOwner])
@@ -208,4 +208,4 @@ def monthly_usage(request, gym_id, year=None, month=None):
         else:
             return Response({'error': 'GET method required'}, status=400)
     else:
-        return Response({'message': "Por favor autentiquese como el dueño de este gimnasio"}, status=401)
+        return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
