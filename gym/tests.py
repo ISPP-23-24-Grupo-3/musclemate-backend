@@ -80,7 +80,7 @@ class GymModelTest(TestCase):
                 address='123 Test St',
                 phone_number=1234567890,
                 descripcion='Test Description',
-                zip_code='invalid_zip_code',  # Zip code inválido
+                zip_code=1,  # Zip code inválido
                 email='test@example.com',
                 owner=Owner.objects.get(name='Mohammed'),
                 userCustom=CustomUser.objects.get(pk='masmusculo')
