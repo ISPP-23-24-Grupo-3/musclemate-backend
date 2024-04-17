@@ -82,7 +82,7 @@ class GymModelTest(TestCase):
         Gym.objects.create(
             name='Test Gym',
             address='123 Test St',
-            phone_number=1234567890,
+            phone_number=123456789,
             descripcion='Test Description',
             zip_code=1,  # Zip code inválido
             email='test@example.com',

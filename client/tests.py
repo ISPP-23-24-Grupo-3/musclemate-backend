@@ -14,13 +14,13 @@ class ClientTestCase(TestCase):
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
         self.userClient2 = CustomUser.objects.create(username='test_user_4', email='test4@example.com', rol='client')
-        self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
-            phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
+        self.owner = Owner.objects.create(name='Owner', last_name='Owner last_name', email='owner@example.com',
+            phone_number=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
             descripcion='Test Gym Description', zip_code=54321, email='gym@example.com',
             owner=self.owner, userCustom=self.userGym)
-        self.client = Client.objects.create(name='Client 1', lastName='Lastname 1', email='client1@example.com',
-            birth='2000-01-01', zipCode=12345, gender='M', phoneNumber=123456789,address='123 Test St',
+        self.client = Client.objects.create(name='Client 1', last_name='last_name 1', email='client1@example.com',
+            birth='2000-01-01', zipCode=12345, gender='M', phone_number=123456789,address='123 Test St',
             city='Test City', register=True,user=self.userClient,gym=self.gym)
 
     #test del list view
@@ -85,8 +85,8 @@ class ClientTestCase(TestCase):
 
     #test create view
     def test_client_create_view_how_gym(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 123456789,
+        data = {'name': 'New Client', 'last_name': 'New last_name', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phone_number': 123456789,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
                 'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
                 "userCustom": {"username": "testClient1","password": "musclemate123"}}
@@ -97,8 +97,8 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_client_create_view_error_phone_number(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 1,
+        data = {'name': 'New Client', 'last_name': 'New last_name', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phone_number': 1,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
                 'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
                 "userCustom": {"username": "testClient1","password": "musclemate123"}}
@@ -107,11 +107,11 @@ class ClientTestCase(TestCase):
         view = ClientCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phoneNumber'][0])
+        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phone_number'][0])
 
     def test_client_create_view_error_phone_number_2(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 'aasdf',
+        data = {'name': 'New Client', 'last_name': 'New last_name', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phone_number': 'aasdf',
                 'address': '789 Test St', 'city': 'New City', 'register': True,
                 'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
                 "userCustom": {"username": "testClient1","password": "musclemate123"}}
@@ -122,8 +122,8 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_client_create_view_error_zipcode(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 1, 'gender': 'O', 'phoneNumber': 155555555,
+        data = {'name': 'New Client', 'last_name': 'New last_name', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 1, 'gender': 'O', 'phone_number': 155555555,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
                 'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
                 "userCustom": {"username": "testClient1","password": "musclemate123"}}
@@ -135,8 +135,8 @@ class ClientTestCase(TestCase):
         self.assertIn('El código postal debe contener 5 dígitos numéricos.',response.data['zipCode'][0])
 
     def test_client_create_view_error_zipcode_2(self):
-        data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 'asdf', 'gender': 'O', 'phoneNumber': 155555555,
+        data = {'name': 'New Client', 'last_name': 'New last_name', 'email': 'newclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 'asdf', 'gender': 'O', 'phone_number': 155555555,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
                 'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
                 "userCustom": {"username": "testClient1","password": "musclemate123"}}
@@ -147,8 +147,8 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_client_create_view_how_owner(self):
-        data = {'name': 'New Client 2', 'lastName': 'New Lastname', 'email': 'newclient2@example.com',
-                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phoneNumber': 123456789,
+        data = {'name': 'New Client 2', 'last_name': 'New last_name', 'email': 'newclient2@example.com',
+                'birth': '2000-01-01', 'zipCode': 12345, 'gender': 'O', 'phone_number': 123456789,
                 'address': '789 Test St', 'city': 'New City', 'register': True,
                 'username': 'jaime99','password': 'yourpassword','gym': self.gym.pk,
                 "userCustom": {"username": "testClient2","password": "musclemate123"}}
@@ -160,8 +160,8 @@ class ClientTestCase(TestCase):
 
     #test update view
     def test_client_update_view_how_client(self):
-        data = {'name': 'Updated Client', 'lastName': 'Updated Lastname', 'email': 'updatedclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phoneNumber': 987654321,
+        data = {'name': 'Updated Client', 'last_name': 'Updated last_name', 'email': 'updatedclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phone_number': 987654321,
                 'address': '987 Test St', 'city': 'Updated City', 'register': False, 'user': self.userClient.pk,
                 'gym': self.gym.pk}
         request = self.factory.put('/clients/update/',data)
@@ -171,8 +171,8 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_client_update_view_how_gym(self):
-        data = {'name': 'Updated Client', 'lastName': 'Updated Lastname', 'email': 'updatedclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phoneNumber': 987654321,
+        data = {'name': 'Updated Client', 'last_name': 'Updated last_name', 'email': 'updatedclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phone_number': 987654321,
                 'address': '987 Test St', 'city': 'Updated City', 'register': False, 'user': self.userClient.pk,
                 'gym': self.gym.pk}
         request = self.factory.put('/clients/update/',data)
@@ -182,8 +182,8 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_client_update_view_how_owner(self):
-        data = {'name': 'Updated Client', 'lastName': 'Updated Lastname', 'email': 'updatedclient@example.com',
-                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phoneNumber': 987654321,
+        data = {'name': 'Updated Client', 'last_name': 'Updated last_name', 'email': 'updatedclient@example.com',
+                'birth': '2000-01-01', 'zipCode': 54321, 'gender': 'F', 'phone_number': 987654321,
                 'address': '987 Test St', 'city': 'Updated City', 'register': False, 'user': self.userClient.pk,
                 'gym': self.gym.pk}
         request = self.factory.put('/clients/update/',data)
