@@ -14,9 +14,9 @@ class OwnerAPITestCase(TestCase):
             rol='owner',password='testpassword')
         self.owner = Owner.objects.create(
             name='John',
-            lastName='Doe',
+            last_name='Doe',
             email='john.doe@example.com',
-            phoneNumber=123456789,
+            phone_number=123456789,
             address='123 Owner St',
             userCustom=self.user
         )
@@ -39,7 +39,7 @@ class OwnerAPITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_owner_create_view(self):
-        data = {"name": "John","lastName": "Doe","email": "foo@bar.com","phoneNumber": 614869725,
+        data = {"name": "John","last_name": "Doe","email": "foo@bar.com","phone_number": 614869725,
             "address": "Fake st","userCustom":{ "username": "testOwner","password": "musclemate123"}}
         request = self.factory.post('/owners/create/', data, format='json')
         self.userAdmin.is_superuser = True
@@ -48,16 +48,16 @@ class OwnerAPITestCase(TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_owner_create_view_error_phone_number(self):
-        data = {"name": "John","lastName": "Doe","email": "foo@bar.com","phoneNumber": 1,
+        data = {"name": "John","last_name": "Doe","email": "foo@bar.com","phone_number": 1,
             "address": "Fake st","userCustom":{ "username": "testOwner","password": "musclemate123"}}
         request = self.factory.post('/owners/create/', data, format='json')
         self.userAdmin.is_superuser = True
         force_authenticate(request, user=self.userAdmin)
         response = OwnerCreateView.as_view()(request)
-        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phoneNumber'][0])
+        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phone_number'][0])
 
     def test_owner_update_view(self):
-        data = {'name':'Update','lastName':'Doe','email':'john.doe2@example.com','phoneNumber':123456789,
+        data = {'name':'Update','last_name':'Doe','email':'john.doe2@example.com','phone_number':123456789,
                 'address':'123 Owner St','userCustom':self.user.pk}
         request = self.factory.put('/owners/update/', data)
         self.userAdmin.is_superuser = True

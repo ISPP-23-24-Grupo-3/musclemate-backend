@@ -14,13 +14,13 @@ class Owner(models.Model):
         ('H', 'High'),
     ]
     name = models.CharField(max_length=100, validators=[MinLengthValidator(1), MaxLengthValidator(100)])
-    lastName = models.CharField(max_length=100, validators=[MinLengthValidator(1), MaxLengthValidator(100)])
+    last_name = models.CharField(max_length=100, validators=[MinLengthValidator(1), MaxLengthValidator(100)])
     email = models.EmailField()
-    phoneNumber=models.PositiveIntegerField(validators=[RegexValidator(r'^[0-9]{6}', message="El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.")])
+    phone_number=models.PositiveIntegerField(validators=[RegexValidator(r'^[0-9]{6}', message="El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.")])
     address=models.CharField(max_length=250)
     customer_id = models.CharField(max_length=50, unique=True, null = True, default=None, blank=True)
 
     userCustom = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
   
     def __str__(self):
-        return f"Owner - {self.name} {self.lastName} ({self.id})"
+        return f"Owner - {self.name} {self.last_name} ({self.id})"
