@@ -47,6 +47,15 @@ class OwnerAPITestCase(TestCase):
         response = OwnerCreateView.as_view()(request)
         self.assertEqual(response.status_code, 201)
 
+    def test_owner_create_view_error_phone_number(self):
+        data = {"name": "John","lastName": "Doe","email": "foo@bar.com","phoneNumber": 1,
+            "address": "Fake st","userCustom":{ "username": "testOwner","password": "musclemate123"}}
+        request = self.factory.post('/owners/create/', data, format='json')
+        self.userAdmin.is_superuser = True
+        force_authenticate(request, user=self.userAdmin)
+        response = OwnerCreateView.as_view()(request)
+        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phoneNumber'][0])
+
     def test_owner_update_view(self):
         data = {'name':'Update','lastName':'Doe','email':'john.doe2@example.com','phoneNumber':123456789,
                 'address':'123 Owner St','userCustom':self.user.pk}
