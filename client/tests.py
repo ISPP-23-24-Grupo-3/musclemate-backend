@@ -132,7 +132,7 @@ class ClientTestCase(TestCase):
         view = ClientCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('El código postal debe contener 5 dígitos numéricos.',response.data['zipcode'][0])
+        self.assertIn('El código postal debe contener 5 dígitos numéricos.',response.data['zipCode'][0])
 
     def test_client_create_view_error_zipcode_2(self):
         data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
