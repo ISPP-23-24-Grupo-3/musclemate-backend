@@ -1,7 +1,7 @@
 from django.db import models
 from owner.models import Owner
 from user.models import CustomUser
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import RegexValidator
 from random import randint
 
 class Gym(models.Model):
@@ -17,7 +17,8 @@ class Gym(models.Model):
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     name = models.CharField(max_length = 50, validators=[RegexValidator(r'^[a-z, A-Z]', message="El nombre debe contener letras.")])
     address = models.CharField(max_length = 200,validators=[RegexValidator(r'^[a-z, A-Z]', message="La dirección debe contener letras.")])
-    phone_number = models.IntegerField(validators=[RegexValidator(r'^[0-9]{9}', message="El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.")])
+    phone_number = models.IntegerField(validators=[RegexValidator(r'^[0-9]{9}',
+        message="El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.")])
     descripcion = models.CharField(max_length = 500)
     zip_code = models.IntegerField(validators=[RegexValidator(r'^[0-9]{5}$', message="El código postal debe contener 5 dígitos numéricos.")])
     email = models.EmailField()

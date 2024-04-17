@@ -1,7 +1,7 @@
 from django.db import models
 from client.models import Client
 from gym.models import Gym
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import RegexValidator
 from equipment.models import Equipment
 from random import randint
 

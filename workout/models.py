@@ -3,7 +3,7 @@ from routine.models import Routine
 from client.models import Client
 from equipment.models import Equipment
 from random import randint
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 class Workout(models.Model):
     def random_id():

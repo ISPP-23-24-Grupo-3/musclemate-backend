@@ -2,15 +2,10 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from .models import Gym, Owner, CustomUser
 from random import randint
-from rest_framework.test import force_authenticate 
-from .views import monthly_usage
-from rest_framework.test import APIRequestFactory
 
 class GymModelTest(TestCase):
     fixtures = ['owner/fixtures/owner.json', 'user/fixtures/user.json']
     
-    def setUp(self):
-        self.factory = APIRequestFactory()
 
     @classmethod
     def setUpTestData(cls):

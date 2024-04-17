@@ -5,7 +5,6 @@ from owner.models import Owner
 from user.models import CustomUser
 from .models import Client
 from .views import ClientListView, ClientDetailView, ClientCreateView, ClientUpdateView, ClientDeleteView,ClientListByGymView, ClientUsernameDetailView
-from django.core.exceptions import ValidationError
 
 
 class ClientTestCase(TestCase):
@@ -135,7 +134,7 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('El código postal debe contener 5 dígitos numéricos.',response.data['zipcode'][0])
 
-    def test_client_create_view_error_zipcode(self):
+    def test_client_create_view_error_zipcode_2(self):
         data = {'name': 'New Client', 'lastName': 'New Lastname', 'email': 'newclient@example.com',
                 'birth': '2000-01-01', 'zipCode': 'asdf', 'gender': 'O', 'phoneNumber': 155555555,
                 'address': '789 Test St', 'city': 'New City', 'register': True,

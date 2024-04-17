@@ -1,6 +1,6 @@
 from django.db import models
 from gym.models import Gym
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import RegexValidator
 from random import randint
 class Equipment(models.Model):
 

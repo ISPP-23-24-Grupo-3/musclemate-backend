@@ -1,7 +1,7 @@
 from django.db import models
 from gym.models import Gym
 from random import randint
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import RegexValidator
 
 
 class Event(models.Model):
