@@ -14,21 +14,35 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='gym',
             name='address',
-            field=models.CharField(max_length=200, validators=[django.core.validators.RegexValidator('^[a-z, A-Z]', message='La dirección debe contener letras.')]),
+            field=models.CharField(
+                max_length=200,
+                validators=[django.core.validators.RegexValidator('^[a-z, A-Z]',
+                message='La dirección debe contener letras.')]
+            ),
         ),
         migrations.AlterField(
             model_name='gym',
             name='name',
-            field=models.CharField(max_length=50, validators=[django.core.validators.RegexValidator('^[a-z, A-Z]', message='El nombre debe contener letras.')]),
+            field=models.CharField(
+                max_length=50,
+                validators=[django.core.validators.RegexValidator('^[a-z, A-Z]',
+                message='El nombre debe contener letras.')]
+            ),
         ),
         migrations.AlterField(
             model_name='gym',
             name='phone_number',
-            field=models.IntegerField(validators=[django.core.validators.RegexValidator('^[0-9]{9}', message='El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')]),
+            field=models.IntegerField(
+                validators=[django.core.validators.RegexValidator('^[0-9]{9}',
+                message='El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')]
+            ),
         ),
         migrations.AlterField(
             model_name='gym',
             name='zip_code',
-            field=models.IntegerField(validators=[django.core.validators.RegexValidator('^[0-9]{5}$', message='El código postal debe contener 5 dígitos numéricos.')]),
+            field=models.IntegerField(
+                validators=[django.core.validators.RegexValidator('^[0-9]{5}$',
+                message='El código postal debe contener 5 dígitos numéricos.')]
+            ),
         ),
     ]

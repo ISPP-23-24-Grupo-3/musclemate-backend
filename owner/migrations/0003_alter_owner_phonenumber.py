@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='owner',
             name='phoneNumber',
-            field=models.PositiveIntegerField(validators=[django.core.validators.RegexValidator('^[0-9]{6}', message='El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')]),
+            field=models.PositiveIntegerField(
+                validators=[django.core.validators.RegexValidator('^[0-9]{6}',
+                message='El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')]
+            ),
         ),
     ]

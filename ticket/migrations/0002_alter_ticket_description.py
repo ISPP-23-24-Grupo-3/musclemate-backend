@@ -14,6 +14,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='ticket',
             name='description',
-            field=models.CharField(max_length=250, validators=[django.core.validators.RegexValidator('^[a-z, A-Z]', message='La descripción debe contener letras.')]),
+            field=models.CharField(
+                max_length=250,
+                validators=[django.core.validators.RegexValidator('^[a-z, A-Z]',
+                message='La descripción debe contener letras.')]
+            ),
         ),
     ]

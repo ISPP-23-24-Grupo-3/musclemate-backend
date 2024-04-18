@@ -14,11 +14,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customuser',
             name='first_name',
-            field=models.CharField(blank=True, max_length=30, validators=[django.core.validators.MinLengthValidator(1), django.core.validators.MaxLengthValidator(30)]),
+            field=models.CharField(
+                blank=True, max_length=30,
+                validators=[django.core.validators.MinLengthValidator(1), django.core.validators.MaxLengthValidator(30)]
+            ),
         ),
         migrations.AlterField(
             model_name='customuser',
             name='last_name',
-            field=models.CharField(blank=True, max_length=150, validators=[django.core.validators.MinLengthValidator(1), django.core.validators.MaxLengthValidator(150)]),
+            field=models.CharField(
+                blank=True, max_length=150,
+                validators=[django.core.validators.MinLengthValidator(1), django.core.validators.MaxLengthValidator(150)]
+            ),
         ),
     ]

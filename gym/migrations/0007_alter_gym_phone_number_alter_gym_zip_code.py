@@ -14,11 +14,19 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='gym',
             name='phone_number',
-            field=models.CharField(max_length=9, validators=[django.core.validators.RegexValidator('^[0-9]{9}', message='El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')]),
+            field=models.CharField(
+                max_length=9,
+                validators=[django.core.validators.RegexValidator('^[0-9]{9}',
+                message='El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')]
+            ),
         ),
         migrations.AlterField(
             model_name='gym',
             name='zip_code',
-            field=models.CharField(max_length=5, validators=[django.core.validators.RegexValidator('^[0-9]{5}$', message='El código postal debe contener 5 dígitos numéricos.')]),
+            field=models.CharField(
+                max_length=5,
+                validators=[django.core.validators.RegexValidator('^[0-9]{5}$',
+                message='El código postal debe contener 5 dígitos numéricos.')]
+            ),
         ),
     ]

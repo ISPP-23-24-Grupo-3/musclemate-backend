@@ -2,8 +2,6 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from .models import Gym, Owner, CustomUser
 from random import randint
-from rest_framework.test import force_authenticate 
-from .views import monthly_usage
 from django.core.exceptions import ValidationError
 
 

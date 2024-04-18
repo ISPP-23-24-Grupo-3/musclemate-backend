@@ -14,11 +14,20 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='client',
             name='phoneNumber',
-            field=models.PositiveIntegerField(validators=[django.core.validators.MinLengthValidator(6), django.core.validators.MaxLengthValidator(6), django.core.validators.RegexValidator('^[0-9]+$', message='El número de teléfono debe contener solo dígitos.')]),
+            field=models.PositiveIntegerField(
+                validators=[django.core.validators.MinLengthValidator(6),
+                django.core.validators.MaxLengthValidator(6),
+                django.core.validators.RegexValidator('^[0-9]+$',
+                message='El número de teléfono debe contener solo dígitos.')]
+            ),
         ),
         migrations.AlterField(
             model_name='client',
             name='zipCode',
-            field=models.PositiveIntegerField(validators=[django.core.validators.MinLengthValidator(5), django.core.validators.MaxLengthValidator(5), django.core.validators.RegexValidator('^[0-9]{5}$', message='El código postal debe contener 5 dígitos numéricos.')]),
+            field=models.PositiveIntegerField(
+                validators=[django.core.validators.MinLengthValidator(5),
+                django.core.validators.MaxLengthValidator(5),
+                django.core.validators.RegexValidator('^[0-9]{5}$',
+                message='El código postal debe contener 5 dígitos numéricos.')]),
         ),
     ]

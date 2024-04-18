@@ -14,11 +14,18 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='equipment',
             name='description',
-            field=models.TextField(validators=[django.core.validators.RegexValidator('^[a-z, A-Z]', message='La descripción debe contener letras.')]),
+            field=models.TextField(
+                validators=[django.core.validators.RegexValidator('^[a-z, A-Z]',
+                message='La descripción debe contener letras.')]
+            ),
         ),
         migrations.AlterField(
             model_name='equipment',
             name='name',
-            field=models.CharField(max_length=100, validators=[django.core.validators.RegexValidator('^[a-z, A-Z]', message='El nombre debe contener letras.')]),
+            field=models.CharField(
+                max_length=100,
+                validators=[django.core.validators.RegexValidator('^[a-z, A-Z]',
+                message='El nombre debe contener letras.')]
+            ),
         ),
     ]

@@ -81,8 +81,14 @@ class EquipmentTests(TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_equipment_create_view_how_owner_name_validator(self):
-        data = {'name': 4,'brand': 'Marca A','serial_number':'MNCD002',
-            'description': 'Un par de mancuernas de 5 kg cada una','muscular_group': 'arms','gym': self.gym.id}
+        data = {
+            'name': 4,
+            'brand': 'Marca A',
+            'serial_number':'MNCD002',
+            'description': 'Un par de mancuernas de 5 kg cada una',
+            'muscular_group': 'arms',
+            'gym': self.gym.id
+        }
         request = self.factory.post('/equipments/create/',data)
         force_authenticate(request, user=self.userOwner)
         view = EquipmentCreateView.as_view()
