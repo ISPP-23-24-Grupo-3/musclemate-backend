@@ -1,6 +1,7 @@
 from django.db import models
 from client.models import Client
 from gym.models import Gym
+from django.core.validators import RegexValidator
 from equipment.models import Equipment
 from random import randint
 
@@ -12,7 +13,7 @@ class Ticket(models.Model):
     
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     label = models.CharField(max_length=50)
-    description = models.CharField(max_length=250)
+    description = models.CharField(max_length=250, validators=[RegexValidator(r'^[a-z, A-Z]', message="La descripción debe contener letras.")])
     status = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True )
 

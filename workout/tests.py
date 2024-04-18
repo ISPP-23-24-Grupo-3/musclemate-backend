@@ -19,9 +19,9 @@ class WorkoutTests(TestCase):
 
         self.owner = Owner.objects.create(
             name='John',
-            lastName='Doe',
+            last_name='Doe',
             email='john.doe@example.com',
-            phoneNumber=123456789,
+            phone_number=123456789,
             address='123 Owner St',
             userCustom=self.user1
         )
@@ -49,10 +49,10 @@ class WorkoutTests(TestCase):
             user=self.user,
             gym=self.gym,
             name='test',
-            lastName='user',
+            last_name='user',
             email='test@gmail.com',
             zipCode=12345,
-            phoneNumber=1234567890,
+            phone_number=1234567890,
             address='1234 Test St',
             city='Test City',
             register=True
@@ -61,10 +61,10 @@ class WorkoutTests(TestCase):
             user=self.user1,
             gym=self.gym,
             name='test2',
-            lastName='user2',
+            last_name='user2',
             email='test3@gmail.com0',
             zipCode=12345,
-            phoneNumber=1234567890,
+            phone_number=1234567890,
             address='1234 Test St',
             city='Test City',
             register=True
