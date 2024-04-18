@@ -186,6 +186,7 @@ def monthly_usage(request, gym_id, year=None, month=None):
         if request.method == 'GET':
             if year is not None and month is None:
                 data = Serie.objects.filter(
+                    workout__client__gym=gym,
                     date__year=current_year)\
                     .values('workout__equipment__name', 'date__month')\
                     .annotate(total=Count('workout__equipment__name'))
