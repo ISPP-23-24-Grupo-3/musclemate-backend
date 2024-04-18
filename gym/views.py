@@ -180,8 +180,6 @@ def monthly_usage(request, gym_id, year=None, month=None):
         current_month = datetime.now().month
     else:
         current_month = month
-    print(year, month)
-    print(current_year, current_month)
     if gym.owner == owner:
         if request.method == 'GET':
             if year is not None and month is None:
@@ -191,7 +189,6 @@ def monthly_usage(request, gym_id, year=None, month=None):
                     .values('workout__equipment__name', 'date__month')\
                     .annotate(total=Count('workout__equipment__name'))
             else:
-                print(current_year, current_month)
                 data = Serie.objects.filter(
                     workout__client__gym=gym,
                     date__year=current_year,
