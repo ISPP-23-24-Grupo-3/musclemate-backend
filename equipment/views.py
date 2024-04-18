@@ -11,6 +11,7 @@ from owner.models import Owner
 from gym.models import Gym
 from client.models import Client
 from .serializers import EquipmentSerializer
+from django.db.models import Count
 
 def isAllowed(equipment, user):
     if user.rol == "client":
@@ -147,3 +148,18 @@ class EquipmentObtainTime(APIView):
             return Response({"time": timer}, status=status.HTTP_200_OK)
         else:
             return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+
+class EquipmentGlobalList(APIView):
+    def get(self, request):
+        workouts = Workout.objects.all()
+        equipment_count = {}
+        for workout in workouts:
+            for equipment in workout.equipment.all():
+                if equipment in equipment_count:
+                    equipment_count[equipment] += 1
+                else:
+                    equipment_count[equipment] = 1
+        sorted_equipment = sorted(equipment_count.items(), key=lambda x: x[1], reverse=True)
+        equipment_list = [item[0] for item in sorted_equipment]
+        serializer = EquipmentSerializer(equipment_list, many=True)
+        return Response(serializer.data)
