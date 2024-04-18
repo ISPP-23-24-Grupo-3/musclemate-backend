@@ -11,4 +11,4 @@ class Reservation (models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Reservation - {self.client.name} {self.client.lastName}, {self.event.name} ({self.id})"
+        return f"Reservation - {self.client.name} {self.client.last_name}, {self.event.name} ({self.id})"

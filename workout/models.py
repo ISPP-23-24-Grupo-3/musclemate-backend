@@ -18,4 +18,4 @@ class Workout(models.Model):
     equipment = models.ManyToManyField(Equipment, blank=True)
         
     def __str__(self):
-        return f"Workout - {self.name}, {self.client.name} {self.client.lastName} ({self.id})"
+        return f"Workout - {self.name}, {self.client.name} {self.client.last_name} ({self.id})"

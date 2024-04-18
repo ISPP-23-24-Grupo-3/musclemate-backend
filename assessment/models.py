@@ -16,4 +16,4 @@ class Assessment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Assesment - {self.equipment.name}, {self.client.name} {self.client.lastName} ({self.id})"
+        return f"Assesment - {self.equipment.name}, {self.client.name} {self.client.last_name} ({self.id})"

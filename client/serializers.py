@@ -10,7 +10,7 @@ class ClientSerializer(serializers.ModelSerializer):
         model = Client
         fields = ['id','name', 'last_name', 'birth', 'zipCode','gender', 'phone_number', 'email','address','city','register', 'user', 'gym']
 
-    def validate_phoneNumber(self, value):
+    def validate_phone_number(self, value):
         """
         Comprobar si el número de teléfono tiene 9 dígitos.
         """
