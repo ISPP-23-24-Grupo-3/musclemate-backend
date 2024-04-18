@@ -17,7 +17,7 @@ class OwnerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("User does not exist.")
         return value
     
-    def validate_phoneNumber(self, value):
+    def validate_phone_number(self, value):
         """
         Comprobar si el número de teléfono tiene 9 dígitos.
         """
