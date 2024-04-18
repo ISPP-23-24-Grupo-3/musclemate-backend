@@ -7,7 +7,7 @@ class OwnerSerializer(serializers.ModelSerializer):
     userCustom = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     class Meta:
         model = Owner
-        fields = ['name', 'lastName', 'email', 'phoneNumber', 'address', 'userCustom', 'customer_id']
+        fields = ['name', 'last_name', 'email', 'phone_number', 'address', 'userCustom', 'customer_id']
 
     def validate_userCustom(self, value):
         """

@@ -13,13 +13,13 @@ class EquipmentTests(TestCase):
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
 
-        self.owner = Owner.objects.create(name='Owner', lastName='Owner Lastname', email='owner@example.com',
-            phoneNumber=123456789, address='123 Owner St', userCustom=self.userOwner)
+        self.owner = Owner.objects.create(name='Owner', last_name='Owner last_name', email='owner@example.com',
+            phone_number=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
             descripcion='Test Gym Description', zip_code=54321, email='gym@example.com',
             owner=self.owner, userCustom=self.userGym)
-        self.client = Client.objects.create(name='Client 1', lastName='Lastname 1', email='client1@example.com',
-            birth='2000-01-01', zipCode=12345, gender='M', phoneNumber=123456789,address='123 Test St',
+        self.client = Client.objects.create(name='Client 1', last_name='last_name 1', email='client1@example.com',
+            birth='2000-01-01', zipCode=12345, gender='M', phone_number=123456789,address='123 Test St',
             city='Test City', register=True,user=self.userClient,gym=self.gym)
         self.equipment=Equipment.objects.create(name= 'Mancuernas',brand= 'Marca A',serial_number='MNCD001',
                 description= 'Un par de mancuernas de 5 kg cada una',muscular_group= 'arms',gym= self.gym)
@@ -72,19 +72,63 @@ class EquipmentTests(TestCase):
 
     #test create view
     def test_equipment_create_view_how_owner(self):
-        data = {'name': 'New Equipment','brand': 'Marca A','serial_number':'MNCD002',
-            'description': 'Un par de mancuernas de 5 kg cada una','muscular_group': 'arms','gym': self.gym.id}
+        data = {
+                'name': 'New Equipment',
+                'brand': 'Marca A',
+                'serial_number':'MNCD002',
+                'description': 'Un par de mancuernas de 5 kg cada una',
+                'muscular_group': 'arms',
+                'gym': self.gym.id
+            }
         request = self.factory.post('/equipments/create/',data)
         force_authenticate(request, user=self.userOwner)
         view = EquipmentCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 201)
 
+    def test_equipment_create_view_how_owner_name_validator(self):
+        data = {
+            'name': 4,
+            'brand': 'Marca A',
+            'serial_number':'MNCD002',
+            'description': 'Un par de mancuernas de 5 kg cada una',
+            'muscular_group': 'arms',
+            'gym': self.gym.id
+        }
+        request = self.factory.post('/equipments/create/',data)
+        force_authenticate(request, user=self.userOwner)
+        view = EquipmentCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('El nombre debe contener letras.',response.data['name'][0])
+
+    def test_equipment_create_view_how_owner_description_validator(self):
+        data = {
+            'name': 'New Equipment 4',
+            'brand': 'Marca A',
+            'serial_number':'MNCD002',
+            'description': 5,
+            'muscular_group': 'arms',
+            'gym': self.gym.id
+        }
+        request = self.factory.post('/equipments/create/',data)
+        force_authenticate(request, user=self.userOwner)
+        view = EquipmentCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('La descripción debe contener letras.',response.data['description'][0])
+
 
     #test update view
     def test_equipment_update_view_how_owner(self):
-        data = {'name': 'Update Equipment','brand': 'Marca A','serial_number':'MNCD001',
-            'description': 'Un par de mancuernas de 5 kg cada una','muscular_group': 'arms','gym': self.gym.pk}
+        data = {
+                'name': 'Update Equipment',
+                'brand': 'Marca A',
+                'serial_number':'MNCD001',
+                'description': 'Un par de mancuernas de 5 kg cada una',
+                'muscular_group': 'arms',
+                'gym': self.gym.pk
+            }
         request = self.factory.put('/equipments/update/',data)
         force_authenticate(request, user=self.userOwner)
         view = EquipmentUpdateView.as_view()
