@@ -72,8 +72,14 @@ class EquipmentTests(TestCase):
 
     #test create view
     def test_equipment_create_view_how_owner(self):
-        data = {'name': 'New Equipment','brand': 'Marca A','serial_number':'MNCD002',
-            'description': 'Un par de mancuernas de 5 kg cada una','muscular_group': 'arms','gym': self.gym.id}
+        data = {
+                'name': 'New Equipment',
+                'brand': 'Marca A',
+                'serial_number':'MNCD002',
+                'description': 'Un par de mancuernas de 5 kg cada una',
+                'muscular_group': 'arms',
+                'gym': self.gym.id
+            }
         request = self.factory.post('/equipments/create/',data)
         force_authenticate(request, user=self.userOwner)
         view = EquipmentCreateView.as_view()
@@ -97,8 +103,14 @@ class EquipmentTests(TestCase):
         self.assertIn('El nombre debe contener letras.',response.data['name'][0])
 
     def test_equipment_create_view_how_owner_description_validator(self):
-            data = {'name': 'New Equipment 4','brand': 'Marca A','serial_number':'MNCD002',
-                'description': 5,'muscular_group': 'arms','gym': self.gym.id}
+            data = {
+                'name': 'New Equipment 4',
+                'brand': 'Marca A',
+                'serial_number':'MNCD002',
+                'description': 5,
+                'muscular_group': 'arms',
+                'gym': self.gym.id
+            }
             request = self.factory.post('/equipments/create/',data)
             force_authenticate(request, user=self.userOwner)
             view = EquipmentCreateView.as_view()
@@ -109,8 +121,14 @@ class EquipmentTests(TestCase):
 
     #test update view
     def test_equipment_update_view_how_owner(self):
-        data = {'name': 'Update Equipment','brand': 'Marca A','serial_number':'MNCD001',
-            'description': 'Un par de mancuernas de 5 kg cada una','muscular_group': 'arms','gym': self.gym.pk}
+        data = {
+                'name': 'Update Equipment',
+                'brand': 'Marca A',
+                'serial_number':'MNCD001',
+                'description': 'Un par de mancuernas de 5 kg cada una',
+                'muscular_group': 'arms',
+                'gym': self.gym.pk
+            }
         request = self.factory.put('/equipments/update/',data)
         force_authenticate(request, user=self.userOwner)
         view = EquipmentUpdateView.as_view()

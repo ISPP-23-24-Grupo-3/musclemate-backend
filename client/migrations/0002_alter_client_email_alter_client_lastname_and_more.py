@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             name='lastName',
             field=models.CharField(
                 max_length=100,
-                validators=[django.core.validators.MinLengthValidator(1), 
+                validators=[django.core.validators.MinLengthValidator(1),
                 django.core.validators.MaxLengthValidator(100)]
             ),
         ),
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             field=models.PositiveIntegerField(
                 max_length=5,
                 validators=[django.core.validators.MinLengthValidator(5),
-                django.core.validators.MaxLengthValidator(5), 
+                django.core.validators.MaxLengthValidator(5),
                 django.core.validators.RegexValidator('^[0-9]{5}$',
                 message='El código postal debe contener 5 dígitos numéricos.')]
             ),
