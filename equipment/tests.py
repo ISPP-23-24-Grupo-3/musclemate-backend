@@ -103,20 +103,20 @@ class EquipmentTests(TestCase):
         self.assertIn('El nombre debe contener letras.',response.data['name'][0])
 
     def test_equipment_create_view_how_owner_description_validator(self):
-            data = {
-                'name': 'New Equipment 4',
-                'brand': 'Marca A',
-                'serial_number':'MNCD002',
-                'description': 5,
-                'muscular_group': 'arms',
-                'gym': self.gym.id
-            }
-            request = self.factory.post('/equipments/create/',data)
-            force_authenticate(request, user=self.userOwner)
-            view = EquipmentCreateView.as_view()
-            response = view(request)
-            self.assertEqual(response.status_code, 400)
-            self.assertIn('La descripción debe contener letras.',response.data['description'][0])
+        data = {
+            'name': 'New Equipment 4',
+            'brand': 'Marca A',
+            'serial_number':'MNCD002',
+            'description': 5,
+            'muscular_group': 'arms',
+            'gym': self.gym.id
+        }
+        request = self.factory.post('/equipments/create/',data)
+        force_authenticate(request, user=self.userOwner)
+        view = EquipmentCreateView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('La descripción debe contener letras.',response.data['description'][0])
 
 
     #test update view
