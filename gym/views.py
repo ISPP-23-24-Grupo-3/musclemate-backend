@@ -13,6 +13,8 @@ from django.db.models import Count
 from serie.models import Serie
 from datetime import datetime
 from django.http import JsonResponse
+from datetime import datetime, timedelta
+
 
 
 @api_view(['GET'])
@@ -182,12 +184,49 @@ def monthly_usage(request, gym_id, year=None, month=None):
         current_month = month
     if gym.owner == owner:
         if request.method == 'GET':
+            formatted_data = []
             if year is not None and month is None:
                 data = Serie.objects.filter(
                     workout__client__gym=gym,
                     date__year=current_year)\
                     .values('workout__equipment__name', 'date__month')\
                     .annotate(total=Count('workout__equipment__name'))
+                for entry in data:
+                    formatted_data.append({
+                        'month': entry['date__month'] if 'date__month' in entry else current_month,
+                        'equipment_name': entry['workout__equipment__name'],
+                        'total': entry['total']
+                    })
+            elif month is not None:
+                start_date = datetime(current_year, current_month, 1)
+                if current_month == 12:
+                    end_date = datetime(current_year + 1, 1, 1)
+                else:
+                    end_date = datetime(current_year, current_month + 1, 1)
+                data = Serie.objects.filter(
+                    workout__client__gym=gym,
+                    date__year=current_year,
+                    date__month=current_month)\
+                    .values('workout__equipment__name', 'date')\
+                    .annotate(total=Count('workout__equipment__name')
+                )
+                current_date = start_date
+                while current_date < end_date:
+                    daily_usage = {}
+                    for entry in data:
+                        if entry['date'].day == current_date.day:
+                            equipment_name = entry['workout__equipment__name']
+                            total_usage = entry['total']
+                            if equipment_name not in daily_usage:
+                                daily_usage[equipment_name] = total_usage
+                            else:
+                                daily_usage[equipment_name] += total_usage
+                    
+                    formatted_data.append({
+                        'date': current_date.strftime('%Y-%m-%d'),
+                        'daily_usage': daily_usage
+                    })
+                    current_date += timedelta(days=1)           
             else:
                 data = Serie.objects.filter(
                     workout__client__gym=gym,
@@ -195,13 +234,12 @@ def monthly_usage(request, gym_id, year=None, month=None):
                     date__month=current_month)\
                     .values('workout__equipment__name')\
                     .annotate(total=Count('workout__equipment__name'))
-            formatted_data = []
-            for entry in data:
-                formatted_data.append({
-                    'month': entry['date__month'] if 'date__month' in entry else current_month,
-                    'equipment_name': entry['workout__equipment__name'],
-                    'total': entry['total']
-                })
+                for entry in data:
+                    formatted_data.append({
+                        'month': entry['date__month'] if 'date__month' in entry else current_month,
+                        'equipment_name': entry['workout__equipment__name'],
+                        'total': entry['total']
+                    })
             return JsonResponse(formatted_data, safe=False)
         else:
             return Response({'error': 'GET method required'}, status=400)
