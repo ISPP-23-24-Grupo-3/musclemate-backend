@@ -11,7 +11,6 @@ from owner.models import Owner
 from gym.models import Gym
 from client.models import Client
 from .serializers import EquipmentSerializer
-from django.db.models import Count
 
 def isAllowed(equipment, user):
     if user.rol == "client":
