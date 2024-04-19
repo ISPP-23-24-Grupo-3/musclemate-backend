@@ -11,7 +11,6 @@ from user.serializers import CustomUserSerializer
 from owner.models import Owner
 from django.db.models import Count
 from serie.models import Serie
-from datetime import datetime
 from django.http import JsonResponse
 from datetime import datetime, timedelta
 
@@ -209,7 +208,7 @@ def monthly_usage(request, gym_id, year=None, month=None):
             return Response({'error': 'GET method required'}, status=400)
     else:
         return Response({'message': "Por favor inicie sesión como el dueño de este gimnasio"}, status=401)
-    
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsGymOwner])
 def daily_usage(request, gym_id, year, month):
