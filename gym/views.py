@@ -239,15 +239,14 @@ def daily_usage(request, gym_id, year, month):
             )
             current_date = start_date
             while current_date < end_date:
-                daily_usage = {}
+                daily_usage = []
                 for entry in data:
                     if entry['date'].day == current_date.day:
                         equipment_name = entry['workout__equipment__name']
                         total_usage = entry['total']
-                        if equipment_name not in daily_usage:
-                            daily_usage[equipment_name] = total_usage
-                        else:
-                            daily_usage[equipment_name] += total_usage
+                        daily_usage.append(
+                            [equipment_name,total_usage]
+                            )
                 formatted_data.append({
                     'date': current_date.strftime('%Y-%m-%d'),
                     'daily_usage': daily_usage
