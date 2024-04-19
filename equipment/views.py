@@ -153,9 +153,8 @@ class EquipmentGlobalList(APIView):
 
     def get(self, request):
         owner = Owner.objects.get(userCustom=request.user)
-        gyms = Gym.objects.filter(owner = owner)
-        gym = gyms[0]
-        if request.user.rol == "owner" and gym.subscription_plan == "premium":
+        gyms = Gym.objects.filter(owner=owner, subscription_plan="premium")
+        if request.user.rol == "owner" and gyms.count() > 0:
             workouts = Workout.objects.all()
             equipment_count = {}
             for workout in workouts:
