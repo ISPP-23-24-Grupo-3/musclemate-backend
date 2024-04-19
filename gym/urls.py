@@ -14,4 +14,5 @@ urlpatterns = [
     path('gyms/usage/<int:gym_id>/year/<int:year>/', views.monthly_usage),
     path('gyms/usage/<int:gym_id>/year/<int:year>/month/<int:month>/', views.monthly_usage),
     path('gyms/usage/<int:gym_id>/month/<int:month>/', views.monthly_usage),
+    path('gyms/usage/<int:gym_id>/year/<int:year>/month/<int:month>/daily/', views.daily_usage),
 ]
