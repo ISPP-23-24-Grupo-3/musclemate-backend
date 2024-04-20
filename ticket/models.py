@@ -4,19 +4,28 @@ from gym.models import Gym
 from django.core.validators import RegexValidator
 from equipment.models import Equipment
 from random import randint
+from enum import Enum
 
 class Ticket(models.Model):
 
     def random_id():
         return randint(100000, 999999)
     
-    
+
+    STATUS = (
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+        ('in progress', 'In progress'),
+        ('seen', 'Seen')
+    )
+
     id = models.PositiveIntegerField(primary_key=True, default=random_id, editable=False)
     label = models.CharField(max_length=50)
     description = models.CharField(max_length=250, validators=[RegexValidator(r'^[a-z, A-Z]', message="La descripción debe contener letras.")])
-    status = models.BooleanField(default=False)
+    status = models.CharField(max_length=50, choices=STATUS, default='open', null = True, blank=True)
     date = models.DateField(auto_now_add=True )
-
+    image = models.URLField(blank=True, null=True)
+    response = models.CharField(max_length=250, blank=True, null=True)
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
