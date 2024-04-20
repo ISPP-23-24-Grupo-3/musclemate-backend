@@ -4,7 +4,6 @@ from gym.models import Gym
 from django.core.validators import RegexValidator
 from equipment.models import Equipment
 from random import randint
-from enum import Enum
 
 class Ticket(models.Model):
 

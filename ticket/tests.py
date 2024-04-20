@@ -12,7 +12,7 @@ class TicketTests(TestCase):
         self.userClient = CustomUser.objects.create(username='test_user', email='test@example.com', rol='client')
         self.userGym = CustomUser.objects.create(username='test_user_2', email='test2@example.com', rol='gym')
         self.userOwner = CustomUser.objects.create(username='test_user_3', email='test3@example.com', rol='owner')
- 
+
         self.owner = Owner.objects.create(name='Owner', last_name='Owner last_name', email='owner@example.com',
             phone_number=123456789, address='123 Owner St', userCustom=self.userOwner)
         self.gym = Gym.objects.create(name='Test Gym', address='123 Test St', phone_number=987654321,
