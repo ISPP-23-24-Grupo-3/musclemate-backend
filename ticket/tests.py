@@ -20,7 +20,7 @@ class TicketTests(TestCase):
             owner=self.owner, userCustom=self.userGym)
         self.client = Client.objects.create(name='Client 1', last_name='last_name 1', email='client1@example.com',
             birth='2000-01-01', zipCode=12345, gender='M', phone_number=123456789,address='123 Test St',
-            city='Test City', register='open',user=self.userClient,gym=self.gym)
+            city='Test City', register=True ,user=self.userClient,gym=self.gym)
         self.equipment=Equipment.objects.create(name= 'Mancuernas',brand= 'Marca A',serial_number='MNCD002',
                 description= 'Un par de mancuernas de 5 kg cada una',muscular_group= 'arms',gym= self.gym)
         self.ticket=Ticket.objects.create(label= 'Ticket 1',description= 'Description of ticket 1',status= 'open',
