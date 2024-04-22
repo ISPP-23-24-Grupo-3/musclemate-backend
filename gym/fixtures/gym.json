@@ -10,6 +10,7 @@
             "zip_code": 41007,
             "email": "masmusculo@gmail.com",
             "owner": 428174,
+            "subscription_plan": "standard",
             "userCustom": "masmusculo"
         }
     },
@@ -24,6 +25,7 @@
             "zip_code": 41020,
             "email": "mcfit@gmail.com",
             "owner": 428174,
+            "subscription_plan": "standard",
             "userCustom": "mcfit"
         }
     },
@@ -38,6 +40,7 @@
             "zip_code": 41005,
             "email": "synervion@gmail.com",
             "owner": 943597,
+            "subscription_plan": "standard",
             "userCustom": "synergym"
         }
     }

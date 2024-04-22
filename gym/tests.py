@@ -2,10 +2,12 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from .models import Gym, Owner, CustomUser
 from random import randint
+from django.core.exceptions import ValidationError
+
 
 class GymModelTest(TestCase):
     fixtures = ['owner/fixtures/owner.json', 'user/fixtures/user.json']
-    
+
 
     @classmethod
     def setUpTestData(cls):
@@ -61,27 +63,28 @@ class GymModelTest(TestCase):
             )
     
     def test_invalid_phone_number(self):
-        with self.assertRaises(ValueError):
-            Gym.objects.create(
-                name='Test Gym',
-                address='123 Test St',
-                phone_number='invalid_phone_number',  # Número de teléfono inválido
-                descripcion='Test Description',
-                zip_code=12345,
-                email='test@example.com',
-                owner=Owner.objects.get(name='Mohammed'),
-                userCustom=CustomUser.objects.get(pk='masmusculo')
-            )
+        Gym.objects.create(
+            name='Test Gym',
+            address='123 Test St',
+            phone_number=1,  # Número de teléfono inválido
+            descripcion='Test Description',
+            zip_code=12345,
+            email='test@example.com',
+            owner=Owner.objects.get(name='Raquel'),
+            userCustom=CustomUser.objects.get(pk='raquitori')
+        )
+        self.assertRaisesMessage(ValidationError, 'El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.')
+
 
     def test_invalid_zip_code(self):
-        with self.assertRaises(ValueError):
-            Gym.objects.create(
-                name='Test Gym',
-                address='123 Test St',
-                phone_number=1234567890,
-                descripcion='Test Description',
-                zip_code='invalid_zip_code',  # Zip code inválido
-                email='test@example.com',
-                owner=Owner.objects.get(name='Mohammed'),
-                userCustom=CustomUser.objects.get(pk='masmusculo')
-            )
+        Gym.objects.create(
+            name='Test Gym',
+            address='123 Test St',
+            phone_number=123456789,
+            descripcion='Test Description',
+            zip_code=1,  # Zip code inválido
+            email='test@example.com',
+            owner=Owner.objects.get(name='Raquel'),
+            userCustom=CustomUser.objects.get(pk='raquitori')
+        )
+        self.assertRaisesMessage(ValidationError, 'El código postal debe contener 5 dígitos numéricos.')

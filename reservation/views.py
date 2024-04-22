@@ -6,7 +6,8 @@ from owner.models import Owner
 from .models import Reservation
 from client.models import Client
 from event.models import Event
-from .serializers import ReservationSerializer
+from .serializers import ReservationSerializer, ReservationUserCreateSerializer
+from user.models import CustomUser
 
 class IsGymOrOwnerOrClient(BasePermission):
 
@@ -51,6 +52,23 @@ class ReservationListByEventView(APIView):
             return Response(serializer.data)
         else:
             return Response(status=403)
+        
+class ReservationListByClientEvent(APIView):
+    def get(self, request, eventId):
+        user=CustomUser.objects.get(username=request.user)
+        client=Client.objects.get(user=user)
+        gymId=Event.objects.get(pk=eventId).gym.id
+        if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (
+                request.user.rol=='owner' and Owner.objects.get(userCustom=request.user).id==
+                Gym.objects.get(pk=gymId).owner.id) or (request.user.rol=='client' and
+                client.id == Client.objects.get(user=request.user).id):
+            event = Event.objects.get(id=eventId)
+            client = Client.objects.get(id=client.id)
+            reservations = Reservation.objects.filter(event=event, client=client)
+            serializer=ReservationSerializer(reservations,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
     
 class ReservationDetailView(APIView):
     def get(self, request,pk):
@@ -61,6 +79,31 @@ class ReservationDetailView(APIView):
         else:
             return Response(status=403)
 
+class ReservationUserCreateView(APIView):
+    def post(self, request):
+        user=CustomUser.objects.get(username=request.user)
+        client=Client.objects.get(user=user)
+        event=Event.objects.get(pk=request.data.get('event'))
+        if (client.gym == event.gym):
+            if (event.capacity>event.attendees and not Reservation.objects.filter(
+                    client=client.id, event=event.id).exists()):
+                serializer = ReservationUserCreateSerializer(data=request.data)
+                if serializer.is_valid():
+                    event.attendees=event.attendees+1
+                    Event.save(event)
+                    serializer.save(client=client)
+                    return Response(serializer.data, status=201)
+                else:
+                    return Response(serializer.errors, status=400)
+            else:
+                if event.capacity<=event.attendees:
+                    return Response('El evento esta lleno',status=400)
+                else:
+                    return Response('El cliente ya esta registrado en este evento',status=400)
+        else:
+            return Response(status=403)
+     
+        
 class ReservationCreateView(APIView):
     def post(self, request):
         clientId=Client.objects.get(pk=request.data.get('client')).id

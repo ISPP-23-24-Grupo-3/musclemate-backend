@@ -7,7 +7,7 @@ class OwnerSerializer(serializers.ModelSerializer):
     userCustom = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     class Meta:
         model = Owner
-        fields = ['name', 'lastName', 'email', 'phoneNumber', 'address', 'userCustom', 'customer_id']
+        fields = ['name', 'last_name', 'email', 'phone_number', 'address', 'userCustom', 'customer_id']
 
     def validate_userCustom(self, value):
         """
@@ -17,7 +17,7 @@ class OwnerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("User does not exist.")
         return value
     
-    def validate_phoneNumber(self, value):
+    def validate_phone_number(self, value):
         """
         Comprobar si el número de teléfono tiene 9 dígitos.
         """

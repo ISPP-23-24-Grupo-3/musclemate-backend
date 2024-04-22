@@ -83,6 +83,10 @@ class TicketListByEquipmentView(APIView):
         elif user.rol == "gym":
             if getGymFromUser(user).id == equipment.gym.id:
                 has_authority=True
+        elif user.rol=='client':
+            client=Client.objects.get(user=user)
+            if equipment.gym.id==client.gym.id:
+                has_authority=True
         return has_authority
     
     def get(self, request, equipmentId):
@@ -114,8 +118,6 @@ class TicketCreateView(APIView):
 class TicketDetailView(APIView):
     def get(self, request,pk):
         ticket = Ticket.objects.get(pk=pk)
-        print (ticket.client)
-        print(request.user.username)
         if clientAuthority(request.user, ticket.client):
             serializer=TicketViewSerializer(ticket)
             return Response(serializer.data)
