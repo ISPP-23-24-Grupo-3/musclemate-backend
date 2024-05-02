@@ -11,6 +11,7 @@ from owner.models import Owner
 from gym.models import Gym
 from client.models import Client
 from .serializers import EquipmentSerializer
+from user.models import CustomUser
 
 def isAllowed(equipment, user):
     if user.rol == "client":
@@ -152,9 +153,8 @@ class EquipmentGlobalList(APIView):
     """ permission_classes = [IsAuthenticated] """
 
     def get(self, request):
-        owner = Owner.objects.get(userCustom=request.user)
-        gyms = Gym.objects.filter(owner=owner, subscription_plan="premium")
-        if request.user.rol == "owner" and gyms.count() > 0:
+        user = CustomUser.objects.get(username=request.user)
+        if Gym.objects.get(userCustom=user).subscription_plan == "premium":
             workouts = Workout.objects.all()
             equipment_count = {}
             for workout in workouts:
