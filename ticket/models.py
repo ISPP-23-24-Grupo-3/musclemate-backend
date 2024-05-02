@@ -9,7 +9,6 @@ class Ticket(models.Model):
 
     def random_id():
         return randint(100000, 999999)
-    
 
     STATUS = (
         ('open', 'Open'),
