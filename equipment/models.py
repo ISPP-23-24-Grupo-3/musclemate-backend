@@ -22,6 +22,7 @@ class Equipment(models.Model):
     name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-z, A-Z]', message="El nombre debe contener letras.")])
     brand = models.CharField(max_length=100)
     serial_number = models.CharField(max_length=100)
+    image = models.URLField(blank=True, null=True)
     description = models.TextField(validators=[RegexValidator(r'^[a-z, A-Z]', message="La descripción debe contener letras.")])
     muscular_group = models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES)
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
