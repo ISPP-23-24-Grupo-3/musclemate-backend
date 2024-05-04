@@ -28,6 +28,21 @@ class EventListView(APIView):
         return Response(serializer.data)
 
 @permission_classes([IsAuthenticated])
+class EventWReservationListView(APIView):
+    def get(self, request):
+        events = []
+        if (request.user.rol=='client'):
+            client = Client.objects.get(user = request.user)
+            reservations = Reservation.objects.filter(client = client)
+            for reservation in reservations:
+                events.append(reservation.event)
+
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=403)
+
+@permission_classes([IsAuthenticated])
 class EventListByGymView(APIView):
     def get(self, request,gymId):
         if (request.user.rol=='gym' and Gym.objects.get(userCustom=request.user).id==gymId) or (

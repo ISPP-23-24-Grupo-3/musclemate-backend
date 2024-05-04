@@ -12,6 +12,7 @@ class TicketViewSerializer(serializers.ModelSerializer):
         fields = ['id', 'label', 'description', 'status', 'date','image','gym','gym_name','client','equipment','equipment_name']
 
 
+
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket

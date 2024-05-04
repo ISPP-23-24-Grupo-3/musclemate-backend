@@ -20,7 +20,7 @@ class TicketTests(TestCase):
             owner=self.owner, userCustom=self.userGym)
         self.client = Client.objects.create(name='Client 1', last_name='last_name 1', email='client1@example.com',
             birth='2000-01-01', zipCode=12345, gender='M', phone_number=123456789,address='123 Test St',
-            city='Test City', register=True ,user=self.userClient,gym=self.gym)
+            city='Test City', register=True,user=self.userClient,gym=self.gym)
         self.equipment=Equipment.objects.create(name= 'Mancuernas',brand= 'Marca A',serial_number='MNCD002',
                 description= 'Un par de mancuernas de 5 kg cada una',muscular_group= 'arms',gym= self.gym)
         self.ticket=Ticket.objects.create(label= 'Ticket 1',description= 'Description of ticket 1',status= 'open',
@@ -113,7 +113,7 @@ class TicketTests(TestCase):
 
     #test create view
     def test_tickets_create_view_how_client(self):
-        data = {'label': 'Ticket 1','description': 'Description of ticket 1','status': 'open','date': '2023-12-30',
+        data = {'label': 'Ticket 1','description': 'Description of ticket 1','status': 'closed','date': '2023-12-30',
             'gym': self.gym.pk,'client': self.client.pk,'equipment': self.equipment.pk}
         request = self.factory.post('/tickets/create/',data)
         force_authenticate(request, user=self.userClient)
@@ -124,7 +124,7 @@ class TicketTests(TestCase):
 
     #test update view
     def test_ticket_update_view_how_client(self):
-        data = {'label': 'Updated Ticket 1','description': 'Description of ticket 1','status': 'open','date': '2023-12-30',
+        data = {'label': 'Updated Ticket 1','description': 'Description of ticket 1','status': 'closed','date': '2023-12-30',
             'gym': self.gym.pk,'client': self.client.pk,'equipment': self.equipment.pk}
         request = self.factory.put('/tickets/update/',data)
         force_authenticate(request, user=self.userClient)
@@ -133,7 +133,7 @@ class TicketTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_ticket_update_view_how_owner(self):
-        data = {'label': 'Updated Ticket 1','description': 'Description of ticket 1','status': 'open','date': '2023-12-30',
+        data = {'label': 'Updated Ticket 1','description': 'Description of ticket 1','status': 'closed','date': '2023-12-30',
             'gym': self.gym.pk,'client': self.client.pk,'equipment': self.equipment.pk}
         request = self.factory.put('/tickets/update/',data)
         force_authenticate(request, user=self.userOwner)
@@ -142,7 +142,7 @@ class TicketTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_ticket_update_view_how_gym(self):
-        data = {'label': 'Updated Ticket 1','description': 'Description of ticket 1','status': 'open','date': '2023-12-30',
+        data = {'label': 'Updated Ticket 1','description': 'Description of ticket 1','status': 'closed','date': '2023-12-30',
             'gym': self.gym.pk,'client': self.client.pk,'equipment': self.equipment.pk}
         request = self.factory.put('/tickets/update/',data)
         force_authenticate(request, user=self.userGym)
