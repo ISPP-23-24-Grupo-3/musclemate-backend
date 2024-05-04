@@ -41,7 +41,6 @@ class EventWReservationListView(APIView):
             return Response(serializer.data)
         else:
             return Response(status=403)
-        
 
 @permission_classes([IsAuthenticated])
 class EventListByGymView(APIView):
