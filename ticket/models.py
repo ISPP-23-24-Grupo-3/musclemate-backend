@@ -24,7 +24,7 @@ class Ticket(models.Model):
     date = models.DateField(auto_now_add=True )
     image = models.URLField(blank=True, null=True)
     response = models.CharField(max_length=250, blank=True, null=True)
-
+    
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
