@@ -31,7 +31,7 @@
         "fields": {
             "label": "Ticket 3",
             "description": "Description of ticket 3",
-            "status": "open",
+            "status": "closed",
             "date": "2024-01-15",
             "gym": 221987,
             "client": 157856,
