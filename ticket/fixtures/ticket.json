@@ -5,7 +5,7 @@
         "fields": {
             "label": "Ticket 1",
             "description": "Description of ticket 1",
-            "status": true,
+            "status": "open",
             "date": "2023-12-30",
             "gym": 221987,
             "client": 157856,
@@ -18,7 +18,7 @@
         "fields": {
             "label": "Ticket 2",
             "description": "Description of ticket 2",
-            "status": false,
+            "status": "open",
             "date": "2023-11-21",
             "gym": 221987,
             "client": 157856,
@@ -31,7 +31,7 @@
         "fields": {
             "label": "Ticket 3",
             "description": "Description of ticket 3",
-            "status": true,
+            "status": "closed",
             "date": "2024-01-15",
             "gym": 221987,
             "client": 157856,
