@@ -23,6 +23,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='ticket',
             name='status',
-            field=models.CharField(blank=True, choices=[('open', 'Open'), ('closed', 'Closed'), ('in progress', 'In progress'), ('seen', 'Seen')], default='open', max_length=50, null=True),
+            field=models.CharField(blank=True, choices=[
+                ('open', 'Open'), ('closed', 'Closed'), ('in progress', 'In progress'), ('seen', 'Seen')
+                ], default='open', max_length=50, null=True),
         ),
     ]
