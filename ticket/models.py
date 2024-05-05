@@ -22,7 +22,7 @@ class Ticket(models.Model):
     description = models.CharField(max_length=250, validators=[RegexValidator(r'^[a-z, A-Z]', message="La descripción debe contener letras.")])
     status = models.CharField(max_length=50, choices=STATUS, default='open', null = True, blank=True)
     date = models.DateField(auto_now_add=True )
-    image = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='ticket_images/', blank=True, null=True)
     response = models.CharField(max_length=250, blank=True, null=True)
     
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)

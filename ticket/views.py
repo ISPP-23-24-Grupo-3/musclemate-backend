@@ -109,6 +109,10 @@ class TicketCreateView(APIView):
             serializer = TicketSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save(client=client, gym=client.gym)
+                if 'image' in request.FILES:
+                    ticket = Ticket.objects.latest('id')
+                    ticket.image = request.FILES['image']
+                    ticket.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
