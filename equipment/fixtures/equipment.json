@@ -6,6 +6,7 @@
                 "name": "Mancuernas",
                 "brand": "Marca A",
                 "serial_number": "MNCD001",
+                "image": "media/equipment/mancuernas.jpg",
                 "description": "Un par de mancuernas de 5 kg cada una",
                 "muscular_group": "arms",
                 "gym": 221987
