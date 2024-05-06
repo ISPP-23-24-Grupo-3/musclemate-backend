@@ -3,10 +3,11 @@
         "model": "ticket.ticket",
         "pk": 123456,
         "fields": {
-            "label": "Ticket 1",
-            "description": "Description of ticket 1",
+            "label": "Cinta de Correr",
+            "description": "Se le ha quitado la correa y no funciona, le adjunto foto para que lo compruebe.",
             "status": "open",
             "date": "2023-12-30",
+            "image": "ticket_images/cintarota.jpeg",
             "gym": 221987,
             "client": 157856,
             "equipment": 567890
@@ -16,10 +17,11 @@
         "model": "ticket.ticket",
         "pk": 123457,
         "fields": {
-            "label": "Ticket 2",
-            "description": "Description of ticket 2",
+            "label": "Bicicleta Estática",
+            "description": "La bicicleta estática del exterior está en muy mal estado, le adjunto foto para que lo compruebe.",
             "status": "open",
             "date": "2023-11-21",
+            "image": "ticket_images/bicirota.jpeg",
             "gym": 221987,
             "client": 157856,
             "equipment": 678901
@@ -29,8 +31,8 @@
         "model": "ticket.ticket",
         "pk": 123458,
         "fields": {
-            "label": "Ticket 3",
-            "description": "Description of ticket 3",
+            "label": "Colchonetes de Yoga",
+            "description": "Faltarían colchonetas de yoga en la sala de actividades dirigidas",
             "status": "closed",
             "date": "2024-01-15",
             "gym": 221987,
