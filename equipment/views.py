@@ -13,6 +13,7 @@ from client.models import Client
 from .serializers import EquipmentSerializer
 from user.models import CustomUser
 
+
 def isAllowed(equipment, user):
     if user.rol == "client":
         return get_object_or_404(Client, user=user).gym == equipment.gym
@@ -22,6 +23,7 @@ def isAllowed(equipment, user):
         return get_object_or_404(Owner, userCustom=user) == equipment.gym.owner
     else:
         return True
+
 
 @permission_classes([IsAuthenticated])
 class EquipmentListView(APIView):
@@ -34,15 +36,22 @@ class EquipmentListView(APIView):
         serializer = EquipmentSerializer(equipRet, many=True)
         return Response(serializer.data)
 
+
 @permission_classes([IsAuthenticated])
 class EquipmentDetailView(APIView):
     def get(self, request, pk):
         equipment = Equipment.objects.get(pk=pk)
         if isAllowed(equipment, request.user):
-            serializer=EquipmentSerializer(equipment)
+            serializer = EquipmentSerializer(equipment)
             return Response(serializer.data)
         else:
-            return Response({'message': "Por favor inicie sesión como el dueño de, cliente de o el gimnasio indicado"}, status=401)
+            return Response(
+                {
+                    "message": "Por favor inicie sesión como el dueño de, cliente de o el gimnasio indicado"
+                },
+                status=401,
+            )
+
 
 @permission_classes([IsAuthenticated])
 class EquipmentCreateView(APIView):
@@ -54,19 +63,36 @@ class EquipmentCreateView(APIView):
                 serializer = EquipmentSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
+                    if "image" in request.FILES:
+                        equipment = Equipment.objects.latest("id")
+                        equipment.image = request.FILES["image"]
+                        equipment.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+                return Response(
+                    {
+                        "message": "Por favor inicie sesión como el dueño de el gimnasio indicado"
+                    },
+                    status=401,
+                )
         elif request.user.rol == "gym":
             if gym.userCustom == request.user:
                 serializer = EquipmentSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
+                    if "image" in request.FILES:
+                        equipment = Equipment.objects.latest("id")
+                        equipment.image = request.FILES["image"]
+                        equipment.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
+                return Response(
+                    {"message": "Por favor inicie sesión como el gimnasio indicado"},
+                    status=401,
+                )
+
 
 @permission_classes([IsAuthenticated])
 class EquipmentUpdateView(APIView):
@@ -82,22 +108,39 @@ class EquipmentUpdateView(APIView):
         if request.user.rol == "owner":
             owner = get_object_or_404(Owner, userCustom=request.user)
             if gym.owner == owner:
-                serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
+                serializer = EquipmentSerializer(
+                    equipment, data=request.data, partial=True
+                )
                 if serializer.is_valid():
                     serializer.save()
+                    if "image" in request.FILES:
+                        equipment = self.get_object(pk)
+                        equipment.image = request.FILES["image"]
+                        equipment.save()
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+                return Response(
+                    {
+                        "message": "Por favor inicie sesión como el dueño de el gimnasio indicado"
+                    },
+                    status=401,
+                )
         elif request.user.rol == "gym":
             if gym.userCustom == request.user:
-                serializer = EquipmentSerializer(equipment, data=request.data, partial=True)
+                serializer = EquipmentSerializer(
+                    equipment, data=request.data, partial=True
+                )
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
+                return Response(
+                    {"message": "Por favor inicie sesión como el gimnasio indicado"},
+                    status=401,
+                )
+
 
 @permission_classes([IsAuthenticated])
 class EquipmentDeleteView(APIView):
@@ -116,13 +159,22 @@ class EquipmentDeleteView(APIView):
                 equipment.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+                return Response(
+                    {
+                        "message": "Por favor inicie sesión como el dueño de el gimnasio indicado"
+                    },
+                    status=401,
+                )
         elif request.user.rol == "gym":
             if gym.userCustom == request.user:
                 equipment.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response({'message': "Por favor inicie sesión como el gimnasio indicado"}, status=401)
+                return Response(
+                    {"message": "Por favor inicie sesión como el gimnasio indicado"},
+                    status=401,
+                )
+
 
 class EquipmentObtainTime(APIView):
     def get_object(self, pk):
@@ -147,10 +199,16 @@ class EquipmentObtainTime(APIView):
                     timer += serie.duration
             return Response({"time": timer}, status=status.HTTP_200_OK)
         else:
-            return Response({'message': "Por favor inicie sesión como el dueño de el gimnasio indicado"}, status=401)
+            return Response(
+                {
+                    "message": "Por favor inicie sesión como el dueño de el gimnasio indicado"
+                },
+                status=401,
+            )
+
 
 class EquipmentGlobalList(APIView):
-    """ permission_classes = [IsAuthenticated] """
+    """permission_classes = [IsAuthenticated]"""
 
     def get(self, request):
         user = CustomUser.objects.get(username=request.user)
@@ -163,9 +221,11 @@ class EquipmentGlobalList(APIView):
                         equipment_count[equipment] += 1
                     else:
                         equipment_count[equipment] = 1
-            sorted_equipment = sorted(equipment_count.items(), key=lambda x: x[1], reverse=True)
+            sorted_equipment = sorted(
+                equipment_count.items(), key=lambda x: x[1], reverse=True
+            )
             equipment_list = [item[0] for item in sorted_equipment]
             serializer = EquipmentSerializer(equipment_list, many=True)
             return Response(serializer.data)
         else:
-            return Response({'message': "Acceso no autorizado"}, status=401)
+            return Response({"message": "Acceso no autorizado"}, status=401)
