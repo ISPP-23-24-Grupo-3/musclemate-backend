@@ -1,5 +1,7 @@
 from . import views
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('tickets/', views.TicketListView.as_view(), name='ticket_list'),
@@ -9,4 +11,4 @@ urlpatterns = [
     path('tickets/create/', views.TicketCreateView.as_view(), name='ticket_create'),
     path('tickets/update/<int:pk>/', views.TicketUpdateView.as_view(), name='ticket_update'),
     path('tickets/delete/<int:pk>/', views.TicketDeleteView.as_view(), name='ticket_delete'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
