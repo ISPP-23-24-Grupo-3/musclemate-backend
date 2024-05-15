@@ -153,7 +153,6 @@ class TicketUpdateView(APIView):
             if serializer.is_valid():
                 serializer.save()
                 if "image" in request.FILES:
-                    ticket = self.get_object(pk)
                     ticket.image = request.FILES["image"]
                     ticket.save()
                 return Response(serializer.data)
