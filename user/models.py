@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from .managermodel import CustomUserManager
 from random import randint
 from django.core.validators import MinLengthValidator, MaxLengthValidator
+from django.core.exceptions import ValidationError
 
 from .validators import UnicodeUsernameValidator
 
@@ -31,12 +32,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         max_length=150,
         unique=True,
         help_text=_(
-            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+            "Requerido. 150 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente."
         ),
         primary_key=True,
         validators=[username_validator],
         error_messages={
-            "unique": _("A user with that username already exists."),
+            "unique": _("Ya existe un usuario con este nombre de usuario."),
         },
     )
     id = models.IntegerField(primary_key=False, auto_created=True,default=random_id, editable=False)
@@ -68,3 +69,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    def clean(self):
+        super().clean()
+        if CustomUser.objects.filter(email=self.email).exists():
+            raise ValidationError({"email": _("Este correo electrónico ya está en uso")})

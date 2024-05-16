@@ -18,7 +18,7 @@ class Gym(models.Model):
     name = models.CharField(max_length = 50, validators=[RegexValidator(r'^[a-z, A-Z]', message="El nombre debe contener letras.")])
     address = models.CharField(max_length = 200,validators=[RegexValidator(r'^[a-z, A-Z]', message="La dirección debe contener letras.")])
     phone_number = models.CharField(max_length=9, validators=[RegexValidator(r'^[0-9]{9}',
-        message="El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.")])
+        message="El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.")])
     descripcion = models.CharField(max_length = 500)
     zip_code = models.CharField(max_length=5, validators=[RegexValidator(r'^[0-9]{5}$', message="El código postal debe contener 5 dígitos numéricos.")])
     email = models.EmailField()

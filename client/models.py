@@ -21,7 +21,7 @@ class Client (models.Model):
     birth = models.DateField(blank=True, null=True)
     zipCode = models.PositiveIntegerField(validators=[RegexValidator(r'^[0-9]{5}$', message="El código postal debe contener 5 dígitos numéricos.")])
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
-    phone_number = models.PositiveIntegerField(validators=[RegexValidator(r'^[0-9]{6}', message="El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.")])
+    phone_number = models.PositiveIntegerField(validators=[RegexValidator(r'^[0-9]{9}', message="El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.")])
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     register = models.BooleanField()
