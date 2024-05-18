@@ -5,7 +5,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from .managermodel import CustomUserManager
 from random import randint
-from django.core.validators import MinLengthValidator, MaxLengthValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from django.core.exceptions import ValidationError
 
 from .validators import UnicodeUsernameValidator
@@ -40,8 +40,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         },
     )
     id = models.IntegerField(primary_key=False, auto_created=True,default=random_id, editable=False)
-    first_name = models.CharField(max_length=30, blank=True, validators=[MinLengthValidator(1), MaxLengthValidator(30)])
-    last_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(1), MaxLengthValidator(150)])
+    first_name = models.CharField(max_length=30, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
+    last_name = models.CharField(max_length=150, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
