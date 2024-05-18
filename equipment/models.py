@@ -39,7 +39,7 @@ class Equipment(models.Model):
             )
         ]
     )
-    muscular_groups = ArrayField(
+    muscular_group = ArrayField(
         models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES),
         size=8,  # ajusta el tamaño según el máximo número de opciones que desees permitir
     )
