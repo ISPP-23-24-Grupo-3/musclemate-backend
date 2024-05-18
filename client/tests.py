@@ -107,7 +107,7 @@ class ClientTestCase(TestCase):
         view = ClientCreateView.as_view()
         response = view(request)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phone_number'][0])
+        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.',response.data['phone_number'][0])
 
     def test_client_create_view_error_phone_number_2(self):
         data = {'name': 'New Client', 'last_name': 'New last_name', 'email': 'newclient@example.com',

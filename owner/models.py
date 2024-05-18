@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from user.models import CustomUser
 from random import randint
-from django.core.exceptions import ValidationError
 
 class Owner(models.Model):
     def random_id():

@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='gym',
             name='phone_number',
-            field=models.CharField(max_length=9, validators=[django.core.validators.RegexValidator('^[0-9]{9}$', message='El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.')]),
+            field=models.CharField(
+                max_length=9,
+                validators=[django.core.validators.RegexValidator('^[0-9]{9}$',
+                message='El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.')]),
         ),
     ]

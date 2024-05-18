@@ -14,6 +14,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customuser',
             name='username',
-            field=models.CharField(error_messages={'unique': 'Ya existe un usuario con este nombre de usuario.'}, help_text='Requerido. 150 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente.', max_length=150, primary_key=True, serialize=False, unique=True, validators=[user.validators.UnicodeUsernameValidator()]),
+            field=models.CharField(
+                error_messages={'unique': 'Ya existe un usuario con este nombre de usuario.'},
+                help_text='Requerido. 150 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente.',
+                max_length=150, primary_key=True,
+                serialize=False, unique=True, validators=[user.validators.UnicodeUsernameValidator()]),
         ),
     ]
