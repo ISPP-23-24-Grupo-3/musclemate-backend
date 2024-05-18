@@ -2,6 +2,7 @@ from django.db import models
 from gym.models import Gym
 from django.core.validators import RegexValidator
 from random import randint
+from django.contrib.postgres.fields import ArrayField
 
 
 class Equipment(models.Model):
@@ -38,7 +39,10 @@ class Equipment(models.Model):
             )
         ]
     )
-    muscular_group = models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES)
+    muscular_groups = ArrayField(
+        models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES),
+        size=8,  # ajusta el tamaño según el máximo número de opciones que desees permitir
+    )
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
     class Meta:
