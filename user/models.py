@@ -5,7 +5,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from .managermodel import CustomUserManager
 from random import randint
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 
 from .validators import UnicodeUsernameValidator
