@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from .models import CustomUser
 from .serializers import CustomUserSerializer
-from .utils import send_verification_email
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
@@ -36,7 +35,6 @@ class UserCreateView(APIView):
         if serializer.is_valid():
             serializer.save()
             user = CustomUser.objects.get(username = request.data["username"])
-            send_verification_email(user)
             return Response(serializer.data)
         return Response(serializer.errors)
 
