@@ -5,7 +5,6 @@ from owner.models import Owner
 from .serializers import ClientSerializer
 from rest_framework.permissions import BasePermission
 from user.serializers import CustomUserSerializer
-from user.utils import send_verification_email
 
 class IsGymOrOwner(BasePermission):
     def has_permission(self,request):
@@ -92,12 +91,7 @@ class ClientCreateView(APIView):
             client_serializer = ClientSerializer(data=client_data)
             if client_serializer.is_valid():
                 client_serializer.save(user=user)
-                try:
-                    send_verification_email(user)
-                except:
-                    return Response("Client registered but e-mail verification failed.", status=201)
-                else:
-                    return Response(client_serializer.data, status=201)
+                return Response(client_serializer.data, status=201)
             else:
                 user.delete()
                 return Response(client_serializer.errors, status=400)
