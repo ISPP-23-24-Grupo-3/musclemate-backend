@@ -22,7 +22,7 @@ class TicketTests(TestCase):
             birth='2000-01-01', zipCode=12345, gender='M', phone_number=123456789,address='123 Test St',
             city='Test City', register=True,user=self.userClient,gym=self.gym)
         self.equipment=Equipment.objects.create(name= 'Mancuernas',brand= 'Marca A',serial_number='MNCD002',
-                description= 'Un par de mancuernas de 5 kg cada una',muscular_group= 'arms',gym= self.gym)
+                description= 'Un par de mancuernas de 5 kg cada una',muscular_group= ['arms'],gym= self.gym)
         self.ticket=Ticket.objects.create(label= 'Ticket 1',description= 'Description of ticket 1',status= 'open',
             date='2023-12-30',gym= self.gym,client= self.client,equipment= self.equipment)
 

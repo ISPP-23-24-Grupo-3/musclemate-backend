@@ -29,7 +29,7 @@ class SerieTestCase(TestCase):
             brand="Marca A",
             serial_number="MNCD001",
             description="Un par de mancuernas de 5 kg cada una",
-            muscular_group="arms",
+            muscular_group=["arms"],
             gym=self.gym
         )
         self.routine = Routine.objects.create(name="rutina pecho", client=self.client1)

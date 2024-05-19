@@ -25,7 +25,11 @@ class Migration(migrations.Migration):
                 ('serial_number', models.CharField(max_length=100)),
                 ('image', models.ImageField(blank=True, null=True, upload_to='equipment_images/')),
                 ('description', models.TextField(validators=[django.core.validators.RegexValidator('^[a-z, A-Z]', message='La descripción debe contener letras.')])),
-                ('muscular_group', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('arms', 'Arms'), ('legs', 'Legs'), ('core', 'Core'), ('chest', 'Chest'), ('back', 'Back'), ('shoulders', 'Shoulders'), ('other', 'Other')], max_length=20), size=8)),
+                ('muscular_group', django.contrib.postgres.fields.ArrayField(base_field=models.CharField
+                                                                             (choices=[('arms', 'Arms'), ('legs', 'Legs'), 
+                                                                                       ('core', 'Core'), ('chest', 'Chest'), 
+                                                                                       ('back', 'Back'), ('shoulders', 'Shoulders'), 
+                                                                                       ('other', 'Other')], max_length=20), size=8)),
                 ('gym', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gym.gym')),
             ],
             options={

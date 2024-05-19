@@ -19,7 +19,8 @@ class Migration(migrations.Migration):
             name='Serie',
             fields=[
                 ('id', models.PositiveIntegerField(default=serie.models.Serie.random_id, editable=False, primary_key=True, serialize=False)),
-                ('reps', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1, message='Las repeticiones deben ser mayores a 0.')])),
+                ('reps', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator
+                                                                 (1, message='Las repeticiones deben ser mayores a 0.')])),
                 ('weight', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1, message='El peso debe ser mayor a 0.')])),
                 ('date', models.DateField()),
                 ('duration', models.FloatField()),
