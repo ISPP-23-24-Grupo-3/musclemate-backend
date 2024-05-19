@@ -18,8 +18,8 @@ class Client (models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     ]
-    name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
-    last_name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
+    name = models.CharField(max_length=100, validators=[RegexValidator(r'[a-zA-Z\sáéíóúÁÉÍÓÚ]*$', message="El nombre debe contener solo letras.")])
+    last_name = models.CharField(max_length=100, validators=[RegexValidator(r'[a-zA-Z\sáéíóúÁÉÍÓÚ]*$', message="El nombre debe contener solo letras.")])
     email = models.EmailField()
     birth = models.DateField(blank=True, null=True)
     zipCode = models.CharField(max_length=5, validators=[RegexValidator(r'^[0-9]{5}$', message="El código postal debe contener 5 dígitos numéricos.")])
