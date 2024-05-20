@@ -78,6 +78,8 @@ class ClientCreateView(APIView):
             return Response('You are not authorized to create a client', status=403)
         gym = Gym.objects.get(id = request.data.get('gym'))
         clientCount = len(Client.objects.filter(gym = gym))
+        if gym.subscription_plan != "free" and clientCount > 20:
+            return Response('You have exceeded the allowed customer count for your plan', status=403)
         if gym.subscription_plan != "premium" and clientCount > 50:
             return Response('You have exceeded the allowed customer count for your plan', status=403)
         user_data = request.data.get('userCustom')
