@@ -14,8 +14,8 @@ class Owner(models.Model):
         ('M', 'Medium'),
         ('H', 'High'),
     ]
-    name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
-    last_name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
+    name = models.CharField(max_length=100, validators=[RegexValidator(r'[a-zA-Z\sáéíóúÁÉÍÓÚ]*$', message="El nombre debe contener solo letras.")])
+    last_name = models.CharField(max_length=100, validators=[RegexValidator(r'[a-zA-Z\sáéíóúÁÉÍÓÚ]*$', message="El nombre debe contener solo letras.")])
     email = models.EmailField()
     phone_number = models.CharField(max_length=9, validators=[RegexValidator(r'^[0-9]{9}$',
         message="El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.")])

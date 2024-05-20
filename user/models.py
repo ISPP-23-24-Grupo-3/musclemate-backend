@@ -40,8 +40,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         },
     )
     id = models.IntegerField(primary_key=False, auto_created=True,default=random_id, editable=False)
-    first_name = models.CharField(max_length=30, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
-    last_name = models.CharField(max_length=150, validators=[RegexValidator(r'^[a-zA-Z\s]*$', message="El nombre debe contener solo letras.")])
+    first_name = models.CharField(max_length=30, validators=[RegexValidator(r'^[a-zA-Z\sáéíóúÁÉÍÓÚ]*$', message="El nombre debe contener solo letras.")])
+    last_name = models.CharField(max_length=150, validators=[RegexValidator(r'^[a-zA-Z\sáéíóúÁÉÍÓÚ]*$', message="El nombre debe contener solo letras.")])
     email = models.EmailField(
         unique=True,
         error_messages={
