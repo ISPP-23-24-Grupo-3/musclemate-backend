@@ -32,7 +32,7 @@
                 "name": "Barra de pesas",
                 "brand": "Marca C",
                 "serial_number": "BRPS003",
-                "image": "equipment_images/barraolimpica.jpg",
+                "image": "equipment_images/barraolimpica.jpeg",
                 "description": "Barra de pesas olímpica de 20 kg",
                 "muscular_group": ["back"],
                 "gym": 221987
