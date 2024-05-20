@@ -39,7 +39,7 @@ class Equipment(models.Model):
             )
         ]
     )
-    muscular_groups = models.CharField(
+    muscular_group = models.CharField(
         max_length=100,
         help_text="Selecciona los grupos musculares separados por comas, ej: 'arms,legs,core'"
     )
