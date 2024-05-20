@@ -5,7 +5,6 @@ from owner.models import Owner
 from .serializers import ClientSerializer
 from rest_framework.permissions import BasePermission
 from user.serializers import CustomUserSerializer
-from user.utils import send_verification_email
 
 class IsGymOrOwner(BasePermission):
     def has_permission(self,request):
@@ -79,6 +78,8 @@ class ClientCreateView(APIView):
             return Response('You are not authorized to create a client', status=403)
         gym = Gym.objects.get(id = request.data.get('gym'))
         clientCount = len(Client.objects.filter(gym = gym))
+        if gym.subscription_plan != "free" and clientCount > 20:
+            return Response('You have exceeded the allowed customer count for your plan', status=403)
         if gym.subscription_plan != "premium" and clientCount > 50:
             return Response('You have exceeded the allowed customer count for your plan', status=403)
         user_data = request.data.get('userCustom')
@@ -92,12 +93,7 @@ class ClientCreateView(APIView):
             client_serializer = ClientSerializer(data=client_data)
             if client_serializer.is_valid():
                 client_serializer.save(user=user)
-                try:
-                    send_verification_email(user)
-                except:
-                    return Response("Client registered but e-mail verification failed.", status=201)
-                else:
-                    return Response(client_serializer.data, status=201)
+                return Response(client_serializer.data, status=201)
             else:
                 user.delete()
                 return Response(client_serializer.errors, status=400)

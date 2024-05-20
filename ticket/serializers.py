@@ -9,7 +9,7 @@ class TicketViewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ticket
-        fields = ['id', 'label', 'description', 'status', 'date','image','gym','gym_name','client','equipment','equipment_name']
+        fields = ['id', 'label', 'description', 'status', 'date','image', 'response', 'gym','gym_name','client','equipment','equipment_name']
 
 
 
@@ -21,5 +21,5 @@ class TicketSerializer(serializers.ModelSerializer):
 class TicketUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ['label', 'description', 'equipment', 'status']
+        fields = ['label', 'description', 'equipment', 'status', 'response', 'image']
 

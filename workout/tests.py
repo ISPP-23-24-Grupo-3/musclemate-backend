@@ -52,7 +52,7 @@ class WorkoutTests(TestCase):
             last_name='user',
             email='test@gmail.com',
             zipCode=12345,
-            phone_number=1234567890,
+            phone_number=123456789,
             address='1234 Test St',
             city='Test City',
             register=True
@@ -60,16 +60,16 @@ class WorkoutTests(TestCase):
         self.client2 = Client.objects.create(
             user=self.user1,
             gym=self.gym,
-            name='test2',
-            last_name='user2',
+            name='test dos',
+            last_name='user dos',
             email='test3@gmail.com0',
             zipCode=12345,
-            phone_number=1234567890,
+            phone_number=123456789,
             address='1234 Test St',
             city='Test City',
             register=True
         )
-        self.equipment = Equipment.objects.create(name='test', gym=self.gym2 )
+        self.equipment = Equipment.objects.create(name='test', gym=self.gym2 , muscular_group=['arms'])
         self.routine = Routine.objects.create(name='test', client=self.client2)
         self.workout = Workout.objects.create(name='test',client=self.client)
         self.workout.equipment.set([self.equipment])

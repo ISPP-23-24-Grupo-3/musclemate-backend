@@ -54,7 +54,7 @@ class OwnerAPITestCase(TestCase):
         self.userAdmin.is_superuser = True
         force_authenticate(request, user=self.userAdmin)
         response = OwnerCreateView.as_view()(request)
-        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 6 dígitos.',response.data['phone_number'][0])
+        self.assertIn('El número de teléfono debe contener solo dígitos y una longitud de 9 dígitos.',response.data['phone_number'][0])
 
     def test_owner_update_view(self):
         data = {'name':'Update','last_name':'Doe','email':'john.doe2@example.com','phone_number':123456789,

@@ -62,9 +62,8 @@ class EquipmentCreateView(APIView):
             if gym.owner == owner:
                 serializer = EquipmentSerializer(data=request.data)
                 if serializer.is_valid():
-                    serializer.save()
+                    equipment = serializer.save()
                     if "image" in request.FILES:
-                        equipment = Equipment.objects.latest("id")
                         equipment.image = request.FILES["image"]
                         equipment.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -80,9 +79,8 @@ class EquipmentCreateView(APIView):
             if gym.userCustom == request.user:
                 serializer = EquipmentSerializer(data=request.data)
                 if serializer.is_valid():
-                    serializer.save()
+                    equipment = serializer.save()
                     if "image" in request.FILES:
-                        equipment = Equipment.objects.latest("id")
                         equipment.image = request.FILES["image"]
                         equipment.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -114,7 +112,6 @@ class EquipmentUpdateView(APIView):
                 if serializer.is_valid():
                     serializer.save()
                     if "image" in request.FILES:
-                        equipment = self.get_object(pk)
                         equipment.image = request.FILES["image"]
                         equipment.save()
                     return Response(serializer.data)
@@ -133,6 +130,9 @@ class EquipmentUpdateView(APIView):
                 )
                 if serializer.is_valid():
                     serializer.save()
+                    if "image" in request.FILES:
+                        equipment.image = request.FILES["image"]
+                        equipment.save()
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
