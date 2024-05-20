@@ -69,7 +69,7 @@ class WorkoutTests(TestCase):
             city='Test City',
             register=True
         )
-        self.equipment = Equipment.objects.create(name='test', gym=self.gym2 , muscular_group=['arms'])
+        self.equipment = Equipment.objects.create(name='test', gym=self.gym2 , muscular_group='arms')
         self.routine = Routine.objects.create(name='test', client=self.client2)
         self.workout = Workout.objects.create(name='test',client=self.client)
         self.workout.equipment.set([self.equipment])

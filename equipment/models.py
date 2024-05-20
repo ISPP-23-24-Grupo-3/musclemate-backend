@@ -50,3 +50,6 @@ class Equipment(models.Model):
 
     def __str__(self):
         return f"Equipment - {self.name}, {self.brand} ({self.id})"
+    
+    def get_muscular_groups_display(self):
+        return ', '.join([dict(self.MUSCULAR_GROUP_CHOICES).get(group, group) for group in self.muscular_groups.split(',')])
