@@ -43,9 +43,7 @@ class EquipmentDetailView(APIView):
         equipment = Equipment.objects.get(pk=pk)
         if isAllowed(equipment, request.user):
             serializer = EquipmentSerializer(equipment)
-            equipment_data = serializer.data
-            equipment_data["muscular_groups_display"] = equipment.get_muscular_groups_display()
-            return Response(equipment_data)
+            return Response(serializer.data)
         else:
             return Response(
                 {
