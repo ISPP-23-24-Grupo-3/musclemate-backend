@@ -162,7 +162,7 @@
                 "name": "Prensa de poleas",
                 "brand": "Marca Z",
                 "serial_number": "MP003",
-                "image": "equipment_images/prensaspolea.jpeg",
+                "image": "equipment_images/prensapolea.jpeg",
                 "description": "Máquina para ejercicios de piernas con sistema de polea",
                 "muscular_group": ["legs"],
                 "gym": 540890
@@ -279,7 +279,7 @@
                 "name": "Máquina de Abdominales",
                 "brand": "Marca C",
                 "serial_number": "MA022",
-                "image": "equipment_images/abdominales.jpg",
+                "image": "equipment_images/abdominales.jpeg",
                 "description": "Máquina para ejercicios abdominales con soporte lumbar",
                 "muscular_group": ["core"],
                 "gym": 540890
