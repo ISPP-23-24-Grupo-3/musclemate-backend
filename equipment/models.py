@@ -39,9 +39,9 @@ class Equipment(models.Model):
             )
         ]
     )
-    muscular_group = ArrayField(
-        models.CharField(max_length=20, choices=MUSCULAR_GROUP_CHOICES),
-        size=8,  # ajusta el tamaño según el máximo número de opciones que desees permitir
+    muscular_group = models.CharField(
+        max_length=100,
+        help_text="Selecciona los grupos musculares separados por comas, ej: 'arms,legs,core'"
     )
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
 
@@ -50,3 +50,6 @@ class Equipment(models.Model):
 
     def __str__(self):
         return f"Equipment - {self.name}, {self.brand} ({self.id})"
+    
+    def get_muscular_groups_display(self):
+        return ', '.join([dict(self.MUSCULAR_GROUP_CHOICES).get(group, group) for group in self.muscular_groups.split(',')])
